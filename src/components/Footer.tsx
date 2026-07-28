@@ -1,0 +1,150 @@
+import React, { useState } from 'react';
+import { NavigationPage } from '../types';
+import { Terminal, Send, CheckCircle2, ArrowUpRight, Github, Twitter, Linkedin, Shield, Cpu, Activity } from 'lucide-react';
+
+interface FooterProps {
+  onNavigate: (page: NavigationPage) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      setSubscribed(true);
+      setEmail('');
+      setTimeout(() => setSubscribed(false), 5000);
+    }
+  };
+
+  return (
+    <footer className="bg-[#070a10] border-t border-slate-800/80 text-slate-400 pt-16 pb-12 relative overflow-hidden">
+      {/* Background glow spot */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800/60">
+          
+          {/* Brand Col */}
+          <div className="lg:col-span-2 space-y-5">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-emerald-400 p-[1px]">
+                <div className="w-full h-full bg-[#0d1322] rounded-[11px] flex items-center justify-center">
+                  <Terminal className="w-4 h-4 text-indigo-400" />
+                </div>
+              </div>
+              <span className="font-space font-bold text-xl text-white tracking-tight">
+                NEXIFY <span className="text-indigo-400">STUDIO</span>
+              </span>
+            </div>
+
+            <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
+              We engineer high-converting custom WordPress themes and high-speed animated React web applications for visionary brands worldwide.
+            </p>
+
+            <div className="flex items-center gap-3 text-xs font-mono text-slate-400 bg-slate-900/80 p-3 rounded-xl border border-slate-800/80 max-w-sm">
+              <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+              <span>Latency: <strong className="text-white">12ms</strong></span>
+              <span className="text-slate-600">|</span>
+              <span>Uptime: <strong className="text-white">99.99%</strong></span>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-space font-semibold text-white text-sm tracking-wider uppercase mb-4">Navigation</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <button onClick={() => onNavigate('home')} className="hover:text-indigo-400 transition-colors">Home Studio</button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('about')} className="hover:text-indigo-400 transition-colors">About Us & Team</button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('portfolio')} className="hover:text-indigo-400 transition-colors">Case Studies Grid</button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('insights')} className="hover:text-indigo-400 transition-colors">Insights & Articles</button>
+              </li>
+              <li>
+                <button onClick={() => onNavigate('contact')} className="hover:text-indigo-400 transition-colors">Project Terminal</button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Services Scope */}
+          <div>
+            <h4 className="font-space font-semibold text-white text-sm tracking-wider uppercase mb-4">Core Expertise</h4>
+            <ul className="space-y-2.5 text-sm">
+              <li className="text-slate-300">Headless WP & ACF Pro</li>
+              <li className="text-slate-300">React 19 & Next.js Apps</li>
+              <li className="text-slate-300">Figma Design Systems</li>
+              <li className="text-slate-300">WebGL 3D Interactive Shaders</li>
+              <li className="text-slate-300">Lighthouse 95+ Vitals Boost</li>
+            </ul>
+          </div>
+
+          {/* Newsletter Subscription */}
+          <div>
+            <h4 className="font-space font-semibold text-white text-sm tracking-wider uppercase mb-3">Newsletter</h4>
+            <p className="text-xs text-slate-400 mb-4">
+              Get monthly engineering breakdowns & UI design insights straight to your inbox.
+            </p>
+
+            {subscribed ? (
+              <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-xs font-medium">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>Subscribed to Nexify Insights!</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="space-y-2">
+                <div className="relative">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email address..."
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                  />
+                  <button
+                    type="submit"
+                    className="absolute right-1.5 top-1.5 bottom-1.5 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center justify-center transition-colors cursor-pointer"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+
+        </div>
+
+        {/* Bottom bar */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+          <div className="flex items-center gap-2 font-mono">
+            <span>© {new Date().getFullYear()} Nexify Studio. All rights reserved.</span>
+          </div>
+
+          <div className="flex items-center gap-6">
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+              <Github className="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+              <Twitter className="w-4 h-4" />
+              <span>Twitter / X</span>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  );
+};
