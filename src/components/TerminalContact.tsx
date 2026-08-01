@@ -57,7 +57,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
             Let's Build The <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">Future Together</span>
           </h2>
           <p className="mt-3 text-slate-400 text-base leading-relaxed">
-            Submit your technical project requirements directly to our team.
+            Send your project goals and timeline directly to me for fast freelance delivery.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                   </div>
                   <h3 className="font-space text-2xl font-bold text-white">Connection Established</h3>
                   <p className="text-sm text-slate-300 max-w-md mx-auto">
-                    Your inquiry payload has been securely transmitted. A lead engineer from Nexify Studio will respond within 4 business hours.
+                    Your inquiry has been securely received. I will respond personally within 4 business hours.
                   </p>
                   <button
                     onClick={() => setStatus('idle')}
@@ -194,31 +194,23 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
             {/* Direct Contact Cards */}
             <div className="glass-card rounded-3xl border border-slate-800 p-6 sm:p-8 space-y-6">
               <h3 className="font-space font-bold text-white text-lg border-b border-slate-800 pb-3">
-                Global Headquarters
+                India Web Development Base
               </h3>
 
               <div className="space-y-5 text-xs sm:text-sm text-slate-300">
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-semibold text-white">Silicon Valley Station</div>
-                    <div className="text-slate-400 mt-0.5">500 University Ave, Suite 400<br />Palo Alto, CA 94301, USA</div>
+                    <div className="font-semibold text-white">Rajkot, India</div>
+                    <div className="text-slate-400 mt-0.5">Remote freelance development from Rajkot, India with client delivery across India and international markets.</div>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-indigo-400 shrink-0" />
                   <div>
-                    <span className="text-slate-400">Electronic Mail:</span>{' '}
-                    <a href="mailto:hello@nexifystudio.com" className="text-indigo-300 hover:underline">hello@nexifystudio.com</a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-indigo-400 shrink-0" />
-                  <div>
-                    <span className="text-slate-400">Direct Line:</span>{' '}
-                    <span className="text-slate-200 font-mono">+1 (650) 898-0192</span>
+                    <span className="text-slate-400">Email:</span>{' '}
+                    <a href="mailto:hello@nexifywebworks.com" className="text-indigo-300 hover:underline">hello@nexifywebworks.com</a>
                   </div>
                 </div>
               </div>

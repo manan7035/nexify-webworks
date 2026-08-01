@@ -31,7 +31,7 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
   const [deviceMode, setDeviceMode] = useState<'desktop' | 'tablet' | 'mobile'>('desktop');
   const [activeTab, setActiveTab] = useState<'overview' | 'vitals' | 'architecture'>('overview');
 
-  const categories = ['All', 'React Apps', 'WordPress', 'UI Redesigns', 'Safari Solutions'];
+  const categories = ['All', 'React Apps', 'WordPress'];
 
   const filteredProjects = selectedCategory === 'All'
     ? PROJECTS
@@ -209,7 +209,7 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                       </a>
                     ) : (
                       <div className="px-3 py-0.5 rounded-md bg-slate-950 border border-slate-800/80 text-[10px] font-mono text-slate-400 truncate max-w-[180px]">
-                        https://{activeProject.id}.nexifystudio.com
+                        Live Preview
                       </div>
                     )}
 
@@ -230,7 +230,7 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                     {/* Top Right Score Badge Overlay */}
                     <div className="absolute top-3 right-3 bg-slate-950/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-emerald-500/30 text-emerald-400 text-[11px] font-mono flex items-center gap-1.5 shadow-lg">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                      <span>Lighthouse 99</span>
+                      <span>Fast, SEO-aware build</span>
                     </div>
 
                     {/* Bottom Info Overlay inside Device */}
@@ -364,9 +364,9 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                     <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
                       <div className="flex items-center gap-2 text-xs text-slate-300">
                         <Gauge className="w-4 h-4 text-emerald-400" />
-                        <span>Performance Score</span>
+                        <span>Performance</span>
                       </div>
-                      <span className="font-mono text-xs font-bold text-emerald-400">99 / 100</span>
+                      <span className="font-mono text-xs font-bold text-emerald-400">Optimized</span>
                     </div>
 
                     <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
@@ -382,7 +382,7 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                         <ShieldCheck className="w-4 h-4 text-cyan-400" />
                         <span>SEO & Accessibility</span>
                       </div>
-                      <span className="font-mono text-xs font-bold text-cyan-300">100 / 100</span>
+                      <span className="font-mono text-xs font-bold text-cyan-300">Optimized</span>
                     </div>
                   </motion.div>
                 )}

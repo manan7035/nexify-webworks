@@ -85,12 +85,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
           </div>
 
           {/* Author Card */}
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <img
-              src={article.author.avatar}
-              alt={article.author.name}
-              className="w-12 h-12 rounded-full object-cover border border-slate-700"
-            />
+          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
             <div>
               <div className="font-semibold text-sm text-white">{article.author.name}</div>
               <div className="text-xs text-slate-400">{article.author.role} • {article.date}</div>

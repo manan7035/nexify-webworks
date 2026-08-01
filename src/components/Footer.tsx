@@ -36,19 +36,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </div>
               </div>
               <span className="font-space font-bold text-xl text-white tracking-tight">
-                NEXIFY <span className="text-indigo-400">STUDIO</span>
+                NEXIFY <span className="text-indigo-400">WEBWORKS</span>
               </span>
             </div>
 
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
-              We engineer high-converting custom WordPress themes and high-speed animated React web applications for visionary brands worldwide.
+              India-based freelance developer delivering custom React websites, WordPress themes, and polished Figma UI/UX designs with attention to speed and real business results.
             </p>
 
             <div className="flex items-center gap-3 text-xs font-mono text-slate-400 bg-slate-900/80 p-3 rounded-xl border border-slate-800/80 max-w-sm">
               <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
-              <span>Latency: <strong className="text-white">12ms</strong></span>
+              <span>Experience: <strong className="text-white">3+ years</strong></span>
               <span className="text-slate-600">|</span>
-              <span>Uptime: <strong className="text-white">99.99%</strong></span>
+              <span>Projects: <strong className="text-white">10+</strong></span>
             </div>
           </div>
 
@@ -57,19 +57,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <h4 className="font-space font-semibold text-white text-sm tracking-wider uppercase mb-4">Navigation</h4>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <button onClick={() => onNavigate('home')} className="hover:text-indigo-400 transition-colors">Home Studio</button>
+                <button onClick={() => onNavigate('home')} className="hover:text-indigo-400 transition-colors">Home</button>
               </li>
               <li>
-                <button onClick={() => onNavigate('about')} className="hover:text-indigo-400 transition-colors">About Us & Team</button>
+                <button onClick={() => onNavigate('about')} className="hover:text-indigo-400 transition-colors">About</button>
               </li>
               <li>
-                <button onClick={() => onNavigate('portfolio')} className="hover:text-indigo-400 transition-colors">Case Studies Grid</button>
+                <button onClick={() => onNavigate('portfolio')} className="hover:text-indigo-400 transition-colors">Portfolio</button>
               </li>
               <li>
-                <button onClick={() => onNavigate('insights')} className="hover:text-indigo-400 transition-colors">Insights & Articles</button>
+                <button onClick={() => onNavigate('insights')} className="hover:text-indigo-400 transition-colors">Insights</button>
               </li>
               <li>
-                <button onClick={() => onNavigate('contact')} className="hover:text-indigo-400 transition-colors">Project Terminal</button>
+                <button onClick={() => onNavigate('contact')} className="hover:text-indigo-400 transition-colors">Contact</button>
               </li>
             </ul>
           </div>
@@ -78,11 +78,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             <h4 className="font-space font-semibold text-white text-sm tracking-wider uppercase mb-4">Core Expertise</h4>
             <ul className="space-y-2.5 text-sm">
-              <li className="text-slate-300">Headless WP & ACF Pro</li>
+              <li className="text-slate-300">Elementor WordPress Design</li>
               <li className="text-slate-300">React 19 & Next.js Apps</li>
               <li className="text-slate-300">Figma Design Systems</li>
-              <li className="text-slate-300">WebGL 3D Interactive Shaders</li>
-              <li className="text-slate-300">Lighthouse 95+ Vitals Boost</li>
+              <li className="text-slate-300">Custom Block Theme</li>
+              <li className="text-slate-300">Fast performance with basic SEO</li>
             </ul>
           </div>
 
@@ -96,7 +96,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             {subscribed ? (
               <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-400 text-xs font-medium">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>Subscribed to Nexify Insights!</span>
+                <span>Subscribed to updates!</span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="space-y-2">
@@ -125,9 +125,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-2 font-mono">
-            <span>© {new Date().getFullYear()} Nexify Studio. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} Nexify Webworks. India-based freelance developer.</span>
           </div>
-
           <div className="flex items-center gap-6">
             <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
               <Github className="w-4 h-4" />

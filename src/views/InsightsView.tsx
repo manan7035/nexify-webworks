@@ -75,16 +75,9 @@ export const InsightsView: React.FC<InsightsViewProps> = ({ onNavigate }) => {
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-slate-800">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={featuredArticle.author.avatar}
-                      alt={featuredArticle.author.name}
-                      className="w-10 h-10 rounded-full object-cover border border-slate-700"
-                    />
-                    <div>
-                      <div className="font-semibold text-xs text-white">{featuredArticle.author.name}</div>
-                      <div className="text-[10px] text-slate-400">{featuredArticle.author.role} • {featuredArticle.date}</div>
-                    </div>
+                  <div>
+                    <div className="font-semibold text-xs text-white">{featuredArticle.author.name}</div>
+                    <div className="text-[10px] text-slate-400">{featuredArticle.author.role} • {featuredArticle.date}</div>
                   </div>
 
                   <span className="text-xs font-mono text-indigo-400 font-semibold flex items-center gap-1">
@@ -181,10 +174,7 @@ export const InsightsView: React.FC<InsightsViewProps> = ({ onNavigate }) => {
                 </div>
 
                 <div className="p-6 pt-0 border-t border-slate-800/60 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <img src={article.author.avatar} alt={article.author.name} className="w-7 h-7 rounded-full object-cover" />
-                    <span className="text-xs text-slate-300 font-medium">{article.author.name}</span>
-                  </div>
+                  <span className="text-xs text-slate-300 font-medium">{article.author.name}</span>
 
                   <ArrowUpRight className="w-4 h-4 text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>

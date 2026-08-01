@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
+html, body {
+  font-family: 'Product Sans', sans-serif;
+}
+
 @layer utilities {
-  .font-syne {
-    font-family: 'Syne', sans-serif;
-  }
-  .font-outfit {
-    font-family: 'Outfit', sans-serif;
-  }
+  .font-syne,
+  .font-outfit,
   .font-space {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Product Sans', sans-serif;
   }
   .font-mono {
     font-family: 'JetBrains Mono', monospace;

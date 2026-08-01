@@ -19,12 +19,12 @@ export const ContactView: React.FC<ContactViewProps> = ({ prefilledScope, prefil
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider">SILICON VALLEY HQ</div>
+            <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider">INDIA WEB DEVELOPMENT STUDIO</div>
             <h2 className="font-space text-3xl font-extrabold text-white">
-              Where We <span className="text-indigo-400">Code & Architect</span>
+              Remote Web Development from <span className="text-indigo-400">Rajkot, India</span>
             </h2>
             <p className="text-slate-400 text-sm">
-              Our engineering studio operates in Palo Alto, California, with asynchronous satellite teams across North America and Europe.
+              A freelance developer based in Rajkot, India, delivering custom websites and digital products for clients across India and international markets.
             </p>
           </div>
 
@@ -33,7 +33,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ prefilledScope, prefil
             <div className="aspect-[21/9] w-full rounded-2xl overflow-hidden relative border border-slate-800">
               <img
                 src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1600&q=80"
-                alt="Silicon Valley Map Headquarters"
+                alt="Rajkot freelance developer location image"
                 className="w-full h-full object-cover filter brightness-75 contrast-125 group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0d1322] via-[#0d1322]/40 to-transparent"></div>
@@ -44,8 +44,8 @@ export const ContactView: React.FC<ContactViewProps> = ({ prefilledScope, prefil
                   <MapPin className="w-5 h-5 text-indigo-400 animate-bounce" />
                 </div>
                 <div>
-                  <div className="font-space font-bold text-white text-sm">Nexify Studio HQ</div>
-                  <div className="text-[11px] text-slate-300 font-mono">Palo Alto, CA 94301</div>
+                  <div className="font-space font-bold text-white text-sm">Rajkot, India</div>
+                  <div className="text-[11px] text-slate-300 font-mono">Remote freelance development with local Rajkot delivery.</div>
                 </div>
               </div>
             </div>

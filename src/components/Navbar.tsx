@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavigationPage } from '../types';
-import { Terminal, Sparkles, Menu, X, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { Code, Sparkles, Menu, X, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
 interface NavbarProps {
   currentPage: NavigationPage;
@@ -36,14 +36,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 p-[1px] shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
             <div className="w-full h-full bg-[#0d1322] rounded-[11px] flex items-center justify-center">
-              <Terminal className="w-5 h-5 text-indigo-400 group-hover:text-emerald-400 transition-colors" />
+              <Code className="w-5 h-5 text-indigo-400 group-hover:text-emerald-400 transition-colors" />
             </div>
           </div>
           <div>
             <div className="font-space font-bold text-xl tracking-tight text-white flex items-center gap-1.5">
-              NEXIFY <span className="text-indigo-400 font-extrabold">STUDIO</span>
+              NEXIFY <span className="text-indigo-400 font-extrabold">WEBWORKS</span>
             </div>
-            <p className="text-[10px] text-slate-400 font-mono tracking-wider uppercase">High-Perf Digital Agency</p>
+            <p className="text-[10px] text-slate-400 font-mono tracking-wider uppercase">Freelance Web Developer</p>
           </div>
         </button>
 

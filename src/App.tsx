@@ -52,7 +52,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f17] text-slate-100 flex flex-col font-['Outfit',sans-serif] selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#0b0f17] text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
       
       {/* Top Glass Header */}
       <Navbar

@@ -13,7 +13,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onSelectProject, o
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const categories = ['All', 'React Apps', 'WordPress', 'UI Redesigns', 'Safari Solutions'];
+  const categories = ['All', 'React Apps', 'WordPress'];
 
   const filteredProjects = PROJECTS.filter((p) => {
     const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;

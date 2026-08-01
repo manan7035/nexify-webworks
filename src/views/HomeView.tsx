@@ -47,14 +47,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-800 text-slate-300 text-xs font-mono shadow-2xl glow-glass"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="text-emerald-400 font-bold">Lighthouse 95+ Vitals Guaranteed</span>
-            <span className="text-slate-600">|</span>
-            <span className="text-slate-400">Custom WordPress & React Studio</span>
+            <span className="text-emerald-400 font-bold">Fast performance and basic SEO</span>
           </motion.div>
 
-          {/* Main Title with Syne Font */}
           <motion.h1 
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.25] max-w-5xl mx-auto"
@@ -72,7 +69,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-slate-400 text-base sm:text-xl max-w-3xl mx-auto font-normal leading-relaxed"
           >
-            We build high-converting custom WordPress themes, UI/UX Figma design systems, and high-speed animated React web applications.
+            I build high-converting custom React websites, WordPress themes, and polished Figma UI/UX designs with clear business impact.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -178,7 +175,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </h2>
             </div>
             <p className="text-slate-400 text-sm max-w-md">
-              Specialized exclusively in Figma UI/UX design, custom React web app development, and bespoke WordPress themes.
+              Specialized in Figma UI/UX design, custom React web development, and fast WordPress theme builds for growing businesses.
             </p>
           </div>
 
@@ -244,10 +241,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <span>TESTIMONIALS & REVIEWS</span>
             </div>
             <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.25]">
-              Trusted by <span className="text-indigo-400">Industry Leaders</span>
+              Trusted by <span className="text-indigo-400">Growth-Focused Brands</span>
             </h2>
             <p className="text-slate-400 text-sm">
-              Discover how our React applications, custom WordPress builds, and Figma UI design systems drive real business revenue and high organic search ranks.
+              See how freelance React, WordPress, and Figma work converts traffic into stronger brand credibility and revenue.
             </p>
           </div>
 
@@ -295,10 +292,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       <div className="text-[11px] text-slate-400 truncate">{t.role} • {t.company}</div>
                     </div>
                   </div>
-
-                  <span className="text-[10px] font-mono px-2.5 py-1 rounded-xl bg-emerald-950/90 border border-emerald-500/40 text-emerald-400 font-bold shrink-0 self-start sm:self-center shadow-sm">
-                    {t.metric}
-                  </span>
                 </div>
               </motion.article>
             ))}

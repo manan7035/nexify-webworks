@@ -1,5 +1,5 @@
 {
-  "name": "Nexify Studio",
+  "name": "Nexify Webworks",
   "description": "High-performance digital agency showcase featuring interactive budget estimator, project portfolio, studio insights, and project terminal.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
