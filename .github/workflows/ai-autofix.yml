@@ -23,7 +23,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: ai-autofix-${{ github.event.issue.number || github.event.pull_request.number }}
+  group: ai-autofix-${{ github.event.issue.number || github.event.pull_request.number || github.sha }}
   cancel-in-progress: false
 
 jobs:
@@ -41,10 +41,33 @@ jobs:
     timeout-minutes: 30
 
     steps:
+      - name: Resolve Git ref
+        id: resolve-ref
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -n "${{ github.event.inputs.issue_number }}" ]; then
+            ISSUE_NUM="${{ github.event.inputs.issue_number }}"
+            REF=$(gh pr view "$ISSUE_NUM" --repo "${{ github.repository }}" --json headRefName --jq .headRefName 2>/dev/null || echo "")
+            if [ -n "$REF" ]; then
+              echo "ref=$REF" >> "$GITHUB_OUTPUT"
+            else
+              echo "ref=main" >> "$GITHUB_OUTPUT"
+            fi
+          elif [ "${{ github.event_name }}" = "issue_comment" ] && [ -n "${{ github.event.issue.pull_request }}" ]; then
+            PR_NUMBER="${{ github.event.issue.number }}"
+            REF=$(gh pr view "$PR_NUMBER" --repo "${{ github.repository }}" --json headRefName --jq .headRefName 2>/dev/null || echo "")
+            echo "ref=$REF" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ github.event.pull_request.head.ref }}" ]; then
+            echo "ref=${{ github.event.pull_request.head.ref }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "ref=main" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref || github.event.issue.pull_request.head.ref }}
+          ref: ${{ steps.resolve-ref.outputs.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v7

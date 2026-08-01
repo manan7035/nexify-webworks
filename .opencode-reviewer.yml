@@ -32,8 +32,7 @@ review:
 fix:
   maxIterations: 3
   runChecks:
-    - "npm run build"
-    - "npm run lint"
+    - "npm run build && npm run lint"
   checkAllowlist:
     - npm
     - node
