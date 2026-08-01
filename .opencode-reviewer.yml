@@ -9,7 +9,7 @@ project:
     - "React 19 functional components with hooks — no class components."
     - "Follow React hooks rules — only call hooks at the top level, not in loops/conditions."
     - "Use Tailwind CSS v4 utility classes — no deprecated v3 syntax."
-    - "Path alias '@/*' maps to './src/*' — use it for internal imports."
+    - "Path alias '@/*' maps to './*' (project root) — use it for internal imports (e.g., '@/src/components/Foo')."
     - "Component files use PascalCase, utility files use camelCase."
     - "Keep components focused — split large components into smaller ones."
     - "Use TypeScript interfaces for props and data types (defined in src/types.ts)."
