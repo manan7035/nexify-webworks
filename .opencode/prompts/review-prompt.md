@@ -8,7 +8,7 @@ You are reviewing a pull request for **Nexify Webworks**, a marketing/portfolio 
 - **Language:** TypeScript (strict mode, no `any`, proper interfaces in `src/types.ts`)
 - **Build Tool:** Vite 6 (uses `import.meta.env` for env vars, NOT `process.env`)
 - **Styling:** Tailwind CSS v4 (utility-first, no deprecated v3 `@tailwind` directives in code)
-- **Path Alias:** `@/*` maps to `./src/*` — all internal imports should use this
+- **Path Alias:** `@/*` maps to `./*` (project root) — all internal imports should use this (e.g., `@/src/components/Foo`)
 - **Structure:** `src/views/` (page components), `src/components/` (reusable components), `src/data/` (mock data), `src/types.ts` (type definitions)
 - **No test framework** — focus review on type safety, runtime correctness, and best practices
 
