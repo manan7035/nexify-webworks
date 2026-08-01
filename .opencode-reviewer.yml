@@ -21,6 +21,8 @@ project:
 
 review:
   enableReachability: true
+  skipLabels:
+    - "skip-review"
   customRules:
     - "Verify that environment variables are accessed via import.meta.env (Vite convention), not process.env."
     - "Check that Tailwind classes use v4 syntax — no @tailwind directives in JS/TSX files."
