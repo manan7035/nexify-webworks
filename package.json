@@ -8,22 +8,32 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "dev:next": "next dev -p 3001",
+    "build:next": "next build",
+    "start:next": "next start -p 3001",
+    "lint:next": "eslint src/app next.config.ts postcss.config.mjs eslint.config.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
     "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "next": "^16.2.12",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
-    "vite": "^6.2.3",
-    "motion": "^12.23.24"
+    "vite": "^6.2.3"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^22.14.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.12",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
