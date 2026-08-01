@@ -27,4 +27,5 @@ jobs:
       max_files_per_batch: 3
       include_strengths: true
       project_context: 'React 19 + TypeScript + Vite 6 + Tailwind CSS v4. Marketing/portfolio site. No test framework.'
-    secrets: inherit
+    secrets:
+      repo_token: ${{ secrets.GITHUB_TOKEN }}

@@ -39,4 +39,5 @@ jobs:
       target_dir: ${{ github.event.inputs.target_dir || 'src' }}
       create_issues: true
       auto_fix: false
-    secrets: inherit
+    secrets:
+      repo_token: ${{ secrets.GITHUB_TOKEN }}
