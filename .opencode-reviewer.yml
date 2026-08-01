@@ -1,0 +1,67 @@
+# OpenCode AI Reviewer Config — Nexify Webworks
+# Project: React 19 + TypeScript + Vite 6 + Tailwind v4
+
+project:
+  name: "Nexify Webworks"
+  description: "A marketing/portfolio website for a freelance web development agency built with React 19, TypeScript, Vite 6, and Tailwind CSS v4."
+  conventions:
+    - "Use strict TypeScript — avoid 'any', prefer strong type definitions and interfaces."
+    - "React 19 functional components with hooks — no class components."
+    - "Follow React hooks rules — only call hooks at the top level, not in loops/conditions."
+    - "Use Tailwind CSS v4 utility classes — no deprecated v3 syntax."
+    - "Path alias '@/*' maps to './src/*' — use it for internal imports."
+    - "Component files use PascalCase, utility files use camelCase."
+    - "Keep components focused — split large components into smaller ones."
+    - "Use TypeScript interfaces for props and data types (defined in src/types.ts)."
+  commandReference:
+    "npm run build": "Build the project with Vite (outputs to dist/)"
+    "npm run lint": "Run TypeScript type checking (tsc --noEmit)"
+    "npm run dev": "Start Vite dev server on port 3000"
+    "npm run clean": "Remove dist/ build directory"
+
+review:
+  enableReachability: true
+  customRules:
+    - "Verify that environment variables are accessed via import.meta.env (Vite convention), not process.env."
+    - "Check that Tailwind classes use v4 syntax — no @tailwind directives in JS/TSX files."
+    - "Review component props for proper TypeScript typing — no implicit any."
+    - "Verify error boundaries or fallback UI for async data loading states."
+    - "Check that images and assets use proper import or public path conventions."
+    - "Review for accessibility — semantic HTML, ARIA attributes, keyboard navigation."
+
+fix:
+  maxIterations: 3
+  runChecks:
+    - "npm run build"
+    - "npm run lint"
+  checkAllowlist:
+    - npm
+    - node
+
+audit:
+  promptsDir: ".opencode/prompts"
+  categories:
+    - "code-quality-conventions"
+    - "security-privacy"
+    - "error-handling-resilience"
+    - "performance-efficiency"
+    - "ui-ux-accessibility"
+  targetDirs:
+    - "src"
+  createIssues: true
+  autoFix: false
+
+learning:
+  enabled: true
+  feedbackSignals:
+    - "dismissed"
+    - "reaction"
+    - "disputed_comment"
+  metaReview:
+    enabled: true
+    interval: 5
+    minFindingsForReview: 3
+  patternDiscovery:
+    enabled: true
+    minFrequency: 3
+    windowSize: 100
