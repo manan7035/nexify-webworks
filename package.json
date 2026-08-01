@@ -12,7 +12,7 @@
     "dev:next": "next dev -p 3001",
     "build:next": "next build",
     "start:next": "next start -p 3001",
-    "lint:next": "eslint src/app next.config.ts postcss.config.mjs eslint.config.mjs"
+    "lint:next": "eslint src/app components next.config.ts postcss.config.mjs eslint.config.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
