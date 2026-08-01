@@ -52,8 +52,13 @@ jobs:
           model: 'opencode/deepseek-v4-flash-free'
           max_fix_iterations: 3
           run_checks_after_fix: 'npm run build && npm run lint'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         # Note: The upstream action handles branch creation, commit, push, and PR creation
         # automatically. No additional steps are needed.
+        #
+        # IMPORTANT: The built-in GITHUB_TOKEN may lack PR creation permissions in some repos.
+        # Add a GH_PAT secret (repo scope) to enable automatic PR creation:
+        #   gh secret set GH_PAT --body "your-personal-access-token"
