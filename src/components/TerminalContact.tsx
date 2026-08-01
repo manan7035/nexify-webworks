@@ -16,6 +16,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
     message: ''
   });
   const [status, setStatus] = useState<'idle' | 'executing' | 'success'>('idle');
+  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
 
   const availableScopes = [
     'UI/UX Figma Design',
@@ -31,8 +32,30 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
     }
   };
 
+  const updateField = (field: 'name' | 'email' | 'message', value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const nextErrors: { name?: string; email?: string; message?: string } = {};
+    if (!formData.name.trim()) {
+      nextErrors.name = 'Please enter your name or organization.';
+    }
+    if (!formData.email.trim()) {
+      nextErrors.email = 'Please enter your email address.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      nextErrors.email = 'Please enter a valid email address.';
+    }
+    if (!formData.message.trim()) {
+      nextErrors.message = 'Please describe your project goals and requirements.';
+    }
+    setErrors(nextErrors);
+
+    if (Object.keys(nextErrors).length > 0) return;
+
     setStatus('executing');
     setTimeout(() => {
       setStatus('success');
@@ -72,11 +95,11 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span>INQUIRY_PROTOCOL_V2.1</span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-500">ENCRYPTED 256-BIT</span>
+                <span className="text-[11px] font-mono text-slate-400">ENCRYPTED 256-BIT</span>
               </div>
 
               {status === 'success' ? (
-                <div className="py-12 text-center space-y-4 animate-in fade-in duration-300">
+                <div role="status" aria-live="polite" className="py-12 text-center space-y-4 animate-in fade-in duration-300">
                   <div className="w-16 h-16 rounded-2xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/20">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
@@ -95,10 +118,10 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                 <form onSubmit={handleSubmit} className="space-y-6">
                   
                   {/* Select Scope Chips */}
-                  <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2.5">
+                  <fieldset className="border-0 p-0 m-0">
+                    <legend className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2.5">
                       Select Project Scope:
-                    </label>
+                    </legend>
                     <div className="flex flex-wrap gap-2">
                       {availableScopes.map((scope) => {
                         const active = selectedScopes.includes(scope);
@@ -107,6 +130,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                             type="button"
                             key={scope}
                             onClick={() => toggleScope(scope)}
+                            aria-pressed={active}
                             className={`px-3.5 py-2 rounded-xl text-xs font-medium border transition-all cursor-pointer ${
                               active
                                 ? 'bg-indigo-600 border-indigo-500 text-white shadow-md shadow-indigo-500/20'
@@ -118,52 +142,79 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                         );
                       })}
                     </div>
-                  </div>
+                  </fieldset>
 
                   {/* Name & Email inputs */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                      <label htmlFor="contact-name" className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                         Your Name / Organization
                       </label>
                       <input
+                        id="contact-name"
                         type="text"
                         required
+                        aria-required="true"
+                        aria-invalid={errors.name ? true : undefined}
+                        aria-describedby={errors.name ? 'contact-name-error' : undefined}
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) => updateField('name', e.target.value)}
                         placeholder="e.g. Marcus Thorne"
                         className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
                       />
+                      {errors.name && (
+                        <p id="contact-name-error" role="alert" className="text-xs text-rose-400 mt-1.5">
+                          {errors.name}
+                        </p>
+                      )}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                      <label htmlFor="contact-email" className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                         Electronic Mail
                       </label>
                       <input
+                        id="contact-email"
                         type="email"
                         required
+                        aria-required="true"
+                        aria-invalid={errors.email ? true : undefined}
+                        aria-describedby={errors.email ? 'contact-email-error' : undefined}
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        onChange={(e) => updateField('email', e.target.value)}
                         placeholder="m.thorne@company.com"
                         className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
                       />
+                      {errors.email && (
+                        <p id="contact-email-error" role="alert" className="text-xs text-rose-400 mt-1.5">
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   {/* Message */}
                   <div>
-                    <label className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
+                    <label htmlFor="contact-message" className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2">
                       Project Goals & Requirements
                     </label>
                     <textarea
+                      id="contact-message"
                       rows={4}
                       required
+                      aria-required="true"
+                      aria-invalid={errors.message ? true : undefined}
+                      aria-describedby={errors.message ? 'contact-message-error' : undefined}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      onChange={(e) => updateField('message', e.target.value)}
                       placeholder="Briefly describe your objectives, target launch date, and key features..."
                       className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
                     ></textarea>
+                    {errors.message && (
+                      <p id="contact-message-error" role="alert" className="text-xs text-rose-400 mt-1.5">
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
 
                   {/* Submit Button */}

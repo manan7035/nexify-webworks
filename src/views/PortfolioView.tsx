@@ -69,7 +69,9 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onSelectProject, o
             {/* Search Input */}
             <div className="relative w-full md:w-64">
               <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <label htmlFor="portfolio-search" className="sr-only">Search portfolio projects</label>
               <input
+                id="portfolio-search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -86,6 +88,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onSelectProject, o
       {/* Projects Grid */}
       <section className="py-16 bg-[#0d1322] border-t border-slate-800/80 min-h-[60vh]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <h2 className="sr-only">Featured Projects</h2>
           
           {filteredProjects.length === 0 ? (
             <div className="py-20 text-center space-y-3">
@@ -104,10 +108,12 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onSelectProject, o
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredProjects.map((project) => (
-                <div
+                <button
                   key={project.id}
+                  type="button"
                   onClick={() => onSelectProject(project)}
-                  className="glass-card rounded-2xl border border-slate-800 hover:border-indigo-500/50 overflow-hidden cursor-pointer group transition-all duration-300 flex flex-col justify-between"
+                  aria-label={`Inspect details for ${project.title}`}
+                  className="glass-card rounded-2xl border border-slate-800 hover:border-indigo-500/50 overflow-hidden cursor-pointer group transition-all duration-300 flex flex-col justify-between text-left w-full"
                 >
                   <div>
                     <div className="relative aspect-video w-full overflow-hidden">
@@ -159,7 +165,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({ onSelectProject, o
                     </div>
                   </div>
 
-                </div>
+                </button>
               ))}
             </div>
           )}

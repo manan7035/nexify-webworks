@@ -11,6 +11,9 @@ export const ContactView: React.FC<ContactViewProps> = ({ prefilledScope, prefil
   return (
     <div className="space-y-0">
       
+      {/* Page-level heading (TerminalContact renders its own h2) */}
+      <h1 className="sr-only">Contact Nexify Webworks</h1>
+
       {/* Terminal Contact Main Form */}
       <TerminalContact prefilledScope={prefilledScope} prefilledCost={prefilledCost} />
 

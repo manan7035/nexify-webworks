@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Project } from '../types';
+import { ModalShell } from './ModalShell';
 import { X, ExternalLink, ShieldCheck, Zap, Layers, Calendar, User, ArrowRight } from 'lucide-react';
 
 interface ProjectModalProps {
@@ -9,31 +10,35 @@ interface ProjectModalProps {
 }
 
 export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, onInquire }) => {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   if (!project) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-      
-      {/* Modal Container */}
-      <div className="relative w-full max-w-4xl bg-[#0d1322] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col">
-        
-        {/* Header bar */}
-        <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#0d1322]/90 backdrop-blur-md border-b border-slate-800">
-          <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-950/80 border border-indigo-500/40 text-indigo-400">
-              {project.category}
-            </span>
-            <span className="text-xs text-slate-400 font-mono hidden sm:inline">ID: {project.id}</span>
-          </div>
-
-          <button
-            onClick={onClose}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
-            aria-label="Close Case Study Modal"
-          >
-            <X className="w-5 h-5" />
-          </button>
+    <ModalShell
+      onClose={onClose}
+      labelledById="project-modal-title"
+      initialFocusRef={closeButtonRef}
+      className="max-w-4xl"
+    >
+      {/* Header bar */}
+      <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#0d1322]/90 backdrop-blur-md border-b border-slate-800">
+        <div className="flex items-center gap-3">
+          <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-950/80 border border-indigo-500/40 text-indigo-400">
+            {project.category}
+          </span>
+          <span className="text-xs text-slate-400 font-mono hidden sm:inline">ID: {project.id}</span>
         </div>
+
+        <button
+          ref={closeButtonRef}
+          onClick={onClose}
+          className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
+          aria-label="Close Case Study Modal"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
 
         {/* Scrollable Content */}
         <div className="p-6 sm:p-8 space-y-8 overflow-y-auto custom-scrollbar">
@@ -48,7 +53,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             <div className="absolute inset-0 bg-gradient-to-t from-[#0d1322] via-transparent to-transparent opacity-80"></div>
             
             <div className="absolute bottom-6 left-6 right-6">
-              <h2 className="font-space text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h2 id="project-modal-title" className="font-space text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 {project.title}
               </h2>
               <p className="text-slate-300 text-sm mt-1">{project.subtitle}</p>
@@ -68,19 +73,19 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
           {/* Metadata Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-900/30 border border-slate-800/80 text-xs">
             <div>
-              <span className="text-slate-500 block">CLIENT</span>
+              <span className="text-slate-400 block">CLIENT</span>
               <span className="font-semibold text-slate-200 mt-0.5 block">{project.client}</span>
             </div>
             <div>
-              <span className="text-slate-500 block">YEAR</span>
+              <span className="text-slate-400 block">YEAR</span>
               <span className="font-semibold text-slate-200 mt-0.5 block">{project.year}</span>
             </div>
             <div>
-              <span className="text-slate-500 block">ROLE</span>
+              <span className="text-slate-400 block">ROLE</span>
               <span className="font-semibold text-slate-200 mt-0.5 block">Full Architecture</span>
             </div>
             <div>
-              <span className="text-slate-500 block">DELIVERY</span>
+              <span className="text-slate-400 block">DELIVERY</span>
               <span className="font-semibold text-emerald-400 mt-0.5 block">Completed</span>
             </div>
           </div>
@@ -159,12 +164,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               <span>Build Similar Architecture</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-          </div>
-
         </div>
 
       </div>
-
-    </div>
+    </ModalShell>
   );
 };

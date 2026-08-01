@@ -49,9 +49,11 @@ export const InsightsView: React.FC<InsightsViewProps> = ({ onNavigate }) => {
 
           {/* Featured Hero Article Banner */}
           {featuredArticle && (
-            <div
+            <button
+              type="button"
               onClick={() => setSelectedArticle(featuredArticle)}
-              className="glass-card rounded-3xl border border-indigo-500/40 p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 cursor-pointer group hover:border-indigo-500 transition-all shadow-2xl relative overflow-hidden"
+              aria-label={`Read featured essay: ${featuredArticle.title}`}
+              className="glass-card rounded-3xl border border-indigo-500/40 p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 cursor-pointer group hover:border-indigo-500 transition-all shadow-2xl relative overflow-hidden text-left w-full"
             >
               <div className="lg:col-span-7 space-y-4 flex flex-col justify-between">
                 <div className="space-y-3">
@@ -94,7 +96,7 @@ export const InsightsView: React.FC<InsightsViewProps> = ({ onNavigate }) => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-            </div>
+            </button>
           )}
 
         </div>
@@ -125,7 +127,9 @@ export const InsightsView: React.FC<InsightsViewProps> = ({ onNavigate }) => {
             {/* Search Input */}
             <div className="relative w-full md:w-64">
               <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+              <label htmlFor="insights-search" className="sr-only">Search insights articles</label>
               <input
+                id="insights-search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -138,10 +142,12 @@ export const InsightsView: React.FC<InsightsViewProps> = ({ onNavigate }) => {
           {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredArticles.map((article) => (
-              <div
+              <button
                 key={article.id}
+                type="button"
                 onClick={() => setSelectedArticle(article)}
-                className="glass-card rounded-2xl border border-slate-800 hover:border-indigo-500/50 overflow-hidden cursor-pointer group transition-all duration-300 flex flex-col justify-between"
+                aria-label={`Read article: ${article.title}`}
+                className="glass-card rounded-2xl border border-slate-800 hover:border-indigo-500/50 overflow-hidden cursor-pointer group transition-all duration-300 flex flex-col justify-between text-left w-full"
               >
                 <div>
                   <div className="relative aspect-video w-full overflow-hidden">
@@ -178,7 +184,7 @@ export const InsightsView: React.FC<InsightsViewProps> = ({ onNavigate }) => {
 
                   <ArrowUpRight className="w-4 h-4 text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
-              </div>
+              </button>
             ))}
           </div>
 
