@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Article } from '../types';
+import { ModalShell } from './ModalShell';
 import { X, Clock, Calendar, User, Bookmark, Check, Share2, ArrowLeft } from 'lucide-react';
 
 interface ArticleModalProps {
@@ -8,6 +9,7 @@ interface ArticleModalProps {
 }
 
 export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) => {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [bookmarked, setBookmarked] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -20,49 +22,52 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200 overflow-y-auto">
-      
-      {/* Modal Container */}
-      <div className="relative w-full max-w-3xl bg-[#0d1322] border border-slate-800 rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col">
-        
-        {/* Header bar */}
-        <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#0d1322]/90 backdrop-blur-md border-b border-slate-800">
+    <ModalShell
+      onClose={onClose}
+      labelledById="article-modal-title"
+      initialFocusRef={closeButtonRef}
+      className="max-w-3xl"
+    >
+      {/* Header bar */}
+      <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#0d1322]/90 backdrop-blur-md border-b border-slate-800">
+        <button
+          onClick={onClose}
+          className="flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Insights</span>
+        </button>
+
+        <div className="flex items-center gap-2">
           <button
-            onClick={onClose}
-            className="flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors"
+            onClick={() => setBookmarked(!bookmarked)}
+            className={`p-2 rounded-xl border transition-colors cursor-pointer ${
+              bookmarked ? 'bg-amber-950/60 border-amber-500/50 text-amber-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+            }`}
+            aria-label="Save article"
+            aria-pressed={bookmarked}
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back to Insights</span>
+            <Bookmark className="w-4 h-4" />
           </button>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setBookmarked(!bookmarked)}
-              className={`p-2 rounded-xl border transition-colors cursor-pointer ${
-                bookmarked ? 'bg-amber-950/60 border-amber-500/50 text-amber-400' : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
-              }`}
-              title="Save Article"
-            >
-              <Bookmark className="w-4 h-4" />
-            </button>
+          <button
+            onClick={handleShare}
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            aria-label="Share article link"
+          >
+            {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
+          </button>
 
-            <button
-              onClick={handleShare}
-              className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
-              title="Share Link"
-            >
-              {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
-            </button>
-
-            <button
-              onClick={onClose}
-              className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
-              aria-label="Close Modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+          <button
+            ref={closeButtonRef}
+            onClick={onClose}
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            aria-label="Close Modal"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
+      </div>
 
         {/* Scrollable Article Body */}
         <div className="p-6 sm:p-8 space-y-6 overflow-y-auto custom-scrollbar">
@@ -79,7 +84,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
               </span>
             </div>
 
-            <h1 className="font-space text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 id="article-modal-title" className="font-space text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
               {article.title}
             </h1>
           </div>
@@ -134,9 +139,6 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
           </div>
 
         </div>
-
-      </div>
-
-    </div>
+    </ModalShell>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { NavigationPage, Project, Service } from '../types';
 import { SERVICES, PROJECTS, TESTIMONIALS } from '../data/mockData';
 import { ShowcaseSection } from '../components/ShowcaseSection';
@@ -26,6 +26,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   prefilledCost
 }) => {
   const featuredProjects = PROJECTS.filter((p) => p.featured);
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <div className="space-y-0">
@@ -101,7 +102,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           {/* Tech Ticker */}
           <div className="pt-10 border-t border-slate-800/60 max-w-4xl mx-auto">
-            <p className="text-xs font-mono text-slate-500 uppercase tracking-widest mb-4">
+            <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-4">
               Core Tech Stack & Ecosystem
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-slate-400 text-xs font-mono">
@@ -142,16 +143,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div className="relative w-11 h-20 rounded-full border border-slate-800 group-hover:border-indigo-500/60 bg-slate-900/70 backdrop-blur-md flex items-center justify-center overflow-hidden transition-all duration-300 shadow-lg shadow-indigo-500/10">
               {/* Code icon moving with down arrow in synchronized vertical flow */}
               <motion.div
-                animate={{
-                  y: [-16, 16, -16],
-                  opacity: [0.2, 1, 0.2],
-                  scale: [0.85, 1.15, 0.85]
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut'
-                }}
+                animate={
+                  prefersReducedMotion
+                    ? { y: 0, opacity: 1, scale: 1 }
+                    : { y: [-16, 16, -16], opacity: [0.2, 1, 0.2], scale: [0.85, 1.15, 0.85] }
+                }
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0 }
+                    : { duration: 2, repeat: Infinity, ease: 'easeInOut' }
+                }
                 className="flex flex-col items-center gap-1.5 text-indigo-400 group-hover:text-emerald-400"
               >
                 <Code2 className="w-4 h-4 text-indigo-400 group-hover:text-emerald-400 transition-colors" />
@@ -183,8 +184,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
             {SERVICES.map((srv, index) => (
               <motion.div
                 key={srv.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800 hover:border-indigo-500/40 transition-all duration-300 group space-y-4 flex flex-col justify-between"
@@ -252,11 +253,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
             {TESTIMONIALS.map((t, i) => (
               <motion.article 
                 key={t.id} 
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 25 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.12 }}
-                whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                whileHover={prefersReducedMotion ? undefined : { y: -6, transition: { duration: 0.25 } }}
                 className="glass-card p-6 sm:p-7 rounded-3xl border border-slate-800/90 space-y-6 flex flex-col justify-between relative group hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300"
               >
                 {/* Background Subtle Gradient Glow */}

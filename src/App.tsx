@@ -53,7 +53,15 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0b0f17] text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white">
-      
+
+      {/* Skip to content link for keyboard and screen-reader users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:left-4 focus:top-4 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-indigo-600 focus:text-white"
+      >
+        Skip to main content
+      </a>
+
       {/* Top Glass Header */}
       <Navbar
         currentPage={currentPage}
@@ -68,7 +76,7 @@ export default function App() {
       />
 
       {/* Main Dynamic View Area */}
-      <main className="flex-grow">
+      <main id="main-content" tabIndex={-1} className="flex-grow">
         {currentPage === 'home' && (
           <HomeView
             onNavigate={handleNavigate}

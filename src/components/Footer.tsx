@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavigationPage } from '../types';
-import { Terminal, Send, CheckCircle2, ArrowUpRight, Github, Twitter, Linkedin, Shield, Cpu, Activity } from 'lucide-react';
+import { Terminal, Send, CheckCircle2, ArrowUpRight, Shield, Cpu, Activity } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (page: NavigationPage) => void;
@@ -100,8 +100,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="space-y-2">
+                <label htmlFor="newsletter-email" className="sr-only">Subscribe to newsletter</label>
                 <div className="relative">
                   <input
+                    id="newsletter-email"
                     type="email"
                     required
                     value={email}
@@ -111,6 +113,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   />
                   <button
                     type="submit"
+                    aria-label="Subscribe"
                     className="absolute right-1.5 top-1.5 bottom-1.5 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center justify-center transition-colors cursor-pointer"
                   >
                     <Send className="w-3.5 h-3.5" />
@@ -127,20 +130,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-2 font-mono">
             <span>© {new Date().getFullYear()} Nexify Webworks. India-based freelance developer.</span>
           </div>
-          <div className="flex items-center gap-6">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
-              <Github className="w-4 h-4" />
-              <span>GitHub</span>
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
-              <Twitter className="w-4 h-4" />
-              <span>Twitter / X</span>
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
-              <Linkedin className="w-4 h-4" />
-              <span>LinkedIn</span>
-            </a>
-          </div>
+          {/* TODO: Add real Nexify Webworks social profiles (GitHub, Twitter/X, LinkedIn)
+              here once they exist — do not link to generic platform homepages. */}
         </div>
 
       </div>

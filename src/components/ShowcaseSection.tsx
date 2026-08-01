@@ -86,7 +86,8 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                     setSelectedCategory(cat);
                     setActiveProjectIndex(0);
                   }}
-                  className={`relative px-4 py-2 rounded-xl text-xs font-medium transition-all duration-300 cursor-pointer z-10 ${
+                  aria-pressed={active}
+                  className={`relative px-4 py-3 rounded-xl text-xs font-medium transition-all duration-300 cursor-pointer z-10 ${
                     active ? 'text-white font-semibold' : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
@@ -117,7 +118,9 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
               <div className="flex items-center gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs font-mono">
                 <button
                   onClick={() => setDeviceMode('desktop')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  aria-pressed={deviceMode === 'desktop'}
+                  aria-label="Switch to desktop device view"
+                  className={`flex items-center gap-1.5 px-3 py-2.5 rounded-lg transition-all cursor-pointer ${
                     deviceMode === 'desktop' ? 'bg-indigo-600 text-white font-bold shadow' : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -127,7 +130,9 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
 
                 <button
                   onClick={() => setDeviceMode('tablet')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  aria-pressed={deviceMode === 'tablet'}
+                  aria-label="Switch to tablet device view"
+                  className={`flex items-center gap-1.5 px-3 py-2.5 rounded-lg transition-all cursor-pointer ${
                     deviceMode === 'tablet' ? 'bg-indigo-600 text-white font-bold shadow' : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -137,7 +142,9 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
 
                 <button
                   onClick={() => setDeviceMode('mobile')}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  aria-pressed={deviceMode === 'mobile'}
+                  aria-label="Switch to mobile device view"
+                  className={`flex items-center gap-1.5 px-3 py-2.5 rounded-lg transition-all cursor-pointer ${
                     deviceMode === 'mobile' ? 'bg-indigo-600 text-white font-bold shadow' : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -155,14 +162,14 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                 <div className="flex items-center gap-1">
                   <button
                     onClick={handlePrev}
-                    className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-colors cursor-pointer"
+                    className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-colors cursor-pointer"
                     aria-label="Previous Showcase"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
                   <button
                     onClick={handleNext}
-                    className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-colors cursor-pointer"
+                    className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-colors cursor-pointer"
                     aria-label="Next Showcase"
                   >
                     <ChevronRight className="w-4 h-4" />
@@ -202,13 +209,13 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                         href={activeProject.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-0.5 rounded-md bg-indigo-950/80 hover:bg-indigo-900/90 border border-indigo-500/40 text-[10px] font-mono text-indigo-300 hover:text-white truncate max-w-[220px] transition-colors flex items-center gap-1"
+                        className="px-3 py-0.5 rounded-md bg-indigo-950/80 hover:bg-indigo-900/90 border border-indigo-500/40 text-xs font-mono text-indigo-300 hover:text-white truncate max-w-[220px] transition-colors flex items-center gap-1"
                       >
                         <span className="truncate">{activeProject.liveUrl}</span>
                         <ExternalLink className="w-2.5 h-2.5 shrink-0 text-emerald-400" />
                       </a>
                     ) : (
-                      <div className="px-3 py-0.5 rounded-md bg-slate-950 border border-slate-800/80 text-[10px] font-mono text-slate-400 truncate max-w-[180px]">
+                      <div className="px-3 py-0.5 rounded-md bg-slate-950 border border-slate-800/80 text-xs font-mono text-slate-400 truncate max-w-[180px]">
                         Live Preview
                       </div>
                     )}
@@ -228,7 +235,7 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
 
                     {/* Top Right Score Badge Overlay */}
-                    <div className="absolute top-3 right-3 bg-slate-950/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-emerald-500/30 text-emerald-400 text-[11px] font-mono flex items-center gap-1.5 shadow-lg">
+                    <div className="absolute top-3 right-3 bg-slate-950/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-emerald-500/30 text-emerald-400 text-xs font-mono flex items-center gap-1.5 shadow-lg">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                       <span>Fast, SEO-aware build</span>
                     </div>
@@ -236,17 +243,17 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                     {/* Bottom Info Overlay inside Device */}
                     <div className="absolute bottom-4 left-4 right-4 p-3 sm:p-4 rounded-xl bg-slate-950/85 backdrop-blur-md border border-slate-800/80 space-y-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-indigo-400">
+                        <span className="text-xs font-mono uppercase tracking-wider text-indigo-400">
                           {activeProject.category} • {activeProject.client}
                         </span>
-                        <span className="text-[10px] font-mono text-slate-400">{activeProject.year}</span>
+                        <span className="text-xs font-mono text-slate-400">{activeProject.year}</span>
                       </div>
 
                       <h4 className="font-space font-bold text-sm sm:text-base text-white truncate">
                         {activeProject.title}
                       </h4>
 
-                      <p className="text-[11px] text-slate-300 line-clamp-1">
+                      <p className="text-xs text-slate-300 line-clamp-1">
                         {activeProject.subtitle}
                       </p>
                     </div>
@@ -261,7 +268,7 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
               <div className="flex flex-wrap items-center gap-3">
                 {activeProject.metrics.map((m, idx) => (
                   <div key={idx} className="px-3 py-1.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs">
-                    <span className="text-slate-400 font-mono text-[10px]">{m.label}: </span>
+                    <span className="text-slate-400 font-mono text-xs">{m.label}: </span>
                     <span className="font-space font-bold text-emerald-400">{m.value}</span>
                   </div>
                 ))}
@@ -298,16 +305,17 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <h3 className="font-syne font-bold text-lg text-white">Project Blueprint</h3>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">
+                <span className="text-xs font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">
                   {activeProject.id}
                 </span>
               </div>
 
               {/* Sub-tab pills */}
-              <div className="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 text-[11px] font-mono">
+              <div className="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-mono">
                 <button
                   onClick={() => setActiveTab('overview')}
-                  className={`py-1.5 rounded-lg text-center transition-all cursor-pointer ${
+                  aria-pressed={activeTab === 'overview'}
+                  className={`py-2 rounded-lg text-center transition-all cursor-pointer ${
                     activeTab === 'overview' ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -315,7 +323,8 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                 </button>
                 <button
                   onClick={() => setActiveTab('vitals')}
-                  className={`py-1.5 rounded-lg text-center transition-all cursor-pointer ${
+                  aria-pressed={activeTab === 'vitals'}
+                  className={`py-2 rounded-lg text-center transition-all cursor-pointer ${
                     activeTab === 'vitals' ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -323,7 +332,8 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                 </button>
                 <button
                   onClick={() => setActiveTab('architecture')}
-                  className={`py-1.5 rounded-lg text-center transition-all cursor-pointer ${
+                  aria-pressed={activeTab === 'architecture'}
+                  className={`py-2 rounded-lg text-center transition-all cursor-pointer ${
                     activeTab === 'architecture' ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -422,7 +432,7 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
 
             {/* Quick List Selection Thumbnails */}
             <div className="space-y-3 pt-4 border-t border-slate-800">
-              <div className="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+              <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">
                 Select Masterpiece:
               </div>
 
@@ -447,7 +457,7 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                         />
                         <div className="truncate">
                           <div className="font-space font-bold text-xs truncate text-white">{proj.title}</div>
-                          <div className="text-[10px] text-slate-400 truncate">{proj.category}</div>
+                          <div className="text-xs text-slate-400 truncate">{proj.category}</div>
                         </div>
                       </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationPage } from '../types';
 import { Code, Sparkles, Menu, X, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
@@ -25,6 +25,24 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <header className="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 bg-[#0b0f17]/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
@@ -32,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
         {/* Brand Logo */}
         <button 
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-3 group text-left cursor-pointer focus:outline-none"
+          className="flex items-center gap-3 group text-left cursor-pointer rounded-xl"
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 p-[1px] shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
             <div className="w-full h-full bg-[#0d1322] rounded-[11px] flex items-center justify-center">
@@ -55,6 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
+                aria-current={isActive ? 'page' : undefined}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
                   isActive
                     ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-500/25'
@@ -94,7 +113,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
-            aria-label="Toggle Navigation Menu"
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -103,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#0d1322] border-b border-slate-800 px-4 py-6 space-y-4 animate-in slide-in-from-top duration-200">
+        <div id="mobile-menu" className="md:hidden bg-[#0d1322] border-b border-slate-800 px-4 py-6 space-y-4 animate-in slide-in-from-top duration-200">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span>Status: Available for New Projects</span>
@@ -113,6 +134,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate, onOpenB
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
+                aria-current={currentPage === item.id ? 'page' : undefined}
                 className={`w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                   currentPage === item.id
                     ? 'bg-indigo-600 text-white font-semibold'
