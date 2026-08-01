@@ -37,7 +37,7 @@ nexify-webworks/
 
 ## Configuration: `.opencode-reviewer.yml`
 
-- **Project conventions**: React 19, TypeScript strict, Vite 6, Tailwind v4, `@/*` path alias
+- **Project conventions**: React 19, TypeScript strict, Vite 6, Tailwind v4, `@/*` path alias maps to `./*` (project root)
 - **Allowed commands**: `npm run build`, `npm run lint` (tsc --noEmit)
 - **Audit targets**: `src/` directory
 - **Autofix**: enabled, creates PRs (not direct pushes)
