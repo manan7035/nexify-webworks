@@ -1,0 +1,70 @@
+# ─── AI Autofix Workflow ───
+# Triggers when an issue is labeled 'ai-audit-fix'.
+# AI creates a branch, applies fixes, runs checks, and opens a PR.
+# Uses the reusable workflow from nilesh32236/opencode-ai-reviewer@v1.
+
+name: AI Autofix
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: ai-autofix-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  autofix:
+    if: github.event.label.name == 'ai-audit-fix'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: AI Fix
+        id: ai-fix
+        uses: nilesh32236/opencode-ai-reviewer@v1
+        with:
+          mode: fix
+          model: 'opencode/deepseek-v4-flash-free'
+          max_fix_iterations: 3
+          run_checks_after_fix: 'npm run build && npm run lint'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Fix PR
+        if: steps.ai-fix.outputs.changes_made == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          BRANCH="ai-autofix/${ISSUE_NUMBER}-$(echo "${ISSUE_TITLE}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | head -c 40)"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "fix: auto-fix for issue #${ISSUE_NUMBER} - ${ISSUE_TITLE}"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "🤖 Auto-fix for #${ISSUE_NUMBER}: ${ISSUE_TITLE}" \
+            --body "This PR was automatically generated to fix issue #${ISSUE_NUMBER}.\n\n**Changes:** Applied by OpenCode AI Reviewer.\n**Checks:** \`npm run build\` and \`npm run lint\` passed.\n\nPlease review carefully before merging." \
+            --label "autofix" \
+            --base main \
+            --head "$BRANCH"
