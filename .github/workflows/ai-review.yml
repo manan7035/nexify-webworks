@@ -7,8 +7,6 @@ name: AI PR Review
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-  issue_comment:
-    types: [created]
 
 permissions:
   contents: read
@@ -21,13 +19,8 @@ concurrency:
 
 jobs:
   review:
-    # Skip bot PRs, trigger on /review comment
-    if: |
-      github.actor != 'github-actions[bot]' &&
-      (
-        github.event_name == 'pull_request' ||
-        contains(github.event.comment.body || '', '/review')
-      )
+    # Skip bot PRs
+    if: github.actor != 'github-actions[bot]'
     uses: nilesh32236/opencode-ai-reviewer/.github/workflows/review.yml@v1
     with:
       model: 'opencode/deepseek-v4-flash-free'

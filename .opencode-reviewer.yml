@@ -39,7 +39,7 @@ fix:
     - node
 
 audit:
-  promptsDir: ".opencode/prompts"
+  promptsDir: ".opencode/prompts/audit"
   categories:
     - "code-quality-conventions"
     - "security-privacy"

@@ -49,36 +49,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Create Fix PR
-        if: steps.ai-fix.outputs.changes_made == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
-        run: |
-          # Fetch issue title safely via gh API (avoids shell injection from ${{ }} interpolation)
-          ISSUE_TITLE=$(gh api repos/${{ github.repository }}/issues/${ISSUE_NUMBER} --jq '.title')
-          # Safe branch slug: lowercase, strip to [a-z0-9-] only, truncate to 40 chars
-          BRANCH_SLUG=$(echo "${ISSUE_TITLE}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//' | head -c 40)
-          BRANCH="ai-autofix/${ISSUE_NUMBER}-${BRANCH_SLUG}"
-          git checkout -b "$BRANCH"
-          git add -A
-          git commit -m "fix: auto-fix for issue #${ISSUE_NUMBER} - ${ISSUE_TITLE}"
-          git push origin "$BRANCH"
-          # Use --body-file to avoid \n literal rendering and shell quoting issues
-          BODY_FILE=$(mktemp)
-          cat > "$BODY_FILE" <<EOF
-          This PR was automatically generated to fix issue #${ISSUE_NUMBER}.
-
-          **Changes:** Applied by OpenCode AI Reviewer.
-          **Checks:** \`npm run build\` and \`npm run lint\` passed.
-
-          Please review carefully before merging.
-          EOF
-          gh pr create \
-            --title "Auto-fix for #${ISSUE_NUMBER}: ${ISSUE_TITLE}" \
-            --body-file "$BODY_FILE" \
-            --label "autofix" \
-            --base ${{ github.event.repository.default_branch }} \
-            --head "$BRANCH"
-          rm -f "$BODY_FILE"
+        # Note: The upstream action handles branch creation, commit, push, and PR creation
+        # automatically. No additional steps are needed.
