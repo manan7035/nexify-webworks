@@ -1,0 +1,42 @@
+# ─── AI Codebase Audit Workflow ───
+# Runs full codebase audit weekly (Monday 00:00 UTC) and on manual dispatch.
+# Creates GitHub Issues for findings.
+# Uses the reusable workflow from nilesh32236/opencode-ai-reviewer@v1.
+
+name: AI Codebase Audit
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Every Monday at 00:00 UTC
+  workflow_dispatch:
+    inputs:
+      audit_category:
+        description: 'Specific audit category (omit for random)'
+        required: false
+        type: string
+        default: ''
+      target_dir:
+        description: 'Specific directory to audit (omit for src)'
+        required: false
+        type: string
+        default: 'src'
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: ai-audit-${{ github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    uses: nilesh32236/opencode-ai-reviewer/.github/workflows/audit.yml@v1
+    with:
+      model: 'opencode/deepseek-v4-flash-free'
+      prompt_name: ${{ github.event.inputs.audit_category || '' }}
+      target_dir: ${{ github.event.inputs.target_dir || 'src' }}
+      create_issues: true
+      auto_fix: false
+    secrets: inherit

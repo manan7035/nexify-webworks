@@ -1,0 +1,53 @@
+# ─── AI Autofix Workflow ───
+# Triggers when an issue is labeled 'ai-audit-fix'.
+# AI creates a branch, applies fixes, runs checks, and opens a PR.
+# Uses the composite action nilesh32236/opencode-ai-reviewer@v1 directly.
+
+name: AI Autofix
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: ai-autofix-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  autofix:
+    if: github.event.label.name == 'ai-audit-fix'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: AI Fix
+        id: ai-fix
+        uses: nilesh32236/opencode-ai-reviewer@v1
+        with:
+          mode: fix
+          model: 'opencode/deepseek-v4-flash-free'
+          max_fix_iterations: 3
+          run_checks_after_fix: 'npm run build && npm run lint'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Note: The upstream action handles branch creation, commit, push, and PR creation
+        # automatically. No additional steps are needed.

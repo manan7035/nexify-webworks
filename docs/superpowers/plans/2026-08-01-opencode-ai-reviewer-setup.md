@@ -11,7 +11,7 @@
 ## Global Constraints
 
 - Model: `opencode/deepseek-v4-flash-free` (no API keys needed)
-- Project: React 19 + TypeScript + Vite 6 + Tailwind v4, path alias `@/* -> ./*`
+- Project: React 19 + TypeScript + Vite 6 + Tailwind v4, path alias `@/* -> ./*` (project root)
 - Build command: `npm run build` (vite build)
 - Lint command: `npm run lint` (tsc --noEmit)
 - No test framework exists — skip test-related checks
@@ -46,7 +46,7 @@ project:
     - "React 19 functional components with hooks — no class components."
     - "Follow React hooks rules — only call hooks at the top level, not in loops/conditions."
     - "Use Tailwind CSS v4 utility classes — no deprecated v3 syntax."
-    - "Path alias '@/*' maps to './src/*' — use it for internal imports."
+    - "Path alias '@/*' maps to './*' (project root) — use it for internal imports (e.g., '@/src/components/Foo')."
     - "Component files use PascalCase, utility files use camelCase."
     - "Keep components focused — split large components into smaller ones."
     - "Use TypeScript interfaces for props and data types (defined in src/types.ts)."
@@ -261,7 +261,7 @@ You are auditing the Nexify Webworks codebase for code quality and adherence to 
 ## Project Context
 
 - React 19 + TypeScript + Vite 6 + Tailwind CSS v4
-- Path alias: `@/*` -> `./src/*`
+- Path alias: `@/*` -> `./*` (project root)
 - No test framework — focus on type safety and runtime correctness
 - Marketing/portfolio site — code quality directly impacts SEO and performance
 
@@ -867,7 +867,7 @@ You are an AI assistant tasked with automatically fixing code quality issues in 
 ## Project Context
 
 - React 19 + TypeScript + Vite 6 + Tailwind CSS v4
-- Path alias: `@/*` -> `./src/*`
+- Path alias: `@/*` -> `./*` (project root)
 - Build: `npm run build`, Lint: `npm run lint` (tsc --noEmit)
 - No test framework — rely on build and type checks for verification
 ```

@@ -1,0 +1,30 @@
+# ─── AI PR Review Workflow ───
+# Triggers AI code review on every pull request.
+# Uses the reusable workflow from nilesh32236/opencode-ai-reviewer@v1.
+
+name: AI PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: ai-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # Skip bot PRs
+    if: github.actor != 'github-actions[bot]'
+    uses: nilesh32236/opencode-ai-reviewer/.github/workflows/review.yml@v1
+    with:
+      model: 'opencode/deepseek-v4-flash-free'
+      max_files_per_batch: 3
+      include_strengths: true
+      project_context: 'React 19 + TypeScript + Vite 6 + Tailwind CSS v4. Marketing/portfolio site. No test framework.'
+    secrets: inherit
