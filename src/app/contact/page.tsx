@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
+import { ContactView } from "@/components/ContactView";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: { absolute: "Contact — Nexify Webworks" },
+  description:
+    "Contact Nexify Webworks — Rajkot, India freelance React & WordPress developer. Send your project goals and get a personal response within 4 business hours.",
+  openGraph: {
+    title: "Contact — Nexify Webworks",
+    description:
+      "Send your project goals to Nexify Webworks, a Rajkot, India freelance web developer. Response SLA under 4 hours.",
+    type: "website",
+    url: "/contact",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact — Nexify Webworks",
+    description:
+      "Send your project goals to Nexify Webworks, a Rajkot, India freelance web developer. Response SLA under 4 hours.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function ContactPage() {
-  return (
-    <section className="flex flex-1 flex-col items-center justify-center gap-3 py-24 text-center">
-      <h1 className="text-4xl font-bold text-indigo-500">Contact</h1>
-      <p className="max-w-md text-slate-300">
-        Placeholder page — the Contact view (with the terminal form) migrates in
-        Phase 4.
-      </p>
-    </section>
-  );
+  return <ContactView />;
 }
