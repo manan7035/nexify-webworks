@@ -21,6 +21,63 @@ This project is a static Vite website built with React and Tailwind CSS.
    `npm run build`
 2. Deploy the generated `dist/` folder to any static hosting provider.
 
+## Next.js App
+
+The repository also contains a Next.js app (App Router under `src/app/`) that is being migrated in phases. Run it with:
+
+- `npm run dev:next` — start the Next.js dev server on port 3001.
+- `npm run build:next` — build the Next.js app.
+- `npm run lint:next` — lint/type-check the Next.js app.
+
+## Environment Variables
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `GEMINI_API_KEY` | Yes (for `/api/gemini`) | Server-side Google AI Studio API key. Read only inside the Next.js API route and never exposed to the browser. |
+| `GEMINI_MODEL` | No | Gemini model used by the contact form endpoint. Defaults to `gemini-2.5-flash`. |
+| `APP_URL` | No | Public URL of the deployed app, used for metadata. |
+
+Copy `.env.example` to `.env.local` and fill in the values before running the Next.js app.
+
+## API Routes
+
+### `POST /api/gemini`
+
+Generates a Gemini reply for the contact form. Requires `GEMINI_API_KEY` to be set on the server.
+
+Request body:
+
+```json
+{
+  "name": "Marcus Thorne",
+  "email": "m.thorne@company.com",
+  "message": "I need a marketing site built in React.",
+  "scopes": ["Website Development using React"]
+}
+```
+
+- `name` (optional, max 100 chars)
+- `email` (optional, must be a valid email, max 254 chars)
+- `message` (required, 1–2000 chars)
+- `scopes` (optional, array of up to 10 strings, max 100 chars each)
+
+Success response (`200`):
+
+```json
+{
+  "success": true,
+  "reply": "Thanks for reaching out, Marcus! ..."
+}
+```
+
+Error responses:
+
+- `400` — invalid JSON or failed validation (includes per-field `details`).
+- `429` — rate limited. The endpoint allows **10 requests per minute per IP**; a `Retry-After` header indicates when to retry.
+- `500` — missing `GEMINI_API_KEY` or the upstream Gemini call failed. Responses never leak the API key or internal details.
+
+The route lives in `src/app/api/gemini/route.ts` and is rate limited per IP with an in-memory sliding window.
+
 ## AI Code Review
 
 This repo is wired to the [OpenCode AI Reviewer](https://github.com/nilesh32236/opencode-ai-reviewer) setup for automated, AI-powered code review:

@@ -18,6 +18,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
     message: ''
   });
   const [status, setStatus] = useState<'idle' | 'executing' | 'success'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
 
   const availableScopes = [
@@ -39,8 +40,9 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
     setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
 
     const nextErrors: { name?: string; email?: string; message?: string } = {};
     if (!formData.name.trim()) {
@@ -59,9 +61,34 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
     if (Object.keys(nextErrors).length > 0) return;
 
     setStatus('executing');
-    setTimeout(() => {
+
+    try {
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          scopes: selectedScopes
+        })
+      });
+
+      if (!response.ok) {
+        let message = 'Transmission failed. Please try again later.';
+        if (response.status === 429) {
+          message = 'Too many transmissions. Please wait a moment and try again.';
+        }
+        setErrorMessage(message);
+        setStatus('idle');
+        return;
+      }
+
       setStatus('success');
-    }, 1200);
+    } catch {
+      setErrorMessage('Transmission failed. Please check your connection and try again.');
+      setStatus('idle');
+    }
   };
 
   return (
@@ -110,7 +137,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                     Your inquiry has been securely received. I will respond personally within 4 business hours.
                   </p>
                   <button
-                    onClick={() => setStatus('idle')}
+                    onClick={() => { setStatus('idle'); setErrorMessage(null); }}
                     className="mt-4 px-6 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 hover:text-white transition-colors"
                   >
                     Send Another Transmission
@@ -234,6 +261,12 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                       </>
                     )}
                   </button>
+
+                  {errorMessage && (
+                    <p role="alert" className="text-xs text-rose-400 text-center mt-3">
+                      {errorMessage}
+                    </p>
+                  )}
 
                 </form>
               )}
