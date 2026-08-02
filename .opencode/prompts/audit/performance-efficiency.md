@@ -4,8 +4,8 @@ You are auditing the Nexify Webworks codebase for performance and efficiency.
 
 ## Project Context
 
-- React 19 SPA — initial bundle size matters for SEO and user experience
-- Vite 6 build tool with code splitting support
+- Next.js 16 App Router — initial bundle size matters for SEO and user experience
+- Server components by default; `"use client"` only for interactive components
 - Uses Motion for animations — can impact performance if misused
 - Marketing site — Core Web Vitals (LCP, FID, CLS) are critical
 
@@ -13,9 +13,10 @@ You are auditing the Nexify Webworks codebase for performance and efficiency.
 
 ### Bundle Size
 - No unnecessary large imports
-- Code splitting used for routes/views (`React.lazy` + `Suspense`)
+- Server/client boundary respected — client bundles only include interactive components (`"use client"`)
+- Dynamic imports / Next.js `dynamic()` used for large lazy-loaded components
 - Tree-shaking effective (no unused exports)
-- Images optimized (WebP/AVIF, proper sizing)
+- Images optimized (WebP/AVIF, proper sizing via `next/image`)
 
 ### React Performance
 - Unnecessary re-renders identified (missing `React.memo`, `useMemo`, `useCallback`)
@@ -30,10 +31,9 @@ You are auditing the Nexify Webworks codebase for performance and efficiency.
 - No animation-induced layout shifts (CLS)
 
 ### Asset Loading
-- Images use lazy loading (`loading="lazy"`)
-- Critical CSS inlined
-- Fonts use `font-display: swap`
-- No render-blocking resources
+- Images use `next/image` with lazy loading (default) and `priority` on LCP images
+- No render-blocking resources in `<head>`
+- Fonts loaded without render-blocking stylesheets
 
 ### Network Efficiency
 - API calls batched where possible

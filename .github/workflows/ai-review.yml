@@ -84,7 +84,7 @@ jobs:
           model: 'opencode/deepseek-v4-flash-free'
           max_files_per_batch: 3
           include_strengths: true
-          project_context: 'React 19 + TypeScript + Vite 6 + Tailwind CSS v4. Marketing/portfolio site.'
+          project_context: 'Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 (App Router). Marketing/portfolio site.'
           github_token: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}

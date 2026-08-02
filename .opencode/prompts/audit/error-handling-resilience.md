@@ -4,8 +4,8 @@ You are auditing the Nexify Webworks codebase for error handling quality and res
 
 ## Project Context
 
-- React 19 SPA with async operations (Gemini AI API calls)
-- No backend — all error handling is client-side
+- Next.js 16 App Router with server-side async operations (Gemini AI API route at `src/app/api/gemini/route.ts`)
+- API routes handle errors server-side; client components handle fetch/UI errors
 - Marketing site — errors should degrade gracefully, not crash the UI
 
 ## What to Check
@@ -13,7 +13,7 @@ You are auditing the Nexify Webworks codebase for error handling quality and res
 ### Error Boundaries
 - Error boundaries present for component trees
 - Fallback UI provided for error states (not blank screens)
-- Error boundaries at route/view level (`src/views/`)
+- Error boundaries at route level where appropriate
 
 ### Async Error Handling
 - All `async/await` calls wrapped in try/catch

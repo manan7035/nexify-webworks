@@ -4,7 +4,7 @@ You are auditing the Nexify Webworks codebase for code quality and adherence to 
 
 ## Project Context
 
-- React 19 + TypeScript + Vite 6 + Tailwind CSS v4
+- Next.js 16 App Router + React 19 + TypeScript + Tailwind CSS v4
 - Path alias: `@/*` -> `./*` (project root)
 - No test framework — focus on type safety and runtime correctness
 - Marketing/portfolio site — code quality directly impacts SEO and performance

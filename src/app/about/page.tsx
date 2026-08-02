@@ -5,6 +5,16 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "Meet Nexify Webworks — a Rajkot, India freelance web developer with 3+ years of experience building fast, conversion-focused React, WordPress, and Figma websites for clients in India and worldwide.",
+  keywords: [
+    "about Nexify Webworks",
+    "freelance web developer Rajkot",
+    "React developer",
+    "WordPress developer",
+    "web development methodology",
+  ],
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
     title: "About | Nexify Webworks",
     description:

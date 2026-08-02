@@ -16,10 +16,10 @@ on:
         type: string
         default: ''
       target_dir:
-        description: 'Specific directory to audit (omit for src)'
+        description: 'Specific directory to audit (omit for src/app)'
         required: false
         type: string
-        default: 'src'
+        default: 'src/app'
 
 permissions:
   contents: read
@@ -36,7 +36,7 @@ jobs:
     with:
       model: 'opencode/deepseek-v4-flash-free'
       prompt_name: ${{ github.event.inputs.audit_category || '' }}
-      target_dir: ${{ github.event.inputs.target_dir || 'src' }}
+      target_dir: ${{ github.event.inputs.target_dir || 'src/app' }}
       create_issues: true
       auto_fix: false
     secrets:

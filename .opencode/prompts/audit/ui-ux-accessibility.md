@@ -43,7 +43,7 @@ You are auditing the Nexify Webworks codebase for UI/UX quality and accessibilit
 
 ### SEO & Content
 - Proper heading hierarchy (`h1` -> `h2` -> `h3`)
-- Meta tags present and accurate (title, description, OG, Twitter)
+- Page metadata via the Next.js Metadata API (unique title, description, OG, Twitter, canonical)
 - Schema.org JSON-LD structured data correct
 - Internal links use descriptive anchor text
 - Content readable and scannable

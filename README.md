@@ -4,30 +4,47 @@
 
 # Nexify Webworks Website
 
-This project is a static Vite website built with React and Tailwind CSS.
+This project is a marketing/portfolio website built with **Next.js (App Router)**, React 19, TypeScript, and Tailwind CSS v4.
 
 ## Run Locally
 
-**Prerequisites:** Node.js
+**Prerequisites:** Node.js 20+
 
 1. Install dependencies:
    `npm install`
-2. Start development server:
+2. Copy `.env.example` to `.env.local` and fill in the values:
+   `cp .env.example .env.local`
+3. Start the development server:
    `npm run dev`
+4. Open http://localhost:3000
 
 ## Build for Production
 
-1. Build the static website:
+1. Build the Next.js app:
    `npm run build`
-2. Deploy the generated `dist/` folder to any static hosting provider.
+2. Start the production server:
+   `npm run start`
 
-## Next.js App
+## Scripts
 
-The repository also contains a Next.js app (App Router under `src/app/`) that is being migrated in phases. Run it with:
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start the Next.js dev server on port 3000 |
+| `npm run build` | Build the Next.js app for production |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint over app, components, and config files |
+| `npm run typecheck` | Type-check the project with `tsc --noEmit` |
+| `npm run clean` | Remove the `.next/` build directory |
 
-- `npm run dev:next` — start the Next.js dev server on port 3001.
-- `npm run build:next` — build the Next.js app.
-- `npm run lint:next` — lint/type-check the Next.js app.
+## SEO & Metadata
+
+The site ships with full SEO support out of the box:
+
+- **Metadata** — every page exports unique `title`, `description`, Open Graph, Twitter Card, keywords, and canonical URL. The root layout defines site-wide defaults and a `%s — Nexify Webworks` title template.
+- **Sitemap** — `/sitemap.xml` is generated from `src/app/sitemap.ts` and lists all public pages.
+- **Robots** — `/robots.txt` is generated from `src/app/robots.ts` (allows crawlers, disallows `/api/`, `/modal-demo`, `/_next/`) and references the sitemap.
+- **Schema.org JSON-LD** — Organization/ProfessionalService and WebSite structured data is injected from the root layout.
+- **Images** — all images use `next/image` with explicit `width`/`height` and lazy loading; remote images from `images.unsplash.com` are allowlisted in `next.config.ts`.
 
 ## Environment Variables
 
@@ -35,9 +52,7 @@ The repository also contains a Next.js app (App Router under `src/app/`) that is
 | --- | --- | --- |
 | `GEMINI_API_KEY` | Yes (for `/api/gemini`) | Server-side Google AI Studio API key. Read only inside the Next.js API route and never exposed to the browser. |
 | `GEMINI_MODEL` | No | Gemini model used by the contact form endpoint. Defaults to `gemini-2.5-flash`. |
-| `APP_URL` | No | Public URL of the deployed app, used for metadata. |
-
-Copy `.env.example` to `.env.local` and fill in the values before running the Next.js app.
+| `APP_URL` | No | Public URL of the deployed app, used for canonical URLs, sitemap, robots, and Open Graph metadata. Defaults to `https://nexifywebworks.com`. |
 
 ## API Routes
 
@@ -83,7 +98,7 @@ The route lives in `src/app/api/gemini/route.ts` and is rate limited per IP with
 This repo is wired to the [OpenCode AI Reviewer](https://github.com/nilesh32236/opencode-ai-reviewer) setup for automated, AI-powered code review:
 
 - **PR review** — every pull request is reviewed by the AI reviewer (`.opencode-reviewer.yml` config + `.github/workflows/ai-review.yml`).
-- **Weekly audit** — a full codebase audit runs every Monday (`.github/workflows/ai-audit.yml`) targeting `src/` and opens GitHub Issues for findings.
+- **Weekly audit** — a full codebase audit runs every Monday (`.github/workflows/ai-audit.yml`) targeting `src/app/` and opens GitHub Issues for findings.
 - **Autofix** — label an issue `ai-audit-fix` to have the AI create a branch, apply fixes, and open a PR (`.github/workflows/ai-autofix.yml`). The upstream action handles PR creation automatically.
 - **Review prompts** — category-specific audit prompts live in `.opencode/prompts/audit/`.
 

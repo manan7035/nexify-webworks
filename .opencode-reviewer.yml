@@ -1,35 +1,43 @@
 # OpenCode AI Reviewer Config — Nexify Webworks
-# Project: React 19 + TypeScript + Vite 6 + Tailwind v4
+# Project: Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4
 
 project:
   name: "Nexify Webworks"
-  description: "A marketing/portfolio website for a freelance web development agency built with React 19, TypeScript, Vite 6, and Tailwind CSS v4."
+  description: "A marketing/portfolio website for a freelance web development agency built with Next.js 16 (App Router), React 19, TypeScript, and Tailwind CSS v4."
   conventions:
     - "Use strict TypeScript — avoid 'any', prefer strong type definitions and interfaces."
     - "React 19 functional components with hooks — no class components."
     - "Follow React hooks rules — only call hooks at the top level, not in loops/conditions."
+    - "Use the Next.js App Router — pages live in src/app/, server data in route handlers under src/app/api/, reusable components in components/."
+    - "Mark client-side components with 'use client' only when they need interactivity — keep server components by default."
+    - "Use the Next.js Metadata API (export const metadata or generateMetadata) for SEO — never hand-write <meta> tags."
+    - "Use next/image for all images with explicit width/height — never raw <img> tags."
     - "Use Tailwind CSS v4 utility classes — no deprecated v3 syntax."
-    - "Path alias '@/*' maps to './*' (project root) — use it for internal imports (e.g., '@/src/components/Foo')."
+    - "Path alias '@/*' maps to './*' (project root) — use it for internal imports (e.g., '@/components/Foo')."
     - "Component files use PascalCase, utility files use camelCase."
     - "Keep components focused — split large components into smaller ones."
     - "Use TypeScript interfaces for props and data types (defined in src/types.ts)."
   commandReference:
-    "npm run build": "Build the project with Vite (outputs to dist/)"
-    "npm run lint": "Run TypeScript type checking (tsc --noEmit)"
-    "npm run dev": "Start Vite dev server on port 3000"
-    "npm run clean": "Remove dist/ build directory"
+    "npm run dev": "Start the Next.js dev server on port 3000"
+    "npm run build": "Build the Next.js app for production (outputs to .next/)"
+    "npm run start": "Start the Next.js production server"
+    "npm run lint": "Run ESLint over src/app, components, and config files"
+    "npm run typecheck": "Type-check the project with tsc --noEmit"
+    "npm run clean": "Remove the .next/ build directory"
 
 review:
   enableReachability: true
   skipLabels:
     - "skip-review"
   customRules:
-    - "Verify that environment variables are accessed via import.meta.env (Vite convention), not process.env."
+    - "Verify environment variables are read server-side via process.env (never exposed to the browser); client bundles may only use NEXT_PUBLIC_* vars."
+    - "Check that page metadata uses the Metadata API (title template, description, canonical via alternates.canonical) — no duplicate/missing titles."
+    - "Verify all images use next/image with width/height and that remote domains are allowlisted in next.config.ts."
     - "Check that Tailwind classes use v4 syntax — no @tailwind directives in JS/TSX files."
     - "Review component props for proper TypeScript typing — no implicit any."
     - "Verify error boundaries or fallback UI for async data loading states."
-    - "Check that images and assets use proper import or public path conventions."
-    - "Review for accessibility — semantic HTML, ARIA attributes, keyboard navigation."
+    - "Review for accessibility — semantic HTML, ARIA attributes, keyboard navigation, image alt text."
+    - "Ensure client components are correctly marked with 'use client' and don't accidentally serialize server-only modules."
 
 fix:
   maxIterations: 3
@@ -48,7 +56,7 @@ audit:
     - "performance-efficiency"
     - "ui-ux-accessibility"
   targetDirs:
-    - "src"
+    - "src/app"
   createIssues: true
   autoFix: false
 
