@@ -1,13 +1,27 @@
-import { SITE_NAME } from "@/src/app/constants";
+import type { Metadata } from "next";
+import { HomeView } from "@/components/HomeView";
 
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-2">
-      <h1 className="text-4xl font-bold text-indigo-500">{SITE_NAME}</h1>
-      <p className="text-slate-300">
-        Next.js (App Router) placeholder — Phase 1 of the Vite → Next.js
-        migration.
-      </p>
-    </main>
-  );
+export const metadata: Metadata = {
+  title: "Home | Nexify Webworks",
+  description:
+    "Nexify Webworks builds high-converting React websites, custom WordPress themes, and polished Figma UI/UX designs for growing brands — fast, SEO-friendly, and crafted by a Rajkot, India freelance web developer.",
+  openGraph: {
+    title: "Home | Nexify Webworks",
+    description:
+      "High-converting React websites, WordPress themes, and Figma UI/UX design from a Rajkot, India freelance web developer.",
+    type: "website",
+    url: "/",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Home | Nexify Webworks",
+    description:
+      "High-converting React websites, WordPress themes, and Figma UI/UX design from a Rajkot, India freelance web developer.",
+    images: ["/og-image.png"],
+  },
+};
+
+export default function HomePage() {
+  return <HomeView />;
 }
