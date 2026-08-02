@@ -1,16 +1,27 @@
 import type { Metadata } from "next";
+import { PortfolioView } from "@/components/PortfolioView";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: { absolute: "Portfolio — Nexify Webworks" },
+  description:
+    "Explore the Nexify Webworks portfolio — custom WordPress themes, animated React applications, and high-performance Web3 platforms engineered for growing brands.",
+  openGraph: {
+    title: "Portfolio — Nexify Webworks",
+    description:
+      "Custom WordPress themes, animated React applications, and high-performance Web3 platforms engineered by Nexify Webworks.",
+    type: "website",
+    url: "/portfolio",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portfolio — Nexify Webworks",
+    description:
+      "Custom WordPress themes, animated React applications, and high-performance Web3 platforms engineered by Nexify Webworks.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function PortfolioPage() {
-  return (
-    <section className="flex flex-1 flex-col items-center justify-center gap-3 py-24 text-center">
-      <h1 className="text-4xl font-bold text-indigo-500">Portfolio</h1>
-      <p className="max-w-md text-slate-300">
-        Placeholder page — the Portfolio view migrates in Phase 3.
-      </p>
-    </section>
-  );
+  return <PortfolioView />;
 }
