@@ -8,6 +8,8 @@ import darshakImg from '../assets/images/darshak.jpg';
 import maulikImg from '../assets/images/maulik-interns.webp';
 import kishanImg from '../assets/images/kishan.jpeg';
 
+const toSrc = (img: unknown): string => img as string;
+
 export const SERVICES: Service[] = [
   {
     id: 'ui-ux',
@@ -45,10 +47,10 @@ export const PROJECTS: Project[] = [
     client: 'Convertly Tools Platform',
     year: '2024',
     liveUrl: 'https://www.convertlytools.in/',
-    image: convertlyImg,
+    image: toSrc(convertlyImg),
     secondaryImages: [
-      convertly1Img,
-      convertly2Img
+      toSrc(convertly1Img),
+      toSrc(convertly2Img)
     ],
     metrics: [
       { label: 'Conversion Tools', value: 'PNG, JPG, WebP' },
@@ -71,9 +73,9 @@ export const PROJECTS: Project[] = [
     client: 'Shree Industries',
     year: '2024',
     liveUrl: 'http://shreeindustries.ltd/',
-    image: shreeIndustriesImg,
+    image: toSrc(shreeIndustriesImg),
     secondaryImages: [
-      shreeIndustries1Img
+      toSrc(shreeIndustries1Img)
     ],
     metrics: [
       { label: 'Website Type', value: 'WordPress + Elementor' },
@@ -393,7 +395,7 @@ export const TESTIMONIALS: Testimonial[] = [
     author: 'Darshak Patel',
     role: 'Chief Executive Officer',
     company: 'Shree Industries',
-    avatar: darshakImg,
+    avatar: toSrc(darshakImg),
     rating: 5,
     metric: '+142% Sales Conversion'
   },
@@ -403,7 +405,7 @@ export const TESTIMONIALS: Testimonial[] = [
     author: 'Maulik',
     role: 'Head of Product',
     company: 'Novo Studio',
-    avatar: maulikImg,
+    avatar: toSrc(maulikImg),
     rating: 4,
     metric: ''
   },
@@ -413,7 +415,7 @@ export const TESTIMONIALS: Testimonial[] = [
     author: 'Kishan',
     role: 'Managing Director',
     company: 'Convertly Tools',
-    avatar: kishanImg,
+    avatar: toSrc(kishanImg),
     rating: 5,
     metric: ''
   }
