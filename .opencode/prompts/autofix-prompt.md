@@ -14,7 +14,10 @@ You are an AI assistant tasked with automatically fixing code quality issues in 
 - Missing `alt` attributes on images
 - Missing `aria-label` attributes
 - Missing key props in list items
-- Incorrect environment variable access (`process.env` -> `import.meta.env`)
+- Incorrect environment variable access (using `process.env` in a client component instead of a server component, or missing `NEXT_PUBLIC_` prefix for client-visible vars)
+- Raw `<img>` tags replaced with `next/image` (with explicit `width`/`height`)
+- Missing `"use client"` directive on interactive components
+- Missing page metadata (title/description/canonical) via the Next.js Metadata API
 - Missing error handling in async functions (add try/catch)
 - Missing loading/error states for async operations
 
@@ -60,7 +63,7 @@ You are an AI assistant tasked with automatically fixing code quality issues in 
 
 ## Project Context
 
-- React 19 + TypeScript + Vite 6 + Tailwind CSS v4
+- Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4
 - Path alias: `@/*` -> `./*` (project root)
-- Build: `npm run build`, Lint: `npm run lint` (tsc --noEmit)
+- Build: `npm run build` (next build), Lint: `npm run lint` (eslint)
 - No test framework — rely on build and type checks for verification

@@ -4,24 +4,24 @@ You are auditing the Nexify Webworks codebase for security vulnerabilities and p
 
 ## Project Context
 
-- React 19 SPA (client-side only, no backend)
-- Vite 6 build tool
-- Uses `@google/genai` for Gemini AI API calls
+- Next.js 16 App Router — server components and API route handlers under `src/app/`
+- Uses `@google/genai` for Gemini AI API calls (server-side only, in `src/app/api/gemini/route.ts`)
 - Marketing/portfolio site — handles contact form submissions
 
 ## What to Check
 
 ### XSS & Injection
-- No `dangerouslySetInnerHTML` without sanitization
+- No `dangerouslySetInnerHTML` without sanitization (exception: trusted static JSON-LD in layout)
 - User input properly escaped in JSX (React auto-escapes, but verify dynamic content)
 - No `eval()`, `new Function()`, or `setTimeout(string)` calls
 - URL parameters properly validated before use
 
 ### API Key & Secret Exposure
 - No hardcoded API keys in source code
-- Environment variables properly prefixed with `VITE_` for client-side access
+- Secrets (`GEMINI_API_KEY`) read only server-side via `process.env` in API routes — never in client components
+- Client-visible variables prefixed with `NEXT_PUBLIC_`
 - No secrets in `.env.example` (only placeholder names)
-- Gemini API key accessed via `import.meta.env.VITE_GEMINI_API_KEY` or server-side only
+- No `process.env` usage inside `"use client"` components (would be inlined into the client bundle)
 
 ### Data Privacy
 - Contact form data handled securely (no logging of PII)
