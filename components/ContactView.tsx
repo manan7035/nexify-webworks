@@ -17,12 +17,12 @@ export const ContactView: React.FC = () => {
       <section className="py-16 bg-[#0d1322] border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
-          <div className="text-center max-w-2xl mx-auto space-y-3">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
             <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider">INDIA WEB DEVELOPMENT STUDIO</div>
-            <h2 className="font-space text-3xl font-extrabold text-white">
+            <h2 className="font-space text-3xl sm:text-4xl font-extrabold text-white leading-tight">
               Remote Web Development from <span className="text-indigo-400">Rajkot, India</span>
             </h2>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
               A freelance developer based in Rajkot, India, delivering custom websites and digital products for clients across India and international markets.
             </p>
           </div>

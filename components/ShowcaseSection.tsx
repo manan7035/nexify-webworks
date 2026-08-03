@@ -192,9 +192,9 @@ export const ShowcaseSection: React.FC<ShowcaseSectionProps> = ({ onSelectProjec
                   transition={{ duration: 0.35, ease: 'easeOut' }}
                   className={`mx-auto bg-slate-950 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 relative flex flex-col ${
                     deviceMode === 'desktop'
-                      ? 'w-full max-w-2xl aspect-[16/10]'
+                      ? 'w-full max-w-2xl h-full md:aspect-[16/10]'
                       : deviceMode === 'tablet'
-                      ? 'w-[360px] sm:w-[420px] aspect-[4/3]'
+                      ? 'w-[360px] sm:w-[420px] md:aspect-[4/3] h-full'
                       : 'w-[220px] sm:w-[260px] aspect-[9/16]'
                   }`}
                 >

@@ -74,7 +74,7 @@ export const HomeView: React.FC = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
+            className="flex flex-wrap items-center justify-center gap-4 pt-1 md:pt-4"
           >
             <button
               onClick={() => {
@@ -82,7 +82,7 @@ export const HomeView: React.FC = () => {
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
                 else router.push('/contact');
               }}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Initiate Project Terminal</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -90,7 +90,7 @@ export const HomeView: React.FC = () => {
 
             <button
               onClick={() => router.push('/portfolio')}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-slate-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-auto px-8 py-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-slate-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Explore Case Studies</span>
             </button>
@@ -164,18 +164,18 @@ export const HomeView: React.FC = () => {
       <section id="capabilities-section" className="py-16 md:py-24 bg-[#070a10] border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-2">PRECISION SERVICES</div>
+            <div className="max-w-2xl space-y-3">
+              <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider">PRECISION SERVICES</div>
               <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.25]">
                 Core Service <span className="text-indigo-400">Offerings</span>
               </h2>
             </div>
-            <p className="text-slate-400 text-sm max-w-md">
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed md:max-w-md">
               Specialized in Figma UI/UX design, custom React web development, and fast WordPress theme builds for growing businesses.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SERVICES.map((srv, index) => (
               <motion.div
                 key={srv.id}
@@ -229,7 +229,7 @@ export const HomeView: React.FC = () => {
       {/* Client Impact / Testimonials — Responsive & Modern Animated */}
       <section className="py-16 md:py-24 bg-[#070a10] border-t border-slate-800/80 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
+          <div className="text-center max-w-2xl mx-auto space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-400 text-xs font-mono">
               <Sparkles className="w-3.5 h-3.5" />
               <span>TESTIMONIALS & REVIEWS</span>
@@ -237,7 +237,7 @@ export const HomeView: React.FC = () => {
             <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.25]">
               Trusted by <span className="text-indigo-400">Growth-Focused Brands</span>
             </h2>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
               See how freelance React, WordPress, and Figma work converts traffic into stronger brand credibility and revenue.
             </p>
           </div>

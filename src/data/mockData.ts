@@ -1,12 +1,18 @@
 import { Project, Article, TeamMember, Testimonial, Service } from '../types';
-import convertlyImg from '../assets/images/convertly.png';
-import convertly1Img from '../assets/images/convertly1.png';
-import convertly2Img from '../assets/images/convertly2.png';
-import shreeIndustriesImg from '../assets/images/shreeindustries.png';
-import shreeIndustries1Img from '../assets/images/shreeindusties1.png';
-import darshakImg from '../assets/images/darshak.jpg';
+import convertlyImg from '../assets/images/convertly.webp';
+import convertly1Img from '../assets/images/convertly1.webp';
+import convertly2Img from '../assets/images/convertly2.webp';
+import shreeIndustriesImg from '../assets/images/shreeindustries.webp';
+import shreeIndustries1Img from '../assets/images/shreeindusties1.webp';
+import hospitalImg from '../assets/images/hospital.webp';
+import hospitalHomeImg from '../assets/images/hospital-home.webp';
+import hospitalServiceImg from '../assets/images/hospital-service.webp';
+import positiveImg from '../assets/images/positive.webp';
+import positiveHomeImg from '../assets/images/positive-home.png';
+import positiveServiceImg from '../assets/images/positive-service.webp';
+import darshakImg from '../assets/images/darshak.webp';
 import maulikImg from '../assets/images/maulik-interns.webp';
-import kishanImg from '../assets/images/kishan.jpeg';
+import kishanImg from '../assets/images/kishan.webp';
 
 const toSrc = (img: unknown): string => img as string;
 
@@ -86,6 +92,58 @@ export const PROJECTS: Project[] = [
     techStack: ['WordPress', 'Elementor', 'PHP', 'HTML', 'CSS'],
     challenge: 'Creating a polished business website that displays products clearly while keeping content easy to manage through WordPress.',
     solution: 'Built a responsive Elementor site with structured product sections, service pages, and a working contact form.',
+    featured: true,
+    bentoSpan: 'col-span-1 md:col-span-2 row-span-2'
+  },
+  {
+    id: 'hospital-website',
+    title: 'Hospital Website',
+    category: 'WordPress',
+    subtitle: 'WordPress block theme for a modern hospital website',
+    description: 'A complete medical website built with a WordPress block theme, featuring dedicated pages for Home, About, Doctor, Service, News, and Contact.',
+    client: 'Medical Clinic / Hospital',
+    year: '2026',
+    liveUrl: 'https://wp-meddical.free.nf/',
+    image: toSrc(hospitalImg),
+    secondaryImages: [
+      toSrc(hospitalHomeImg),
+      toSrc(hospitalServiceImg)
+    ],
+    metrics: [
+      { label: 'Theme', value: 'WordPress block theme' },
+      { label: 'Pages', value: 'Home, About, Doctor, Service, News, Contact' },
+      { label: 'Focus', value: 'Medical presentation & patient inquiries' }
+    ],
+    tags: ['WordPress', 'Block Theme', 'Gutenberg', 'Medical Website', 'Contact Form'],
+    techStack: ['WordPress', 'Block Theme', 'Gutenberg', 'HTML', 'CSS'],
+    challenge: 'Creating a trustworthy hospital website that clearly presents doctors, services, news, and contact details while staying easy to update.',
+    solution: 'Built a modular WordPress block theme with structured page templates for each core hospital section and a patient-friendly experience.',
+    featured: true,
+    bentoSpan: 'col-span-1 md:col-span-2 row-span-2'
+  },
+  {
+    id: 'positivus',
+    title: 'Positivus',
+    category: 'WordPress',
+    subtitle: 'Elementor page builder website for Home, About, and Service pages',
+    description: 'A polished WordPress website built with Elementor, featuring dedicated Home, About, and Service pages for Positivus.',
+    client: 'Positivus',
+    year: '2026',
+    liveUrl: 'https://positivus-wp.free.nf/',
+    image: toSrc(positiveImg),
+    secondaryImages: [
+      toSrc(positiveHomeImg),
+      toSrc(positiveServiceImg)
+    ],
+    metrics: [
+      { label: 'Builder', value: 'Elementor' },
+      { label: 'Pages', value: 'Home, About, Service' },
+      { label: 'Focus', value: 'Agency-style marketing layout' }
+    ],
+    tags: ['WordPress', 'Elementor', 'Landing Pages', 'Agency Website'],
+    techStack: ['WordPress', 'Elementor', 'PHP', 'HTML', 'CSS'],
+    challenge: 'Creating a modern marketing website with a clean structure that highlights services and company information without clutter.',
+    solution: 'Built a flexible Elementor-based site with clear section layouts, strong visual hierarchy, and easy content editing for future updates.',
     featured: true,
     bentoSpan: 'col-span-1 md:col-span-2 row-span-2'
   }

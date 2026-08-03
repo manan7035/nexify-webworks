@@ -95,20 +95,20 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
     <div id="contact-terminal" className="py-20 bg-[#070a10] border-t border-slate-800 relative">
 
       {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sm:w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-400 text-xs font-mono mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-400 text-xs font-mono">
             <Terminal className="w-3.5 h-3.5 text-indigo-400" />
             <span>CONTACT_INITIATE // TERMINAL PROTOCOL</span>
           </div>
-          <h2 className="font-space text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="font-space text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
             Let&apos;s Build The <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">Future Together</span>
           </h2>
-          <p className="mt-3 text-slate-400 text-base leading-relaxed">
+          <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
             Send your project goals and timeline directly to me for fast freelance delivery.
           </p>
         </div>
@@ -147,7 +147,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                 <form onSubmit={handleSubmit} className="space-y-6">
 
                   {/* Select Scope Chips */}
-                  <fieldset className="border-0 p-0 m-0">
+                  <fieldset className="border-0 p-0 mb-6">
                     <legend className="block text-xs font-mono text-slate-400 uppercase tracking-wider mb-2.5">
                       Select Project Scope:
                     </legend>
