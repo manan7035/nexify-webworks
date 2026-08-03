@@ -31,10 +31,10 @@ export const Footer: React.FC = () => {
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800/60">
+        <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800/60">
           
           {/* Brand Col */}
-          <div className="lg:col-span-2 space-y-5">
+          <div className="col-span-2 space-y-5">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-emerald-400 p-[1px]">
                 <div className="w-full h-full bg-[#0d1322] rounded-[11px] flex items-center justify-center">
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Newsletter Subscription */}
-          <div>
+          <div className="max-lg:col-span-2 space-y-5">
             <h4 className="font-space font-semibold text-white text-sm tracking-wider uppercase mb-3">Newsletter</h4>
             <p className="text-xs text-slate-400 mb-4">
               Get monthly engineering breakdowns & UI design insights straight to your inbox.

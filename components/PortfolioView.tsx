@@ -31,7 +31,7 @@ export const PortfolioView: React.FC = () => {
       <section className="py-16 bg-grid-pattern relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
-          <div className="max-w-3xl space-y-4">
+          <div className="max-w-3xl space-y-5">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-400 text-xs font-mono">
               <Filter className="w-3.5 h-3.5" />
               <span>CASE STUDIES ARCHIVE</span>

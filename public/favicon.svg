@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Nexify Webworks favicon">
+  <rect width="256" height="256" rx="56" fill="#060a12"/>
+  <rect x="36" y="36" width="184" height="184" rx="40" fill="#0f172a" stroke="#6366f1" stroke-width="8"/>
+  <path d="M82 74h28l34 52 34-52h28v108h-24V128l-30 46h-16l-30-46v54H82z" fill="#8b5cf6"/>
+  <path d="M118 168h24c18 0 32-10 32-28 0-18-14-28-32-28h-24z" fill="#34d399"/>
+  <circle cx="188" cy="186" r="12" fill="#f8fafc"/>
+</svg>
