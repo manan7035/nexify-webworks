@@ -52,7 +52,7 @@ The site ships with full SEO support out of the box:
 | --- | --- | --- |
 | `GEMINI_API_KEY` | Yes (for `/api/gemini`) | Server-side Google AI Studio API key. Read only inside the Next.js API route and never exposed to the browser. |
 | `GEMINI_MODEL` | No | Gemini model used by the contact form endpoint. Defaults to `gemini-2.5-flash`. |
-| `APP_URL` | No | Public URL of the deployed app, used for canonical URLs, sitemap, robots, and Open Graph metadata. Defaults to `https://nexifywebworks.com`. |
+| `APP_URL` | No | Public URL of the deployed app, used for canonical URLs, sitemap, robots, and Open Graph metadata. Defaults to `https://nexifywebworks.in`. |
 
 ## API Routes
 

@@ -2,10 +2,19 @@ import { GoogleGenAI } from '@google/genai';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { rateLimitByIp } from '@/lib/rate-limit';
+import { Resend } from 'resend';
+import { CONTACT_EMAIL } from '@/app/constants';
+import {
+  generateUserConfirmationEmail,
+  generateAdminNotificationEmail,
+  generateUserConfirmationPlainText,
+  generateAdminNotificationPlainText,
+} from '@/lib/email-templates';
 
 export const runtime = 'nodejs';
 
 const GEMINI_MODEL = process.env.GEMINI_MODEL ?? 'gemini-2.5-flash';
+const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? CONTACT_EMAIL;
 
 const requestSchema = z.object({
   name: z.string().trim().max(100).optional(),
@@ -71,8 +80,16 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  if (!resendApiKey) {
+    return NextResponse.json(
+      { error: 'The server is missing a valid Resend API key.' },
+      { status: 500 }
+    );
+  }
+
+  const geminiApiKey = process.env.GEMINI_API_KEY;
+  if (!geminiApiKey) {
     return NextResponse.json(
       { error: 'The server is missing a valid Gemini API key.' },
       { status: 500 }
@@ -80,7 +97,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const ai = new GoogleGenAI({ apiKey: geminiApiKey });
     const response = await ai.models.generateContent({
       model: GEMINI_MODEL,
       contents: buildPrompt(parsed.data),
@@ -95,10 +112,48 @@ export async function POST(request: Request): Promise<NextResponse> {
       );
     }
 
+    const resend = new Resend(resendApiKey);
+
+    // Prepare email data for both templates
+    const emailData = {
+      name: parsed.data.name ?? 'Visitor',
+      email: parsed.data.email ?? 'unknown@example.com',
+      message: parsed.data.message,
+      scopes: parsed.data.scopes || [],
+      aiReply: reply,
+    };
+
+    try {
+      // Send user confirmation email
+      await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: emailData.email,
+        subject: '✓ Your Inquiry Received - Nexify Webworks',
+        html: generateUserConfirmationEmail(emailData),
+        text: generateUserConfirmationPlainText(emailData),
+      });
+
+      // Send admin notification email
+      await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: CONTACT_EMAIL,
+        subject: `🔔 New Contact Submission from ${emailData.name}`,
+        html: generateAdminNotificationEmail(emailData),
+        text: generateAdminNotificationPlainText(emailData),
+      });
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
+      return NextResponse.json(
+        { error: 'Failed to send confirmation emails. Please try again later.' },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json({ success: true, reply });
-  } catch {
+  } catch (error) {
+    console.error('API error:', error);
     return NextResponse.json(
-      { error: 'Failed to generate response. Please try again later.' },
+      { error: 'Failed to process your request. Please try again later.' },
       { status: 500 }
     );
   }
