@@ -29,7 +29,7 @@ export const ContactView: React.FC = () => {
 
           {/* Map Image Graphic */}
           <div className="glass-card rounded-3xl border border-slate-800 p-4 relative overflow-hidden group">
-            <div className="aspect-[21/9] w-full rounded-2xl overflow-hidden relative border border-slate-800">
+            <div className="h-[400px] lg:aspect-[21/9] w-full rounded-2xl overflow-hidden relative border border-slate-800">
               <Image
                 fill
                 src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1600&q=80"
@@ -40,7 +40,7 @@ export const ContactView: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0d1322] via-[#0d1322]/40 to-transparent"></div>
 
               {/* Pin Callout */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-950/90 border border-indigo-500/80 p-4 rounded-2xl shadow-2xl backdrop-blur-md flex items-center gap-3">
+              <div className="max-sm:w-[350px] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-950/90 border border-indigo-500/80 p-4 rounded-2xl shadow-2xl backdrop-blur-md flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-500/50 text-indigo-400 flex items-center justify-center shrink-0">
                   <MapPin className="w-5 h-5 text-indigo-400 animate-bounce" />
                 </div>
