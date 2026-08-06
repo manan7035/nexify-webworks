@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Terminal, Send, CheckCircle2, MapPin, Mail, ShieldCheck } from 'lucide-react';
+import { CONTACT_EMAIL } from '@/app/constants';
 
 interface TerminalContactProps {
   prefilledScope?: string;
@@ -296,7 +297,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                   <Mail className="w-4 h-4 text-indigo-400 shrink-0" />
                   <div>
                     <span className="text-slate-400">Email:</span>{' '}
-                    <a href="mailto:hello@nexifywebworks.com" className="text-indigo-300 hover:underline">hello@nexifywebworks.com</a>
+                    <a href="mailto:info@nexifywebworks.in" className="text-indigo-300 hover:underline">info@nexifywebworks.in</a>
                   </div>
                 </div>
               </div>

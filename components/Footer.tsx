@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Terminal, Send, CheckCircle2, Activity } from 'lucide-react';
+import { Terminal, Send, CheckCircle2, Activity, Mail, MapPin, Clock, Shield } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -122,12 +122,38 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <div className="flex items-center gap-2 font-mono">
-            <span>© {new Date().getFullYear()} Nexify Webworks. India-based freelance developer.</span>
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-400">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="font-mono">
+              <span>© {new Date().getFullYear()} Nexify Webworks</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-4 text-slate-500">
+              <span>•</span>
+              <a 
+                href="mailto:info@nexifywebworks.in" 
+                className="hover:text-indigo-400 transition-colors flex items-center gap-1.5"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                info@nexifywebworks.in
+              </a>
+              <span>•</span>
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5" />
+                Rajkot, India
+              </span>
+            </div>
           </div>
-          {/* TODO: Add real Nexify Webworks social profiles (GitHub, Twitter/X, LinkedIn)
-              here once they exist — do not link to generic platform homepages. */}
+          
+          <div className="flex flex-col sm:flex-row items-center gap-3 text-slate-500">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-400">
+              <Clock className="w-3 h-3" />
+              <span className="font-mono text-[11px]">4h Response Time</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-950/40 border border-blue-500/30 text-blue-400">
+              <Shield className="w-3 h-3" />
+              <span className="font-mono text-[11px]">Encrypted Forms</span>
+            </div>
+          </div>
         </div>
 
       </div>
