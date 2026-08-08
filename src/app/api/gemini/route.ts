@@ -81,9 +81,17 @@ export async function POST(request: Request): Promise<NextResponse> {
     );
   }
 
-  // Determine API Keys
+  // Determine API Keys using only environment variables
   const resendApiKey = process.env.RESEND_API_KEY || process.env.NEXT_PUBLIC_RESEND_API_KEY;
-  const isResendConfigured = Boolean(resendApiKey && !resendApiKey.includes('your_resend_api_key'));
+  if (!resendApiKey || resendApiKey.includes('your_resend_api_key')) {
+    return NextResponse.json(
+      {
+        error:
+          'Resend API key is not configured or is invalid. Please set RESEND_API_KEY in your environment.',
+      },
+      { status: 500 }
+    );
+  }
 
   // Determine sender email address
   let fromEmail = process.env.RESEND_FROM_EMAIL || DEFAULT_FROM_EMAIL;
@@ -117,18 +125,6 @@ export async function POST(request: Request): Promise<NextResponse> {
     aiReply,
   };
 
-  // If RESEND_API_KEY is missing from environment settings, log and respond gracefully
-  if (!isResendConfigured) {
-    console.info(`[Contact Intake Fallback] Inquiry from ${emailData.email} (${emailData.name}). RESEND_API_KEY not configured on server.`);
-
-    return NextResponse.json({
-      success: true,
-      message: 'Thank you! Your inquiry has been received. Our team will get back to you shortly.',
-      reply: aiReply || 'Thank you for reaching out to Nexify Webworks. We have logged your request and will review your project requirements promptly.',
-      fallbackMode: true,
-    });
-  }
-
   // Initialize Resend Client
   const resend = new Resend(resendApiKey);
   const targetAdminEmail = process.env.CONTACT_EMAIL || CONTACT_EMAIL;
@@ -141,6 +137,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   // STEP 1: Send Admin Email Notification (Primary Priority)
   try {
+    // Attempt 1: Send with verified custom domain sender (info@nexifywebworks.in)
     const adminAttempt1 = await resend.emails.send({
       from: fromEmail,
       to: targetAdminEmail,
@@ -152,9 +149,9 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     if (adminAttempt1.error) {
       adminErrorMsg = adminAttempt1.error.message;
-      console.warn('Admin email attempt 1 failed:', adminAttempt1.error.message);
+      console.warn('[Resend Admin Email Attempt 1 Warning]:', adminAttempt1.error.message);
 
-      // Attempt 2: Fallback to onboarding@resend.dev if custom domain is not yet verified in Resend DNS
+      // Attempt 2: Fallback to onboarding@resend.dev sender if custom domain DNS is pending
       resendFromUsed = RESEND_TEST_FROM;
       const adminAttempt2 = await resend.emails.send({
         from: RESEND_TEST_FROM,
@@ -167,7 +164,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
       if (adminAttempt2.error) {
         adminErrorMsg = adminAttempt2.error.message;
-        console.error('Admin email attempt 2 failed:', adminAttempt2.error.message);
+        console.error('[Resend Admin Email Attempt 2 Error]:', adminAttempt2.error.message);
       } else {
         adminEmailId = adminAttempt2.data?.id;
         adminErrorMsg = undefined;
@@ -193,7 +190,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     if (userAttempt1.error) {
       userErrorMsg = userAttempt1.error.message;
-      console.warn('User confirmation email attempt failed (e.g. test mode unverified recipient):', userAttempt1.error.message);
+      console.warn('[Resend User Confirmation Email Warning]:', userAttempt1.error.message);
     } else {
       userEmailId = userAttempt1.data?.id;
     }
@@ -202,7 +199,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     console.warn('User confirmation email exception:', err);
   }
 
-  // Guaranteed Success Response for Site Visitor
+  // Return clean JSON response
   return NextResponse.json({
     success: true,
     message: 'Thank you! Your inquiry has been received. Our team will get back to you shortly.',

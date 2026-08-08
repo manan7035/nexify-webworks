@@ -27,4 +27,4 @@ export const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 export const LOCALE = "en_IN";
 
-export const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? "info@nexifywebworks.in";
+export const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? "nexifywebworks@gmail.com";
