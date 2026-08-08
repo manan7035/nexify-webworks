@@ -14,11 +14,11 @@ import {
 export const runtime = 'nodejs';
 
 const GEMINI_MODEL = process.env.GEMINI_MODEL ?? 'gemini-2.5-flash';
-const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? CONTACT_EMAIL;
+const DEFAULT_FROM_EMAIL = 'Nexify Webworks <info@nexifywebworks.in>';
 
 const requestSchema = z.object({
   name: z.string().trim().max(100).optional(),
-  email: z.string().trim().email().max(254).optional(),
+  email: z.string().trim().email().max(254),
   message: z.string().trim().min(1).max(2000),
   scopes: z.array(z.string().trim().max(100)).max(10).optional(),
 });
@@ -40,7 +40,7 @@ function buildPrompt(data: RequestData): string {
     'that confirms the project scope and the next step.',
     '',
     `Name/Organization: ${data.name ?? 'Not provided'}`,
-    `Email: ${data.email ?? 'Not provided'}`,
+    `Email: ${data.email}`,
     `Requested scope: ${data.scopes && data.scopes.length > 0 ? data.scopes.join(', ') : 'Not specified'}`,
     `Inquiry: ${data.message}`,
   ].join('\n');
@@ -81,79 +81,100 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   const resendApiKey = process.env.RESEND_API_KEY;
-  if (!resendApiKey) {
+  if (!resendApiKey || resendApiKey.includes('your_resend_api_key')) {
     return NextResponse.json(
       { error: 'The server is missing a valid Resend API key.' },
       { status: 500 }
     );
   }
 
-  const geminiApiKey = process.env.GEMINI_API_KEY;
-  if (!geminiApiKey) {
-    return NextResponse.json(
-      { error: 'The server is missing a valid Gemini API key.' },
-      { status: 500 }
-    );
+  // Determine sender email address
+  let fromEmail = process.env.RESEND_FROM_EMAIL || DEFAULT_FROM_EMAIL;
+  if (fromEmail.includes('your_from_email')) {
+    fromEmail = DEFAULT_FROM_EMAIL;
   }
 
+  // Optional Gemini AI Assessment
+  let aiReply: string | undefined = undefined;
+  const geminiApiKey = process.env.GEMINI_API_KEY;
+  if (geminiApiKey && !geminiApiKey.includes('your_gemini_api_key')) {
+    try {
+      const ai = new GoogleGenAI({ apiKey: geminiApiKey });
+      const response = await ai.models.generateContent({
+        model: GEMINI_MODEL,
+        contents: buildPrompt(parsed.data),
+        config: { maxOutputTokens: 500 },
+      });
+      aiReply = response.text?.trim();
+    } catch (geminiError) {
+      console.warn('Gemini AI generation skipped due to error:', geminiError);
+    }
+  }
+
+  // Prepare email data
+  const emailData = {
+    name: parsed.data.name ?? 'Visitor',
+    email: parsed.data.email,
+    message: parsed.data.message,
+    scopes: parsed.data.scopes || [],
+    aiReply,
+  };
+
+  const resend = new Resend(resendApiKey);
+  const targetAdminEmail = process.env.CONTACT_EMAIL || CONTACT_EMAIL;
+
   try {
-    const ai = new GoogleGenAI({ apiKey: geminiApiKey });
-    const response = await ai.models.generateContent({
-      model: GEMINI_MODEL,
-      contents: buildPrompt(parsed.data),
-      config: { maxOutputTokens: 500 },
+    // 1. Send admin notification email (always sent to info@nexifywebworks.in)
+    const adminEmailResult = await resend.emails.send({
+      from: fromEmail,
+      to: targetAdminEmail,
+      replyTo: `${emailData.name} <${emailData.email}>`,
+      subject: `🔔 New Contact Submission from ${emailData.name}`,
+      html: generateAdminNotificationEmail(emailData),
+      text: generateAdminNotificationPlainText(emailData),
     });
 
-    const reply = response.text?.trim();
-    if (!reply) {
+    if (adminEmailResult.error) {
+      console.error('Resend Admin Email Error:', adminEmailResult.error);
       return NextResponse.json(
-        { error: 'Gemini returned an empty response.' },
+        { error: `Resend email delivery failed: ${adminEmailResult.error.message}` },
         { status: 500 }
       );
     }
 
-    const resend = new Resend(resendApiKey);
+    // 2. Attempt to send user confirmation email
+    let userEmailId: string | undefined = undefined;
+    let userEmailWarning: string | undefined = undefined;
 
-    // Prepare email data for both templates
-    const emailData = {
-      name: parsed.data.name ?? 'Visitor',
-      email: parsed.data.email ?? 'unknown@example.com',
-      message: parsed.data.message,
-      scopes: parsed.data.scopes || [],
-      aiReply: reply,
-    };
+    const userEmailResult = await resend.emails.send({
+      from: fromEmail,
+      to: emailData.email,
+      replyTo: targetAdminEmail,
+      subject: '✓ Your Inquiry Received - Nexify Webworks',
+      html: generateUserConfirmationEmail(emailData),
+      text: generateUserConfirmationPlainText(emailData),
+    });
 
-    try {
-      // Send user confirmation email
-      await resend.emails.send({
-        from: RESEND_FROM_EMAIL,
-        to: emailData.email,
-        subject: '✓ Your Inquiry Received - Nexify Webworks',
-        html: generateUserConfirmationEmail(emailData),
-        text: generateUserConfirmationPlainText(emailData),
-      });
-
-      // Send admin notification email
-      await resend.emails.send({
-        from: RESEND_FROM_EMAIL,
-        to: CONTACT_EMAIL,
-        subject: `🔔 New Contact Submission from ${emailData.name}`,
-        html: generateAdminNotificationEmail(emailData),
-        text: generateAdminNotificationPlainText(emailData),
-      });
-    } catch (emailError) {
-      console.error('Email sending error:', emailError);
-      return NextResponse.json(
-        { error: 'Failed to send confirmation emails. Please try again later.' },
-        { status: 500 }
-      );
+    if (userEmailResult.error) {
+      userEmailWarning = userEmailResult.error.message;
+      console.warn('User confirmation email warning (Resend domain unverified/test mode):', userEmailResult.error.message);
+    } else {
+      userEmailId = userEmailResult.data?.id;
     }
 
-    return NextResponse.json({ success: true, reply });
-  } catch (error) {
-    console.error('API error:', error);
+    return NextResponse.json({
+      success: true,
+      message: 'Inquiry received successfully.',
+      adminEmailId: adminEmailResult.data?.id,
+      userEmailId,
+      userEmailWarning,
+      reply: aiReply,
+    });
+  } catch (emailError: unknown) {
+    const errMessage = emailError instanceof Error ? emailError.message : 'Unknown email error';
+    console.error('Email sending exception:', emailError);
     return NextResponse.json(
-      { error: 'Failed to process your request. Please try again later.' },
+      { error: `Failed to send inquiry: ${errMessage}` },
       { status: 500 }
     );
   }

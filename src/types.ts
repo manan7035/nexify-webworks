@@ -76,11 +76,39 @@ export interface EstimateConfig {
   maintenancePlan: boolean;
 }
 
+export interface ServiceFeature {
+  title: string;
+  description: string;
+  iconName: string;
+}
+
+export interface ServiceWorkflowStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export interface ServiceFAQ {
+  question: string;
+  answer: string;
+}
+
 export interface Service {
   id: string;
+  slug: string;
   title: string;
   iconName: string;
   description: string;
   deliverables: string[];
   badge: string;
+  heroSubtitle: string;
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string[];
+  overview: string;
+  features: ServiceFeature[];
+  workflow: ServiceWorkflowStep[];
+  faqs: ServiceFAQ[];
+  startingPrice?: string;
+  estimatedDays?: string;
 }

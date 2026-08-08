@@ -322,7 +322,10 @@ export function generateAdminNotificationEmail(data: EmailTemplateData): string 
         }
         .btn-reply {
             background-color: #4f46e5;
-            color: white;
+            color: #ffffff !important;
+        }
+        .btn-reply span {
+            color: #ffffff !important;
         }
         .btn-reply:hover {
             background-color: #4338ca;
@@ -373,8 +376,8 @@ export function generateAdminNotificationEmail(data: EmailTemplateData): string 
         ` : ''}
 
         <!-- Action Links -->
-        <div class="action-links">
-            <a href="mailto:${escapeHtml(data.email)}" class="btn btn-reply">📧 Reply to Client</a>
+        <div class="action-links" style="margin: 25px 0;">
+            <a href="mailto:${escapeHtml(data.email)}" class="btn btn-reply" style="display: inline-block; padding: 12px 26px; background-color: #4f46e5; color: #ffffff !important; text-decoration: none !important; border-radius: 6px; font-weight: 600; font-size: 14px; text-align: center;"><span style="color: #ffffff !important; text-decoration: none !important;">📧 Reply to Client</span></a>
         </div>
 
         <!-- Footer -->

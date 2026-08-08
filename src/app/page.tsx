@@ -4,33 +4,36 @@ import { HomeView } from "@/components/HomeView";
 export const metadata: Metadata = {
   title: {
     absolute:
-      "Nexify Webworks | Rajkot, India Freelance React & WordPress Developer | SEO-Friendly Sites",
+      "Website Development using React, WordPress Design (Elementor & ACF) & UI/UX Design | Nexify Webworks",
   },
   description:
-    "Nexify Webworks builds high-converting React websites, custom WordPress themes, and polished Figma UI/UX designs for growing brands — fast, SEO-friendly, and crafted by a Rajkot, India freelance web developer.",
+    "Nexify Webworks delivers high-ranking website development using React, custom website design in WordPress with Elementor & ACF (Advanced Custom Fields), and Figma UI/UX design. Boost your freelance business with fast, SEO-optimized websites.",
   keywords: [
-    "Rajkot web developer",
-    "React website developer",
-    "WordPress developer India",
-    "Figma UI/UX design",
+    "website development using React",
+    "website design in WordPress",
+    "website design using Elementor",
+    "ACF WordPress developer",
+    "Advanced Custom Fields",
+    "UI UX design",
     "freelance web developer",
+    "SEO optimized website",
   ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Rajkot Freelance Web Developer | Nexify Webworks",
+    title: "React, WordPress (Elementor & ACF) & UI/UX Web Design | Nexify Webworks",
     description:
-      "High-converting React websites, WordPress themes, and Figma UI/UX design from a Rajkot, India freelance web developer.",
+      "High-converting website development using React, custom WordPress design (Elementor & ACF), and Figma UI/UX design.",
     type: "website",
     url: "/",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rajkot Freelance Web Developer | Nexify Webworks",
+    title: "React, WordPress (Elementor & ACF) & UI/UX Web Design | Nexify Webworks",
     description:
-      "High-converting React websites, WordPress themes, and Figma UI/UX design from a Rajkot, India freelance web developer.",
+      "High-converting website development using React, custom WordPress design (Elementor & ACF), and Figma UI/UX design.",
     images: ["/og-image.png"],
   },
 };

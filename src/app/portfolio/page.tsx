@@ -2,32 +2,32 @@ import type { Metadata } from "next";
 import { PortfolioView } from "@/components/PortfolioView";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: "Portfolio — React Applications, WordPress Elementor ACF & UI/UX Projects",
   description:
-    "Explore the Nexify Webworks portfolio — custom WordPress themes, animated React applications, and high-performance Web3 platforms engineered for growing brands.",
+    "Browse our web design portfolio featuring website development using React, custom WordPress theme design with Elementor Pro & ACF, and interactive Figma UI/UX prototypes.",
   keywords: [
     "web design portfolio",
-    "React web application examples",
-    "WordPress themes portfolio",
-    "web3 platform development",
-    "case studies web developer",
+    "React website development portfolio",
+    "WordPress Elementor ACF examples",
+    "Figma UI UX design portfolio",
+    "freelance developer case studies",
   ],
   alternates: {
     canonical: "/portfolio",
   },
   openGraph: {
-    title: "Portfolio | Nexify Webworks",
+    title: "Portfolio — React, WordPress (Elementor & ACF) & UI/UX Projects",
     description:
-      "Custom WordPress themes, animated React applications, and high-performance Web3 platforms engineered by Nexify Webworks.",
+      "Explore client case studies featuring React website development, Elementor WordPress themes, and Figma UI/UX design.",
     type: "website",
     url: "/portfolio",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio | Nexify Webworks",
+    title: "Portfolio — React, WordPress (Elementor & ACF) & UI/UX Projects",
     description:
-      "Custom WordPress themes, animated React applications, and high-performance Web3 platforms engineered by Nexify Webworks.",
+      "Explore client case studies featuring React website development, Elementor WordPress themes, and Figma UI/UX design.",
     images: ["/og-image.png"],
   },
 };

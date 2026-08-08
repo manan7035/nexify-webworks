@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Project } from '@/src/types';
 import { SERVICES, TESTIMONIALS } from '@/src/data/mockData';
 import { ShowcaseSection } from '@/components/ShowcaseSection';
@@ -19,21 +20,66 @@ import {
   CheckCircle2,
   Sparkles,
   ArrowRight,
-  Quote
+  Quote,
+  HelpCircle,
+  ChevronDown
 } from 'lucide-react';
+
+const HOME_FAQS = [
+  {
+    question: "What web development and UI/UX design services do you offer?",
+    answer: "We specialize in custom React & Next.js application development, custom WordPress website design using Elementor & ACF, custom Gutenberg block theme development, Figma UI/UX prototyping, and Google Core Web Vitals SEO tuning."
+  },
+  {
+    question: "Why choose custom web development over pre-made templates?",
+    answer: "Off-the-shelf templates often introduce bloated code, slow loading times, and poor search engine crawl performance. Custom web development ensures lightweight code, sub-second page loads, mobile responsiveness, and clean technical SEO markup."
+  },
+  {
+    question: "How do you ensure my website performs well on search engines like Google?",
+    answer: "Every project incorporates SEO best practices: semantic HTML5 DOM tags, pre-rendered Next.js server components, structured JSON-LD schema graphs (Organization, Service, FAQPage), WebP image compression, XML sitemaps, and Core Web Vitals speed tuning."
+  },
+  {
+    question: "What is your typical project timeline for web development?",
+    answer: "Most custom website projects take between 4 to 10 days depending on scope complexity. We maintain transparent milestones: discovery & wireframes, component build, speed testing, and final handoff."
+  },
+  {
+    question: "Can I edit and manage site content myself after launch?",
+    answer: "Yes, 100%. Whether we build in WordPress (using Elementor & ACF or native Gutenberg blocks) or React with a headless CMS, we provide full client admin controls and step-by-step video walkthroughs."
+  }
+];
 
 export const HomeView: React.FC = () => {
   const router = useRouter();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const prefersReducedMotion = useReducedMotion();
+
+  // Structured Data FAQ Schema for Google Search Snippets
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": HOME_FAQS.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
 
   return (
     <div className="space-y-0">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center justify-center pt-16 pb-20 overflow-hidden bg-grid-pattern">
-        {/* Ambient Glow Spheres */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-indigo-600/15 rounded-full blur-[140px] pointer-events-none"></div>
-        <div className="absolute top-1/3 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+        {/* Ambient Pulsing Glow Spheres */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[150px] pointer-events-none animate-pulse-glow"></div>
+        <div className="absolute top-1/3 right-10 w-96 h-96 bg-purple-600/15 rounded-full blur-[130px] pointer-events-none animate-float-slow"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-8">
           {/* Top Pill Badge */}
@@ -41,20 +87,20 @@ export const HomeView: React.FC = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-800 text-slate-300 text-xs font-mono shadow-2xl glow-glass"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-800 text-slate-300 text-xs font-mono shadow-2xl glow-glass animate-float-slow"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="text-emerald-400 font-bold">Fast performance and basic SEO</span>
+            <span className="text-emerald-400 font-bold">Fast performance & SEO Engineered</span>
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.25] max-w-5xl mx-auto"
+            className="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.2] max-w-5xl mx-auto"
           >
             Digital Performance{' '}
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-emerald-400 bg-clip-text text-transparent">
+            <span className="luxury-text-gradient">
               Excellence.
             </span>
           </motion.h1>
@@ -82,7 +128,7 @@ export const HomeView: React.FC = () => {
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
                 else router.push('/contact');
               }}
-              className="w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/50 hover:scale-[1.03] transition-all flex items-center justify-center gap-2 cursor-pointer animate-shimmer"
             >
               <span>Initiate Project Terminal</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -90,7 +136,7 @@ export const HomeView: React.FC = () => {
 
             <button
               onClick={() => router.push('/portfolio')}
-              className="w-auto px-8 py-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-slate-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-auto px-8 py-4 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-200 font-semibold text-sm transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02]"
             >
               <span>Explore Case Studies</span>
             </button>
@@ -98,108 +144,60 @@ export const HomeView: React.FC = () => {
 
           {/* Tech Ticker */}
           <div className="pt-10 border-t border-slate-800/60 max-w-4xl mx-auto">
-            <p className="text-xs font-mono text-slate-400 uppercase tracking-widest mb-4">
-              Core Tech Stack & Ecosystem
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-slate-400 text-xs font-mono">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
-                <span>React 19</span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <span className="w-2 h-2 rounded-full bg-purple-400"></span>
-                <span>Figma UI/UX</span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                <span>WordPress Custom Themes</span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <span className="w-2 h-2 rounded-full bg-indigo-400"></span>
-                <span>Tailwind CSS v4</span>
-              </div>
+            <p className="text-xs text-slate-500 uppercase tracking-widest font-mono mb-4">Core Technology Stack</p>
+            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 opacity-80 text-slate-300 font-mono text-xs">
+              <span className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors"><Code2 className="w-4 h-4 text-indigo-400" /> React 19 & Next.js</span>
+              <span className="flex items-center gap-1.5 hover:text-purple-400 transition-colors"><Layout className="w-4 h-4 text-purple-400" /> WordPress & Elementor</span>
+              <span className="flex items-center gap-1.5 hover:text-emerald-400 transition-colors"><Zap className="w-4 h-4 text-emerald-400" /> ACF Pro & Gutenberg</span>
+              <span className="flex items-center gap-1.5 hover:text-cyan-400 transition-colors"><Gauge className="w-4 h-4 text-cyan-400" /> Tailwind CSS v4</span>
             </div>
           </div>
-
-          {/* Synced Scroll Arrow & Code Icon Motion Animation */}
-          <motion.div
-            onClick={() => {
-              const el = document.getElementById('capabilities-section') || document.getElementById('showcase-interactive');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="pt-8 flex flex-col items-center justify-center cursor-pointer group select-none"
-          >
-            <div className="text-[11px] font-mono text-slate-400 group-hover:text-indigo-400 transition-colors mb-2 flex items-center gap-1">
-              <span>SCROLL TO EXPLORE</span>
-            </div>
-
-            <div className="relative w-11 h-20 rounded-full border border-slate-800 group-hover:border-indigo-500/60 bg-slate-900/70 backdrop-blur-md flex items-center justify-center overflow-hidden transition-all duration-300 shadow-lg shadow-indigo-500/10">
-              {/* Code icon moving with down arrow in synchronized vertical flow */}
-              <motion.div
-                animate={
-                  prefersReducedMotion
-                    ? { y: 0, opacity: 1, scale: 1 }
-                    : { y: [-16, 16, -16], opacity: [0.2, 1, 0.2], scale: [0.85, 1.15, 0.85] }
-                }
-                transition={
-                  prefersReducedMotion
-                    ? { duration: 0 }
-                    : { duration: 2, repeat: Infinity, ease: 'easeInOut' }
-                }
-                className="flex flex-col items-center gap-1.5 text-indigo-400 group-hover:text-emerald-400"
-              >
-                <Code2 className="w-4 h-4 text-indigo-400 group-hover:text-emerald-400 transition-colors" />
-                <ArrowRight className="w-3.5 h-3.5 rotate-90 text-purple-400 group-hover:text-emerald-300 transition-colors" />
-              </motion.div>
-            </div>
-          </motion.div>
-
         </div>
       </section>
 
-      {/* Services Preview Grid */}
-      <section id="capabilities-section" className="py-16 md:py-24 bg-[#070a10] border-t border-slate-800/80">
+      {/* Services Grid Section */}
+      <section className="py-16 md:py-24 bg-[#090d16] border-t border-slate-800/80 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="max-w-2xl space-y-3">
-              <div className="text-xs font-mono text-indigo-400 uppercase tracking-wider">PRECISION SERVICES</div>
-              <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.25]">
-                Core Service <span className="text-indigo-400">Offerings</span>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800/80 pb-8">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-400 text-xs font-mono">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>ENGINEERED SERVICES</span>
+              </div>
+              <h2 className="font-syne text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Services Built for Growth & Search Visibility
               </h2>
             </div>
-            <p className="text-slate-400 text-sm sm:text-base leading-relaxed md:max-w-md">
-              Specialized in Figma UI/UX design, custom React web development, and fast WordPress theme builds for growing businesses.
-            </p>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors"
+            >
+              <span>Explore All 5 Services</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((srv, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {SERVICES.map((srv, idx) => (
               <motion.div
                 key={srv.id}
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
                 whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="glass-card p-6 sm:p-8 rounded-2xl border border-slate-800 hover:border-indigo-500/40 transition-all duration-300 group space-y-4 flex flex-col justify-between"
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="glass-card p-6 sm:p-7 rounded-3xl border border-slate-800/90 hover:border-indigo-500/50 space-y-5 flex flex-col justify-between group hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300"
               >
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-xl bg-indigo-950/60 border border-indigo-500/30 text-indigo-400 flex items-center justify-center group-hover:scale-110 group-hover:text-emerald-400 transition-all">
-                      {srv.id === 'ui-ux' && <Layout className="w-6 h-6" />}
-                      {srv.id === 'wordpress' && <Code2 className="w-6 h-6" />}
-                      {srv.id === 'react-apps' && <Zap className="w-6 h-6" />}
-                      {srv.id === 'speed-opt' && <Gauge className="w-6 h-6" />}
-                    </div>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400">
+                    <span className="px-3 py-1 rounded-full bg-slate-800 text-slate-300 text-[11px] font-mono">
                       {srv.badge}
                     </span>
                   </div>
 
                   <h3 className="font-syne font-bold text-xl text-white group-hover:text-indigo-300 transition-colors leading-[1.25]">
-                    {srv.title}
+                    <Link href={`/services/${srv.slug}`} className="hover:underline">
+                      {srv.title}
+                    </Link>
                   </h3>
 
                   <p className="text-xs text-slate-400 leading-relaxed">
@@ -209,7 +207,7 @@ export const HomeView: React.FC = () => {
 
                 <div className="pt-4 border-t border-slate-800/80">
                   <ul className="space-y-1.5 text-[11px] text-slate-300 font-mono">
-                    {srv.deliverables.map((d, i) => (
+                    {srv.deliverables.slice(0, 3).map((d, i) => (
                       <li key={i} className="flex items-center gap-1.5">
                         <CheckCircle2 className="w-3 h-3 text-emerald-400 shrink-0" />
                         <span>{d}</span>
@@ -226,7 +224,7 @@ export const HomeView: React.FC = () => {
       {/* Interactive Showcase Section */}
       <ShowcaseSection onSelectProject={setSelectedProject} />
 
-      {/* Client Impact / Testimonials — Responsive & Modern Animated */}
+      {/* Client Impact / Testimonials */}
       <section className="py-16 md:py-24 bg-[#070a10] border-t border-slate-800/80 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
           <div className="text-center max-w-2xl mx-auto space-y-4">
@@ -253,18 +251,13 @@ export const HomeView: React.FC = () => {
                 whileHover={prefersReducedMotion ? undefined : { y: -6, transition: { duration: 0.25 } }}
                 className="glass-card p-6 sm:p-7 rounded-3xl border border-slate-800/90 space-y-6 flex flex-col justify-between relative group hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300"
               >
-                {/* Background Subtle Gradient Glow */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl pointer-events-none group-hover:bg-indigo-500/15 transition-colors"></div>
-
                 <div className="space-y-4 relative">
-                  {/* Rating Stars & Floating Quote Icon */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1 text-amber-400">
                       {[...Array(t.rating)].map((_, idx) => (
                         <Star key={idx} className="w-4 h-4 fill-amber-400 text-amber-400" />
                       ))}
                     </div>
-
                     <Quote className="w-6 h-6 text-indigo-500/40 group-hover:text-indigo-400/80 transition-colors" />
                   </div>
 
@@ -273,7 +266,6 @@ export const HomeView: React.FC = () => {
                   </p>
                 </div>
 
-                {/* Author Avatar & Details Bar — Flexible & Responsive with shrink-0 image */}
                 <div className="pt-4 border-t border-slate-800/80 flex flex-wrap sm:flex-nowrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     <Image
@@ -292,6 +284,56 @@ export const HomeView: React.FC = () => {
               </motion.article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Home Page FAQ Accordion Section */}
+      <section className="py-16 md:py-24 bg-[#090d16] border-t border-slate-800/80 relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          
+          <div className="text-center space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-400 text-xs font-mono">
+              <HelpCircle className="w-3.5 h-3.5 text-indigo-400" />
+              <span>FREQUENTLY ASKED QUESTIONS</span>
+            </div>
+
+            <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+              Got Questions? <span className="text-indigo-400">We Have Answers.</span>
+            </h2>
+
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+              Everything you need to know about working with a freelance React, WordPress, and UI/UX developer.
+            </p>
+          </div>
+
+          {/* Accordion Items */}
+          <div className="space-y-4">
+            {HOME_FAQS.map((faq, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div
+                  key={index}
+                  className="rounded-2xl bg-slate-900/70 border border-slate-800/90 overflow-hidden transition-all duration-200 hover:border-indigo-500/40"
+                >
+                  <button
+                    onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                    className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-space font-bold text-base sm:text-lg text-white hover:text-indigo-400 transition-colors cursor-pointer"
+                    aria-expanded={isOpen}
+                  >
+                    <span>{faq.question}</span>
+                    <ChevronDown className={`w-5 h-5 text-indigo-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 animate-in fade-in duration-200">
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
         </div>
       </section>
 

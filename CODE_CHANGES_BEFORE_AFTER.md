@@ -214,7 +214,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
 
 # Application
-APP_URL=https://nexifywebworks.com
+APP_URL=https://nexifywebworks.in
 ```
 
 **Plus comprehensive setup documentation including:**

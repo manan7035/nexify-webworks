@@ -79,6 +79,13 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
         let message = 'Transmission failed. Please try again later.';
         if (response.status === 429) {
           message = 'Too many transmissions. Please wait a moment and try again.';
+        } else {
+          try {
+            const data = await response.json();
+            if (data?.error) {
+              message = data.error;
+            }
+          } catch {}
         }
         setErrorMessage(message);
         setStatus('idle');
@@ -297,7 +304,7 @@ export const TerminalContact: React.FC<TerminalContactProps> = ({ prefilledScope
                   <Mail className="w-4 h-4 text-indigo-400 shrink-0" />
                   <div>
                     <span className="text-slate-400">Email:</span>{' '}
-                    <a href="mailto:info@nexifywebworks.in" className="text-indigo-300 hover:underline">info@nexifywebworks.in</a>
+                    <a href={`mailto:${CONTACT_EMAIL}`} className="text-indigo-300 hover:underline">{CONTACT_EMAIL}</a>
                   </div>
                 </div>
               </div>
