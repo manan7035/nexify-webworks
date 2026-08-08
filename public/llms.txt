@@ -1,0 +1,28 @@
+# Nexify Webworks - Web Engineering & Design Studio
+
+> Nexify Webworks is a freelance web development and UI/UX design studio offering custom React and Next.js applications, custom WordPress website design in Elementor & ACF, custom Gutenberg block theme development, Figma UI/UX prototyping, and Google Core Web Vitals SEO optimization.
+
+## Primary Services
+
+- [Website Development using React & Next.js](https://nexifywebworks.in/services/react-development): High-performance Next.js App Router applications, SSG/SSR pre-rendering, Tailwind CSS v4, and sub-second Core Web Vitals speed.
+- [Website Design in WordPress (Elementor & ACF)](https://nexifywebworks.in/services/wordpress-elementor-acf): Custom WordPress website design powered by Elementor Pro and Advanced Custom Fields (ACF Pro) for flexible client content management.
+- [Custom WordPress Block Theme Development](https://nexifywebworks.in/services/wordpress-custom-block-theme): Bespoke Gutenberg block themes built with Full Site Editing (FSE), custom block patterns, theme.json design tokens, and zero page builder bloat.
+- [Figma UI/UX Design & Prototyping](https://nexifywebworks.in/services/ui-ux-design): User-centric wireframes, design systems, and clickable interactive prototypes built in Figma for 1:1 developer code handoff.
+- [SEO & Core Web Vitals Optimization](https://nexifywebworks.in/services/seo-optimization): Technical SEO audits, Google search crawl optimization, LCP/INP/CLS speed tuning, and JSON-LD structured data schema injection.
+
+## Core Navigation Pages
+
+- [Home Page](https://nexifywebworks.in/): Studio introduction, featured projects, tech stack overview, client testimonials, and frequently asked questions.
+- [Services Archive](https://nexifywebworks.in/services): Full portfolio list of web engineering and design services.
+- [About Us](https://nexifywebworks.in/about): Studio background, engineering philosophy, and lead developers.
+- [Portfolio Showcase](https://nexifywebworks.in/portfolio): Verified client web development projects and case studies.
+- [Insights & Blog](https://nexifywebworks.in/insights): Deep dives on web performance, React architecture, WordPress block theme development, and UI/UX design.
+- [Privacy Policy](https://nexifywebworks.in/privacy-policy): Transparent client privacy policy and data protection information.
+- [Contact & Proposals](https://nexifywebworks.in/contact): Project discovery call booking and proposal submission form.
+
+## Technical Architecture & SEO Specifications
+
+- **Framework:** Next.js 16 (App Router), React 19, TypeScript
+- **Styling:** Tailwind CSS v4, Motion (Framer Motion)
+- **SEO Standards:** Semantic HTML5 DOM, JSON-LD Schema Graphs (Organization, Service, FAQPage, BreadcrumbList), XML Sitemaps, Robots.txt, OpenGraph & Twitter Cards
+- **Performance Target:** Green Core Web Vitals scores across Mobile and Desktop

@@ -24,6 +24,25 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
     setTimeout(() => setCopied(false), 3000);
   };
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.title,
+    description: article.excerpt,
+    image: article.image,
+    author: {
+      "@type": "Person",
+      name: article.author.name,
+      jobTitle: article.author.role,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Nexify Webworks",
+      url: "https://nexifywebworks.in",
+    },
+    datePublished: article.date,
+  };
+
   return (
     <ModalShell
       onClose={onClose}
@@ -31,6 +50,10 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
       initialFocusRef={closeButtonRef}
       className="max-w-3xl"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Header bar */}
       <div className="sticky top-0 z-20 flex items-center justify-between px-6 py-4 bg-[#0d1322]/90 backdrop-blur-md border-b border-slate-800">
         <button

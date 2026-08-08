@@ -11,35 +11,322 @@ import positiveImg from '../assets/images/positive.webp';
 import positiveHomeImg from '../assets/images/positive-home.png';
 import positiveServiceImg from '../assets/images/positive-service.webp';
 import darshakImg from '../assets/images/darshak.webp';
-import maulikImg from '../assets/images/maulik-interns.webp';
+import hardikImg from '../assets/images/hardik.webp';
 import kishanImg from '../assets/images/kishan.webp';
 
 const toSrc = (img: unknown): string => img as string;
 
 export const SERVICES: Service[] = [
   {
-    id: 'ui-ux',
-    title: 'UI/UX Figma Design',
-    iconName: 'Layout',
-    description: 'User-centric wireframes, high-fidelity prototypes, and component design systems built in Figma with developer handoff perfection.',
-    deliverables: ['Figma Design Systems', 'Interactive Prototypes', 'User Journey Maps', 'Micro-interactions'],
-    badge: 'Figma Specialist'
-  },
-  {
     id: 'react-apps',
-    title: 'Website Development using React',
+    slug: 'react-development',
+    title: 'Website Development using React & Next.js',
     iconName: 'Zap',
-    description: 'High-speed React applications with fluid Motion animations, Tailwind CSS v4, and resilient API backend integrations.',
-    deliverables: ['Vite / Next.js Apps', 'Framer Motion FX', 'REST & GraphQL APIs', 'Component Libraries'],
-    badge: 'React Specialist'
+    badge: 'React & Next.js Specialist',
+    description: 'High-speed custom React applications with fluid Motion animations, Tailwind CSS v4, Next.js App Router architecture, and sub-second Core Web Vitals performance.',
+    heroSubtitle: 'Engineer sub-second React websites that rank higher on Google, capture target user intent, and convert site visitors into paying clients.',
+    metaTitle: 'Website Development using React & Next.js | Freelance React Developer',
+    metaDescription: 'High-converting website development using React & Next.js. Sub-second load times, Tailwind CSS v4, Motion animations, SSG/SSR pre-rendering, and robust API integrations.',
+    keywords: [
+      'website development using React',
+      'React developer India',
+      'Next.js developer',
+      'freelance React web developer',
+      'custom React web application',
+      'Core Web Vitals React'
+    ],
+    deliverables: [
+      'Next.js App Router & SSG/SSR Architecture',
+      'Tailwind CSS v4 & Motion Micro-Interactions',
+      'REST & GraphQL API Backend Integrations',
+      'Sub-1s Core Web Vitals & Google Crawl Speed',
+      'Interactive State & Responsive Component UI'
+    ],
+    estimatedDays: '5-10 Days',
+    overview: 'In digital commerce, page load speed directly dictates conversions. Traditional monolithic templates slow down user experiences. Website development using React & Next.js decouples frontend rendering from backend bottlenecks, delivering instant interactive states and zero layout shifts.',
+    features: [
+      {
+        title: 'Next.js App Router Architecture',
+        description: 'Server Components eliminate heavy client JavaScript bundles while ensuring immediate search engine HTML indexing.',
+        iconName: 'Code2'
+      },
+      {
+        title: 'Tailwind CSS v4 & Motion FX',
+        description: 'Ultra-lightweight styling framework paired with 60 FPS hardware-accelerated micro-animations.',
+        iconName: 'Zap'
+      },
+      {
+        title: 'Core Web Vitals Optimization',
+        description: 'Sub-1.2s Largest Contentful Paint (LCP) and sub-50ms Interaction to Next Paint (INP) built into the code.',
+        iconName: 'Gauge'
+      }
+    ],
+    workflow: [
+      { step: '01', title: 'Architecture Planning', description: 'Defining component boundaries, state trees, and API endpoints tailored to your business goals.' },
+      { step: '02', title: 'Component Engineering', description: 'Building atomic React components with TypeScript type-safety and Tailwind styling.' },
+      { step: '03', title: 'Pre-rendering & SEO', description: 'Configuring Next.js SSG/SSR static pages, metadata, sitemaps, and OpenGraph tags.' },
+      { step: '04', title: 'Speed Audit & Launch', description: 'Running Google Lighthouse audits to lock 95+ performance scores before deployment.' }
+    ],
+    faqs: [
+      {
+        question: 'Why choose website development using React over standard WordPress?',
+        answer: 'React and Next.js applications decouple frontend rendering from database bottlenecks, producing sub-second page speeds, zero layout shifts, and total immunity to plugin security vulnerabilities.'
+      },
+      {
+        question: 'Is website development using React good for Google SEO?',
+        answer: 'Yes! Next.js pre-renders every page to static HTML on the server, ensuring Google search bots index all your content and metadata instantly.'
+      },
+      {
+        question: 'Can you integrate custom backend APIs with React?',
+        answer: 'Absolutely. We connect React web apps with REST APIs, GraphQL, headless CMS repositories, and third-party tools like Stripe, Resend, and Firebase.'
+      }
+    ]
   },
   {
     id: 'wordpress',
-    title: 'WordPress Website Design',
+    slug: 'wordpress-elementor-acf',
+    title: 'Website Design in WordPress (Elementor & ACF)',
     iconName: 'Code2',
-    description: 'Custom WordPress websites built with Elementor for product display, contact forms, service pages, and simple content management.',
-    deliverables: ['Elementor Page Templates', 'Responsive Product Showcase', 'Contact Form Integration', 'SEO-Friendly Structure'],
-    badge: 'Elementor Expert'
+    badge: 'Elementor & ACF Expert',
+    description: 'Custom WordPress website design powered by Elementor Pro and Advanced Custom Fields (ACF) for dynamic content models, custom blocks, speed optimization, and simple content management.',
+    heroSubtitle: 'Build pixel-perfect WordPress websites with Elementor Pro drag-and-drop flexibility and Advanced Custom Fields (ACF) structured content management.',
+    metaTitle: 'Website Design in WordPress (Elementor & ACF) | Custom WordPress Developer',
+    metaDescription: 'Custom website design in WordPress built with Elementor Pro and Advanced Custom Fields (ACF). Flexible editor controls, custom post types, and enterprise page speed.',
+    keywords: [
+      'website design in WordPress',
+      'website design using Elementor',
+      'ACF WordPress developer',
+      'Advanced Custom Fields',
+      'freelance WordPress developer India',
+      'Elementor Pro expert'
+    ],
+    deliverables: [
+      'Elementor Pro Drag-and-Drop Theme Building',
+      'Advanced Custom Fields (ACF Pro) Data Models',
+      'Custom Post Types & Taxonomy Architecture',
+      'Redis Caching & Asset Query Optimization',
+      'Mobile-First Responsive Design & SEO Setup'
+    ],
+    estimatedDays: '4-7 Days',
+    overview: 'Get full ownership of your business website with custom WordPress website design powered by Elementor Pro and Advanced Custom Fields (ACF). Non-technical site owners get an effortless content editing experience backed by clean code and fast loading speeds.',
+    features: [
+      {
+        title: 'Elementor Pro Drag & Drop',
+        description: 'Design pixel-perfect landing pages, custom headers, footers, and archive layouts visually with zero coding required for future edits.',
+        iconName: 'Layout'
+      },
+      {
+        title: 'Advanced Custom Fields (ACF)',
+        description: 'Structure complex content—such as team profiles, portfolio items, and service details—into clean, dedicated admin input fields.',
+        iconName: 'Code2'
+      },
+      {
+        title: 'Speed & Plugin Optimization',
+        description: 'We prune redundant CSS/JS assets and configure database caching so your WordPress site loads in under 1 second.',
+        iconName: 'Gauge'
+      }
+    ],
+    workflow: [
+      { step: '01', title: 'Content & ACF Modeling', description: 'Designing custom post types and ACF field groups for your business data.' },
+      { step: '02', title: 'Elementor Pro Design', description: 'Crafting responsive page layouts, global design tokens, and hover micro-interactions.' },
+      { step: '03', title: 'Speed & SEO Optimization', description: 'Configuring Redis object caching, image webp compression, and Schema markup.' },
+      { step: '04', title: 'Client Admin Handoff', description: 'Providing video walk-throughs showing how easy it is to update your site content.' }
+    ],
+    faqs: [
+      {
+        question: 'What is the benefit of Advanced Custom Fields (ACF) with Elementor?',
+        answer: 'ACF lets you structure custom business data into dedicated input fields in WordPress. Elementor then renders that data cleanly, keeping your site structured and easy to maintain.'
+      },
+      {
+        question: 'Will my Elementor WordPress website load quickly on mobile?',
+        answer: 'Yes! We disable unused Elementor scripts, lazy-load images, compress styles, and enable server caching so your pages load in under 1 second.'
+      },
+      {
+        question: 'Can I edit the text and images myself after launch?',
+        answer: '100% yes. You will have full admin access to edit text, swap images, create blog posts, and add new pages using Elementor.'
+      }
+    ]
+  },
+  {
+    id: 'wordpress-block-theme',
+    slug: 'wordpress-custom-block-theme',
+    title: 'Custom WordPress Block Theme Development',
+    iconName: 'Layout',
+    badge: 'Gutenberg & Block Theme Specialist',
+    description: 'Bespoke WordPress block theme development using native Gutenberg blocks, Full Site Editing (FSE), custom block patterns, and ultra-lightweight PHP code.',
+    heroSubtitle: 'Build fast, future-proof WordPress websites with custom Gutenberg block themes engineered for speed, clean DOM markup, and native block editor controls.',
+    metaTitle: 'Custom WordPress Block Theme Development | Gutenberg FSE Developer',
+    metaDescription: 'Bespoke WordPress block theme development using Gutenberg Full Site Editing (FSE). Light asset footprint, custom block patterns, clean PHP, and high page speed.',
+    keywords: [
+      'custom WordPress block theme development',
+      'Gutenberg block theme developer',
+      'WordPress Full Site Editing FSE',
+      'custom block developer India',
+      'WordPress Gutenberg developer'
+    ],
+    deliverables: [
+      'Custom Gutenberg Block Theme Architecture (theme.json)',
+      'Bespoke Block Patterns & Reusable Block Variations',
+      'Full Site Editing (FSE) Header, Footer & Template Parts',
+      'Clean Modular PHP & Asset Loading (Zero Page Builder Bloat)',
+      'Google Core Web Vitals Speed & Technical SEO Setup'
+    ],
+    overview: 'Full Site Editing (FSE) and native Gutenberg blocks represent the modern standard of WordPress theme development. By building custom WordPress block themes from scratch, we eliminate heavy third-party page builders while giving client site administrators native drag-and-drop block editing controls backed by sub-second page performance.',
+    features: [
+      {
+        title: 'Native Gutenberg Block Patterns',
+        description: 'Bespoke visual block layouts designed specifically for your brand identity and content editing workflow.',
+        iconName: 'Layout'
+      },
+      {
+        title: 'theme.json Design System',
+        description: 'Global color palettes, typography scales, spacing tokens, and layout boundaries defined natively in theme configuration.',
+        iconName: 'Code2'
+      },
+      {
+        title: 'Zero Page Builder Bloat',
+        description: 'Native block rendering produces clean semantic HTML5 code that loads in under 1 second without excess plugin dependencies.',
+        iconName: 'Gauge'
+      }
+    ],
+    workflow: [
+      { step: '01', title: 'Block Architecture', description: 'Defining theme.json global tokens, template parts, and custom block schema requirements.' },
+      { step: '02', title: 'Block Pattern Development', description: 'Coding clean Gutenberg block patterns and FSE template parts in native PHP and JSON.' },
+      { step: '03', title: 'Performance Optimization', description: 'Enabling script deferral, critical CSS inline styles, and Redis query caching.' },
+      { step: '04', title: 'Client Handoff & Training', description: 'Providing video walk-throughs on managing site templates directly inside the Gutenberg editor.' }
+    ],
+    faqs: [
+      {
+        question: 'What is a custom WordPress block theme?',
+        answer: 'A custom block theme uses WordPress Full Site Editing (FSE) and native Gutenberg blocks instead of traditional third-party page builders. This results in cleaner HTML code, faster page load speeds, and intuitive native block editing.'
+      },
+      {
+        question: 'Is a block theme faster than traditional page builders?',
+        answer: 'Yes! Native Gutenberg block themes load zero heavy page builder scripts, producing ultra-lightweight DOM trees and faster Core Web Vitals metrics.'
+      }
+    ]
+  },
+  {
+    id: 'ui-ux',
+    slug: 'ui-ux-design',
+    title: 'Figma UI/UX Design & Prototyping',
+    iconName: 'Layout',
+    badge: 'Figma UI/UX Specialist',
+    description: 'User-centric wireframes, high-fidelity interactive prototypes, and component design systems built in Figma with 1:1 developer handoff perfection.',
+    heroSubtitle: 'Transform complex business ideas into beautiful, user-tested digital interfaces with comprehensive Figma design systems and interactive prototypes.',
+    metaTitle: 'Figma UI/UX Design & Wireframing Services | Custom Web UI Designer',
+    metaDescription: 'User-centered Figma UI/UX design, interactive prototypes, design systems, and mobile wireframes crafted for maximum conversion rates.',
+    keywords: [
+      'UI UX design',
+      'Figma UI UX design',
+      'Figma design system',
+      'website wireframing',
+      'interactive prototype',
+      'freelance UI UX designer'
+    ],
+    deliverables: [
+      'Complete Figma Design Systems & Design Tokens',
+      'Interactive High-Fidelity Desktop & Mobile Prototypes',
+      'User Flow Diagrams & Low-Fidelity Wireframes',
+      'Micro-Interactions & Hover Physics Specifications',
+      'Developer Handoff Files Ready for React / WordPress'
+    ],
+    estimatedDays: '3-6 Days',
+    overview: 'Great web products begin with great user experience design. Skipping the Figma UI/UX design phase leads to inconsistent visual branding, poor mobile usability, and design debt. We design pixel-perfect UI systems that guide user attention directly to conversion goals.',
+    features: [
+      {
+        title: 'Figma Component Systems',
+        description: 'Auto-layout components, color variables, typography hierarchies, and dark/light UI modes organized for scalability.',
+        iconName: 'Layout'
+      },
+      {
+        title: 'Clickable Prototypes',
+        description: 'Test interactive user flows, popup modals, and navigation drawers before committing to frontend code development.',
+        iconName: 'Zap'
+      },
+      {
+        title: '1:1 Code Alignment',
+        description: 'All Figma design tokens map directly to Tailwind CSS utility classes and React/WordPress component containers.',
+        iconName: 'Code2'
+      }
+    ],
+    workflow: [
+      { step: '01', title: 'UX Research & Wireframing', description: 'Mapping user personas, site architecture, and low-fidelity structural layouts.' },
+      { step: '02', title: 'Figma Design System', description: 'Establishing color palettes, typography scales, buttons, inputs, and dark mode tokens.' },
+      { step: '03', title: 'High-Fidelity Mockups', description: 'Designing complete responsive page interfaces for desktop, tablet, and mobile screens.' },
+      { step: '04', title: 'Interactive Handoff', description: 'Delivering organized Figma files with auto-layout and interactive prototype links.' }
+    ],
+    faqs: [
+      {
+        question: 'What deliverables do I get with Figma UI/UX Design?',
+        answer: 'You receive full ownership of organized Figma source files, reusable design system components, desktop and mobile screens, and clickable prototype links.'
+      },
+      {
+        question: 'Can you convert the Figma UI/UX design into React or WordPress code?',
+        answer: 'Yes! We specialize in converting Figma designs into clean React code or Elementor WordPress websites.'
+      }
+    ]
+  },
+  {
+    id: 'seo-opt',
+    slug: 'seo-optimization',
+    title: 'SEO & Core Web Vitals Optimization',
+    iconName: 'Gauge',
+    badge: 'SEO & Speed Specialist',
+    description: 'Technical SEO audits, Google Core Web Vitals tuning, JSON-LD Schema markup injection, and search engine crawl speed optimization to rank your business #1 on Google.',
+    heroSubtitle: 'Boost search engine visibility, fix slow loading speeds, and rank higher on Google search results for your target service keywords.',
+    metaTitle: 'SEO & Core Web Vitals Optimization Services | Rank #1 on Google',
+    metaDescription: 'Technical SEO audits, Google crawl speed optimization, Core Web Vitals tuning (LCP, INP, CLS), and JSON-LD Schema markup to rank your business higher.',
+    keywords: [
+      'SEO optimization',
+      'Google crawl speed optimization',
+      'Core Web Vitals tuning',
+      'JSON LD schema markup',
+      'local SEO India',
+      'technical SEO audit'
+    ],
+    deliverables: [
+      'Comprehensive Technical SEO & Speed Audit Report',
+      'Google Core Web Vitals Tuning (LCP, INP, CLS)',
+      'JSON-LD Schema Markup (LocalBusiness, Service, Article)',
+      'XML Sitemap & Robots.txt Crawler Optimization',
+      'Google Search Console & Analytics Setup'
+    ],
+    estimatedDays: '2-4 Days',
+    overview: 'Search engines reward websites that load quickly and deliver clean structured markup. If your site is slow or missing technical metadata, potential clients will never find you on Google. Our SEO optimization fixes speed bottlenecks and ensures search bots index every page.',
+    features: [
+      {
+        title: 'Core Web Vitals Tuning',
+        description: 'Optimizing Largest Contentful Paint (LCP) and Interaction to Next Paint (INP) to achieve 95+ Google Lighthouse scores.',
+        iconName: 'Gauge'
+      },
+      {
+        title: 'JSON-LD Schema Markup',
+        description: 'Injecting rich structured data graph so your business qualifies for Google Knowledge Graph and search snippets.',
+        iconName: 'Code2'
+      },
+      {
+        title: 'Search Indexing & Crawling',
+        description: 'Publishing optimized sitemaps, robots.txt directives, and canonical URLs to eliminate duplicate content issues.',
+        iconName: 'Zap'
+      }
+    ],
+    workflow: [
+      { step: '01', title: 'SEO Audit', description: 'Diagnosing page speed metrics, broken links, metadata gaps, and mobile usability issues.' },
+      { step: '02', title: 'Speed Tuning', description: 'Compressing images, lazy-loading below-the-fold assets, and eliminating render-blocking CSS.' },
+      { step: '03', title: 'Schema & Meta Injection', description: 'Adding OpenGraph tags, Twitter cards, and JSON-LD structured data graphs.' },
+      { step: '04', title: 'Google Re-indexing', description: 'Submitting updated sitemaps to Google Search Console for rapid search re-crawling.' }
+    ],
+    faqs: [
+      {
+        question: 'How fast will my site rank after SEO optimization?',
+        answer: 'Technical SEO fixes (sitemaps, schema, speed tuning) are usually recognized by Google search crawlers within 24–72 hours, with ranking gains building as bots index your pages.'
+      },
+      {
+        question: 'What are Google Core Web Vitals?',
+        answer: 'Core Web Vitals are Google official UX ranking metrics measuring load performance (LCP), interactivity responsiveness (INP), and visual stability (CLS).'
+      }
+    ]
   }
 ];
 
@@ -150,6 +437,100 @@ export const PROJECTS: Project[] = [
 ];
 
 export const ARTICLES: Article[] = [
+  {
+    id: 'website-development-using-react-guide',
+    title: 'Why Website Development using React & Next.js Delivers 3x Higher Business Conversions',
+    category: 'React Development',
+    excerpt: 'Discover how modern website development using React and Next.js reduces page bounce rates, optimizes Core Web Vitals, and provides sub-second page rendering for high-growth businesses.',
+    content: `
+      ### The Business Advantage of React & Next.js Development
+
+      In modern digital commerce, website performance directly dictates revenue. Traditional monolithic websites often suffer from bloated client bundles, slow initial page loads, and layout shifts that frustrate users. **Website development using React & Next.js** solves these performance hurdles by decoupling the frontend rendering engine from backend data dependencies.
+
+      #### 1. Lightning-Fast Core Web Vitals
+      Google's search algorithm heavily rewards websites that meet strict **Core Web Vitals** benchmarks:
+      * **Largest Contentful Paint (LCP):** Under 1.2 seconds using Next.js Server Components and automated image optimization.
+      * **Interaction to Next Paint (INP):** Sub-50ms responsiveness by keeping interactive state isolated within lightweight client components.
+      * **Cumulative Layout Shift (CLS):** Zero shift through strict CSS grid/flexbox component containers.
+
+      #### 2. SEO Pre-Rendering: SSG vs SSR
+      With Next.js App Router, every page is pre-rendered at build time (Static Site Generation) or rendered on-demand at the edge (Server-Side Rendering). This ensures search engine crawlers (Googlebot, Bingbot) receive complete HTML markup immediately, boosting indexing speed and keyword rankings.
+
+      #### 3. Scalable Component Architecture
+      React's modular component ecosystem allows developers to construct reusable design tokens, interactive CTA forms, and rich visual showcases without code duplication. This leads to faster feature releases, seamless maintenance, and long-term business scalability.
+    `,
+    author: {
+      name: 'Nexify Webworks',
+      role: 'React Engineering Lead',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80'
+    },
+    date: 'August 08, 2026',
+    readTime: '6 min read',
+    featured: true,
+    image: '/images/react_blog.jpg'
+  },
+  {
+    id: 'wordpress-design-elementor-acf-guide',
+    title: 'Mastering WordPress Website Design: How Elementor Pro & ACF (Advanced Custom Fields) Build High-Performance Sites',
+    category: 'WordPress & Elementor',
+    excerpt: 'Learn how combining website design in WordPress with Elementor Pro and Advanced Custom Fields (ACF) delivers pixel-perfect layouts, flexible editor controls, and sub-second page loading speeds.',
+    content: `
+      ### The Ultimate Formula for Custom WordPress Websites
+
+      WordPress powers over 40% of the web. However, many business owners struggle with slow WordPress themes and restrictive templates. By combining **website design in WordPress using Elementor Pro** with **Advanced Custom Fields (ACF)**, we create fully customized, high-converting websites that are easy for non-technical site owners to manage.
+
+      #### 1. Why Elementor Pro + ACF is a Game-Changer
+      * **Elementor Pro:** Provides fluid pixel-perfect page building, motion effects, and responsive layout control without messy code.
+      * **Advanced Custom Fields (ACF):** Empowers business owners to manage custom data fields—such as client testimonials, portfolio items, pricing tiers, and service specifications—directly from the WordPress admin panel without breaking design layouts.
+
+      #### 2. Optimizing WordPress Page Speed & Technical SEO
+      Many Elementor sites suffer from plugin bloat. Here is how we guarantee sub-second load times:
+      * **Asset Pruning:** Disable unused Elementor widgets and scripts on pages where they aren't needed.
+      * **Redis & Object Caching:** Cache database queries to decrease Server Response Time (TTFB) to under 100ms.
+      * **Clean Schema Markup:** Inject custom JSON-LD schema for local SEO and Google Knowledge Graph snippets.
+
+      #### 3. Built for Business Growth
+      Whether launching a corporate agency site, a local business showcase in India, or an international e-commerce portal, an Elementor & ACF WordPress setup gives you full ownership and unlimited growth potential.
+    `,
+    author: {
+      name: 'Nexify Webworks',
+      role: 'WordPress Architect',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80'
+    },
+    date: 'August 05, 2026',
+    readTime: '7 min read',
+    featured: true,
+    image: '/images/wordpress_blog.jpg'
+  },
+  {
+    id: 'figma-ui-ux-design-to-code',
+    title: 'From Figma UI/UX Design to Production Code: A Step-by-Step Blueprint for Modern Websites',
+    category: 'UI/UX Design',
+    excerpt: 'How structured Figma UI/UX design systems, interactive prototypes, and atomic component handoffs eliminate design debt and double frontend development speed.',
+    content: `
+      ### Why Great Websites Begin in Figma
+
+      A successful website is built twice: first in design, then in code. Skipping the **Figma UI/UX design phase** leads to mismatched typography, inconsistent spacing, broken mobile views, and costly client revisions.
+
+      #### 1. The 4 Pillars of Professional UI/UX Design
+      * **User Research & Wireframing:** Defining user navigation journeys and conversion goals before drawing visual interfaces.
+      * **Figma Design Systems:** Creating reusable color tokens, typography scales, auto-layout components, and dark/light UI modes.
+      * **Interactive Prototyping:** Testing user interactions, modal transitions, and button states before writing a single line of code.
+      * **Developer Handoff Perfection:** Ensuring CSS styles, vector assets, and responsive breakpoints map 1:1 to React components or Elementor templates.
+
+      #### 2. Mobile-First & Micro-Interactions
+      Over 60% of web traffic originates from mobile devices. We design all Figma layouts mobile-first, incorporating tactile visual feedback and smooth micro-animations that increase user engagement and trust.
+    `,
+    author: {
+      name: 'Nexify Webworks',
+      role: 'UI/UX Design Lead',
+      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=300&q=80'
+    },
+    date: 'August 02, 2026',
+    readTime: '5 min read',
+    featured: true,
+    image: '/images/uiux_blog.jpg'
+  },
   {
     id: 'future-digital-craftsmanship',
     title: 'The Future of Digital Craftsmanship: Balancing WebGL, Speed, and Usability',
@@ -460,10 +841,10 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: '2',
     quote: 'Working with this team on our Figma design project was a great experience. They transformed our ideas into a clean, modern, and user-friendly design that perfectly matched our vision. Their attention to detail, creative approach, and understanding of user experience were impressive. The team delivered high-quality designs with excellent communication and professionalism throughout the process. We truly appreciate their work and would highly recommend them for UI/UX design and product design solutions.',
-    author: 'Maulik',
+    author: 'Hardik',
     role: 'Head of Product',
     company: 'Novo Studio',
-    avatar: toSrc(maulikImg),
+    avatar: toSrc(hardikImg),
     rating: 4,
     metric: ''
   },

@@ -7,22 +7,42 @@ import { Terminal, Send, CheckCircle2, Activity, Mail, MapPin, Clock, Shield } f
 export const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email || !email.trim()) return;
+
+    setSubmitting(true);
+    try {
+      await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Newsletter Subscriber',
+          email: email.trim(),
+          message: 'New subscriber from Footer newsletter signup form.',
+          scopes: ['Newsletter Subscription']
+        })
+      });
       setSubscribed(true);
       setEmail('');
       setTimeout(() => setSubscribed(false), 5000);
+    } catch (err) {
+      console.error('Newsletter error:', err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const navLinks: { href: string; label: string }[] = [
     { href: '/', label: 'Home' },
+    { href: '/services', label: 'Services' },
     { href: '/about', label: 'About' },
     { href: '/portfolio', label: 'Portfolio' },
     { href: '/insights', label: 'Insights' },
-    { href: '/contact', label: 'Contact' }
+    { href: '/contact', label: 'Contact' },
+    { href: '/privacy-policy', label: 'Privacy Policy' }
   ];
 
   return (
@@ -75,10 +95,10 @@ export const Footer: React.FC = () => {
             <h4 className="font-space font-semibold text-white text-sm tracking-wider uppercase mb-4">Core Expertise</h4>
             <ul className="space-y-2.5 text-sm">
               <li className="text-slate-300">Elementor WordPress Design</li>
+              <li className="text-slate-300">Custom Block Theme Dev</li>
               <li className="text-slate-300">React 19 & Next.js Apps</li>
               <li className="text-slate-300">Figma Design Systems</li>
-              <li className="text-slate-300">Custom Block Theme</li>
-              <li className="text-slate-300">Fast performance with basic SEO</li>
+              <li className="text-slate-300">Core Web Vitals SEO</li>
             </ul>
           </div>
 
@@ -109,10 +129,11 @@ export const Footer: React.FC = () => {
                   />
                   <button
                     type="submit"
+                    disabled={submitting}
                     aria-label="Subscribe"
-                    className="absolute right-1.5 top-1.5 bottom-1.5 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center justify-center transition-colors cursor-pointer"
+                    className="absolute right-1.5 top-1.5 bottom-1.5 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white text-xs font-semibold flex items-center justify-center transition-colors cursor-pointer"
                   >
-                    <Send className="w-3.5 h-3.5" />
+                    <Send className={`w-3.5 h-3.5 ${submitting ? 'animate-pulse' : ''}`} />
                   </button>
                 </div>
               </form>
@@ -145,6 +166,13 @@ export const Footer: React.FC = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row items-center gap-3 text-slate-500">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-indigo-400 transition-colors text-[11px] font-mono"
+            >
+              Privacy Policy
+            </Link>
+            <span>•</span>
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-400">
               <Clock className="w-3 h-3" />
               <span className="font-mono text-[11px]">4h Response Time</span>

@@ -2,32 +2,33 @@ import type { Metadata } from "next";
 import { AboutView } from "@/components/AboutView";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About — Freelance React, WordPress (Elementor & ACF) & UI/UX Specialist",
   description:
-    "Meet Nexify Webworks — a Rajkot, India freelance web developer with 3+ years of experience building fast, conversion-focused React, WordPress, and Figma websites for clients in India and worldwide.",
+    "Learn about Nexify Webworks — a freelance web engineering studio specializing in website development using React, custom WordPress website design with Elementor & ACF, and Figma UI/UX design.",
   keywords: [
     "about Nexify Webworks",
-    "freelance web developer Rajkot",
-    "React developer",
-    "WordPress developer",
+    "freelance React developer",
+    "WordPress Elementor developer",
+    "ACF custom fields expert",
+    "UI UX designer profile",
     "web development methodology",
   ],
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About | Nexify Webworks",
+    title: "About — Freelance React, WordPress & UI/UX Specialist | Nexify Webworks",
     description:
-      "The story, stats, and four-pillar methodology behind Nexify Webworks, a Rajkot, India freelance web developer.",
+      "Meet Nexify Webworks: Expert website development using React, custom WordPress design (Elementor & ACF), and Figma UI/UX design.",
     type: "website",
     url: "/about",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About | Nexify Webworks",
+    title: "About — Freelance React, WordPress & UI/UX Specialist | Nexify Webworks",
     description:
-      "The story, stats, and four-pillar methodology behind Nexify Webworks, a Rajkot, India freelance web developer.",
+      "Meet Nexify Webworks: Expert website development using React, custom WordPress design (Elementor & ACF), and Figma UI/UX design.",
     images: ["/og-image.png"],
   },
 };
