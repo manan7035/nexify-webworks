@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   category: "technology",
   classification: "Web Development Studio",
+  verification: {
+    google: "N5QSIFoPLQz6xtzsoLZx6jET6h-aTFxqOtwy6mMW14c",
+  },
   robots: {
     index: true,
     follow: true,

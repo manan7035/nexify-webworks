@@ -15,7 +15,7 @@ export const runtime = 'nodejs';
 
 const GEMINI_MODEL = process.env.GEMINI_MODEL ?? 'gemini-2.5-flash';
 const DEFAULT_FROM_EMAIL = 'Nexify Webworks <info@nexifywebworks.in>';
-const RESEND_TEST_FROM_EMAIL = 'Nexify Webworks <onboarding@resend.dev>';
+const RESEND_TEST_FROM = 'Nexify Webworks <onboarding@resend.dev>';
 
 const requestSchema = z.object({
   name: z.string().trim().max(100).optional(),
@@ -117,9 +117,9 @@ export async function POST(request: Request): Promise<NextResponse> {
     aiReply,
   };
 
-  // If RESEND_API_KEY is missing from production environment, fallback gracefully
+  // If RESEND_API_KEY is missing from environment settings, log and respond gracefully
   if (!isResendConfigured) {
-    console.info(`[Contact Intake Fallback] Inquiry received from ${emailData.email} (${emailData.name}). RESEND_API_KEY not configured on server.`);
+    console.info(`[Contact Intake Fallback] Inquiry from ${emailData.email} (${emailData.name}). RESEND_API_KEY not configured on server.`);
 
     return NextResponse.json({
       success: true,
@@ -129,13 +129,19 @@ export async function POST(request: Request): Promise<NextResponse> {
     });
   }
 
-  // Send real email via Resend
+  // Initialize Resend Client
   const resend = new Resend(resendApiKey);
   const targetAdminEmail = process.env.CONTACT_EMAIL || CONTACT_EMAIL;
 
+  let adminEmailId: string | undefined = undefined;
+  let userEmailId: string | undefined = undefined;
+  let resendFromUsed = fromEmail;
+  let adminErrorMsg: string | undefined = undefined;
+  let userErrorMsg: string | undefined = undefined;
+
+  // STEP 1: Send Admin Email Notification (Primary Priority)
   try {
-    // 1. Attempt admin email sending with verified domain fromEmail
-    let adminEmailResult = await resend.emails.send({
+    const adminAttempt1 = await resend.emails.send({
       from: fromEmail,
       to: targetAdminEmail,
       replyTo: emailData.email,
@@ -144,35 +150,40 @@ export async function POST(request: Request): Promise<NextResponse> {
       text: generateAdminNotificationPlainText(emailData),
     });
 
-    // If domain isn't fully verified yet in Resend DNS, automatic fallback to onboarding@resend.dev
-    if (adminEmailResult.error && (adminEmailResult.error.message.includes('domain') || adminEmailResult.error.message.includes('verify'))) {
-      console.warn('Retrying email delivery with Resend onboarding domain:', adminEmailResult.error.message);
-      adminEmailResult = await resend.emails.send({
-        from: RESEND_TEST_FROM_EMAIL,
+    if (adminAttempt1.error) {
+      adminErrorMsg = adminAttempt1.error.message;
+      console.warn('Admin email attempt 1 failed:', adminAttempt1.error.message);
+
+      // Attempt 2: Fallback to onboarding@resend.dev if custom domain is not yet verified in Resend DNS
+      resendFromUsed = RESEND_TEST_FROM;
+      const adminAttempt2 = await resend.emails.send({
+        from: RESEND_TEST_FROM,
         to: targetAdminEmail,
         replyTo: emailData.email,
         subject: `🔔 New Contact Submission from ${emailData.name}`,
         html: generateAdminNotificationEmail(emailData),
         text: generateAdminNotificationPlainText(emailData),
       });
+
+      if (adminAttempt2.error) {
+        adminErrorMsg = adminAttempt2.error.message;
+        console.error('Admin email attempt 2 failed:', adminAttempt2.error.message);
+      } else {
+        adminEmailId = adminAttempt2.data?.id;
+        adminErrorMsg = undefined;
+      }
+    } else {
+      adminEmailId = adminAttempt1.data?.id;
     }
+  } catch (err: unknown) {
+    adminErrorMsg = err instanceof Error ? err.message : 'Failed to send admin email.';
+    console.error('Admin email exception:', err);
+  }
 
-    if (adminEmailResult.error) {
-      console.error('Resend Admin Email Delivery Error:', adminEmailResult.error);
-      return NextResponse.json({
-        success: false,
-        error: `Resend Email Delivery Error: ${adminEmailResult.error.message}`,
-        details: adminEmailResult.error,
-        reply: aiReply,
-      }, { status: 500 });
-    }
-
-    // 2. Attempt user confirmation email sending
-    let userEmailId: string | undefined = undefined;
-    let userEmailWarning: string | undefined = undefined;
-
-    let userEmailResult = await resend.emails.send({
-      from: fromEmail,
+  // STEP 2: Send User Confirmation Email (Secondary Priority)
+  try {
+    const userAttempt1 = await resend.emails.send({
+      from: resendFromUsed,
       to: emailData.email,
       replyTo: targetAdminEmail,
       subject: '✓ Your Inquiry Received - Nexify Webworks',
@@ -180,38 +191,26 @@ export async function POST(request: Request): Promise<NextResponse> {
       text: generateUserConfirmationPlainText(emailData),
     });
 
-    if (userEmailResult.error && (userEmailResult.error.message.includes('domain') || userEmailResult.error.message.includes('verify'))) {
-      userEmailResult = await resend.emails.send({
-        from: RESEND_TEST_FROM_EMAIL,
-        to: emailData.email,
-        replyTo: targetAdminEmail,
-        subject: '✓ Your Inquiry Received - Nexify Webworks',
-        html: generateUserConfirmationEmail(emailData),
-        text: generateUserConfirmationPlainText(emailData),
-      });
-    }
-
-    if (userEmailResult.error) {
-      userEmailWarning = userEmailResult.error.message;
-      console.warn('User email warning:', userEmailResult.error.message);
+    if (userAttempt1.error) {
+      userErrorMsg = userAttempt1.error.message;
+      console.warn('User confirmation email attempt failed (e.g. test mode unverified recipient):', userAttempt1.error.message);
     } else {
-      userEmailId = userEmailResult.data?.id;
+      userEmailId = userAttempt1.data?.id;
     }
-
-    return NextResponse.json({
-      success: true,
-      message: 'Inquiry received successfully.',
-      adminEmailId: adminEmailResult.data?.id,
-      userEmailId,
-      userEmailWarning,
-      reply: aiReply,
-    });
-  } catch (emailError: unknown) {
-    const errMessage = emailError instanceof Error ? emailError.message : 'Unknown email error';
-    console.error('Email sending exception:', emailError);
-    return NextResponse.json({
-      success: false,
-      error: `Failed to send inquiry: ${errMessage}`,
-    }, { status: 500 });
+  } catch (err: unknown) {
+    userErrorMsg = err instanceof Error ? err.message : 'User confirmation email error.';
+    console.warn('User confirmation email exception:', err);
   }
+
+  // Guaranteed Success Response for Site Visitor
+  return NextResponse.json({
+    success: true,
+    message: 'Thank you! Your inquiry has been received. Our team will get back to you shortly.',
+    adminEmailId,
+    userEmailId,
+    resendFromUsed,
+    adminErrorMsg,
+    userErrorMsg,
+    reply: aiReply,
+  });
 }
