@@ -164,7 +164,7 @@ export const HomeView: React.FC = () => {
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>ENGINEERED SERVICES</span>
               </div>
-              <h2 className="font-syne text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              <h2 className="font-syne text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-[1.4]">
                 Services Built for Growth & Search Visibility
               </h2>
             </div>
@@ -194,7 +194,7 @@ export const HomeView: React.FC = () => {
                     </span>
                   </div>
 
-                  <h3 className="font-syne font-bold text-xl text-white group-hover:text-indigo-300 transition-colors leading-[1.25]">
+                  <h3 className="font-syne font-bold text-xl text-white group-hover:text-indigo-300 transition-colors leading-[1.5]">
                     <Link href={`/services/${srv.slug}`} className="hover:underline">
                       {srv.title}
                     </Link>
