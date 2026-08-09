@@ -118,16 +118,17 @@ export async function POST(request: Request): Promise<NextResponse> {
     aiReply,
   };
 
-  // If RESEND_API_KEY is not configured on production, fallback gracefully with success message
+  // If RESEND_API_KEY is not configured on production, fail explicitly so developer knows env vars are missing
   if (!resendApiKey) {
-    console.info(`[Contact Intake Fallback] Inquiry from ${emailData.email} (${emailData.name}). RESEND_API_KEY is not configured on production.`);
+    console.error(`[Contact Intake Error] RESEND_API_KEY is not set in environment variables.`);
 
-    return NextResponse.json({
-      success: true,
-      message: 'Thank you! Your inquiry has been received. Our team will get back to you shortly.',
-      reply: aiReply || 'Thank you for reaching out to Nexify Webworks. We have logged your request and will review your project requirements promptly.',
-      fallbackMode: true,
-    });
+    return NextResponse.json(
+      {
+        error: 'Email delivery service error: RESEND_API_KEY is missing from production environment variables.',
+        details: 'Please add RESEND_API_KEY in your hosting server environment settings.',
+      },
+      { status: 500 }
+    );
   }
 
   // Initialize Resend Client with environment API key
@@ -136,11 +137,12 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   let adminEmailId: string | undefined = undefined;
   let userEmailId: string | undefined = undefined;
-  let resendFromUsed = fromEmail;
+  let adminError: string | undefined = undefined;
+  let userError: string | undefined = undefined;
 
   // STEP 1: Send Admin Email Notification
   try {
-    const adminAttempt1 = await resend.emails.send({
+    const adminAttempt = await resend.emails.send({
       from: fromEmail,
       to: targetAdminEmail,
       replyTo: emailData.email,
@@ -149,34 +151,22 @@ export async function POST(request: Request): Promise<NextResponse> {
       text: generateAdminNotificationPlainText(emailData),
     });
 
-    if (adminAttempt1.error) {
-      console.warn('[Resend Admin Email Attempt 1 Warning]:', adminAttempt1.error.message);
-
-      // Fallback attempt using onboarding@resend.dev sender if custom domain DNS is pending
-      resendFromUsed = RESEND_TEST_FROM;
-      const adminAttempt2 = await resend.emails.send({
-        from: RESEND_TEST_FROM,
-        to: targetAdminEmail,
-        replyTo: emailData.email,
-        subject: `🔔 New Contact Submission from ${emailData.name}`,
-        html: generateAdminNotificationEmail(emailData),
-        text: generateAdminNotificationPlainText(emailData),
-      });
-
-      if (!adminAttempt2.error) {
-        adminEmailId = adminAttempt2.data?.id;
-      }
+    if (adminAttempt.error) {
+      console.error('[Resend Admin Email Error]:', adminAttempt.error.message);
+      adminError = adminAttempt.error.message;
     } else {
-      adminEmailId = adminAttempt1.data?.id;
+      adminEmailId = adminAttempt.data?.id;
     }
   } catch (err: unknown) {
-    console.error('Admin email exception:', err);
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('Admin email exception:', msg);
+    adminError = msg;
   }
 
   // STEP 2: Send User Confirmation Email
   try {
-    const userAttempt1 = await resend.emails.send({
-      from: resendFromUsed,
+    const userAttempt = await resend.emails.send({
+      from: fromEmail,
       to: emailData.email,
       replyTo: targetAdminEmail,
       subject: '✓ Your Inquiry Received - Nexify Webworks',
@@ -184,11 +174,28 @@ export async function POST(request: Request): Promise<NextResponse> {
       text: generateUserConfirmationPlainText(emailData),
     });
 
-    if (!userAttempt1.error) {
-      userEmailId = userAttempt1.data?.id;
+    if (userAttempt.error) {
+      console.error('[Resend User Email Error]:', userAttempt.error.message);
+      userError = userAttempt.error.message;
+    } else {
+      userEmailId = userAttempt.data?.id;
     }
   } catch (err: unknown) {
-    console.warn('User confirmation email exception:', err);
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error('User confirmation email exception:', msg);
+    userError = msg;
+  }
+
+  // If BOTH emails failed to send, return HTTP 500 error response so UI displays transmission failure
+  if (!adminEmailId && !userEmailId) {
+    return NextResponse.json(
+      {
+        error: `Email delivery failed: ${adminError || userError || 'Resend service error'}. Please check domain verification and API key configuration in Resend.`,
+        adminError,
+        userError,
+      },
+      { status: 500 }
+    );
   }
 
   // Return clean JSON success response
@@ -197,7 +204,9 @@ export async function POST(request: Request): Promise<NextResponse> {
     message: 'Thank you! Your inquiry has been received. Our team will get back to you shortly.',
     adminEmailId,
     userEmailId,
-    resendFromUsed,
+    resendFromUsed: fromEmail,
+    adminError,
+    userError,
     reply: aiReply,
   });
 }
