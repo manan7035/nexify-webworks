@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Article } from '@/src/types';
 import { ARTICLES } from '@/src/data/mockData';
 import { ArticleModal } from '@/components/ArticleModal';
@@ -14,7 +15,7 @@ export const InsightsView: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const featuredArticle = ARTICLES.find((a) => a.featured) || ARTICLES[0];
-  const categories = ['All', 'Engineering & UX', 'UI/UX Design', 'WordPress Engineering', 'React Architecture'];
+  const categories = ['All', 'React Development', 'WordPress & Elementor', 'UI/UX Design', 'Engineering & UX', 'WordPress Engineering', 'React Architecture', 'SEO Strategy'];
 
   const filteredArticles = ARTICLES.filter((a) => {
     const matchesCat = selectedCategory === 'All' || a.category === selectedCategory;
@@ -23,6 +24,62 @@ export const InsightsView: React.FC = () => {
       a.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCat && matchesSearch;
   });
+
+  const openArticle = useCallback((article: Article) => {
+    setSelectedArticle(article);
+    if (typeof window !== 'undefined') {
+      const targetUrl = `/insights/${article.id}`;
+      if (window.location.pathname !== targetUrl) {
+        window.history.pushState({ articleId: article.id }, '', targetUrl);
+      }
+    }
+  }, []);
+
+  const closeArticle = useCallback(() => {
+    setSelectedArticle(null);
+    if (typeof window !== 'undefined') {
+      if (window.location.pathname !== '/insights') {
+        window.history.pushState(null, '', '/insights');
+      }
+    }
+  }, []);
+
+  // Handle browser back and forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      if (window.location.pathname === '/insights') {
+        setSelectedArticle(null);
+      } else if (window.location.pathname.startsWith('/insights/')) {
+        const id = window.location.pathname.replace('/insights/', '');
+        const found = ARTICLES.find((a) => a.id === id);
+        if (found) {
+          setSelectedArticle(found);
+        } else {
+          setSelectedArticle(null);
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const handleArticleClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    article: Article
+  ) => {
+    // Only intercept normal primary left click without modifier keys
+    if (
+      e.button === 0 &&
+      !e.metaKey &&
+      !e.ctrlKey &&
+      !e.shiftKey &&
+      !e.altKey
+    ) {
+      e.preventDefault();
+      openArticle(article);
+    }
+  };
 
   return (
     <div className="space-y-0">
@@ -48,11 +105,11 @@ export const InsightsView: React.FC = () => {
 
           {/* Featured Hero Article Banner */}
           {featuredArticle && (
-            <button
-              type="button"
-              onClick={() => setSelectedArticle(featuredArticle)}
+            <Link
+              href={`/insights/${featuredArticle.id}`}
+              onClick={(e) => handleArticleClick(e, featuredArticle)}
               aria-label={`Read featured essay: ${featuredArticle.title}`}
-              className="glass-card rounded-3xl border border-indigo-500/40 p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 cursor-pointer group hover:border-indigo-500 transition-all shadow-2xl relative overflow-hidden text-left w-full"
+              className="glass-card rounded-3xl border border-indigo-500/40 p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 cursor-pointer group hover:border-indigo-500 transition-all shadow-2xl relative overflow-hidden text-left w-full block"
             >
               <div className="lg:col-span-7 space-y-4 flex flex-col justify-between">
                 <div className="space-y-3">
@@ -97,7 +154,7 @@ export const InsightsView: React.FC = () => {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-            </button>
+            </Link>
           )}
 
         </div>
@@ -145,12 +202,12 @@ export const InsightsView: React.FC = () => {
           {/* Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredArticles.map((article) => (
-              <button
+              <Link
                 key={article.id}
-                type="button"
-                onClick={() => setSelectedArticle(article)}
+                href={`/insights/${article.id}`}
+                onClick={(e) => handleArticleClick(e, article)}
                 aria-label={`Read article: ${article.title}`}
-                className="glass-card rounded-2xl border border-slate-800 hover:border-indigo-500/50 overflow-hidden cursor-pointer group transition-all duration-300 flex flex-col justify-between text-left w-full"
+                className="glass-card rounded-2xl border border-slate-800 hover:border-indigo-500/50 overflow-hidden cursor-pointer group transition-all duration-300 flex flex-col justify-between text-left w-full block"
               >
                 <div>
                   <div className="relative aspect-video w-full overflow-hidden">
@@ -189,7 +246,7 @@ export const InsightsView: React.FC = () => {
 
                   <ArrowUpRight className="w-4 h-4 text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
-              </button>
+              </Link>
             ))}
           </div>
 
@@ -197,7 +254,7 @@ export const InsightsView: React.FC = () => {
       </section>
 
       {/* Article Reader Modal */}
-      <ArticleModal article={selectedArticle} onClose={() => setSelectedArticle(null)} />
+      <ArticleModal article={selectedArticle} onClose={closeArticle} />
 
       {/* Terminal Contact */}
       <TerminalContact />

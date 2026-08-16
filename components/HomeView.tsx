@@ -22,29 +22,33 @@ import {
   ArrowRight,
   Quote,
   HelpCircle,
-  ChevronDown
+  ChevronDown,
+  ShieldCheck,
+  TrendingUp,
+  Search,
+  Award
 } from 'lucide-react';
 
 const HOME_FAQS = [
   {
-    question: "What web development and UI/UX design services do you offer?",
-    answer: "We specialize in custom React & Next.js application development, custom WordPress website design using Elementor & ACF, custom Gutenberg block theme development, Figma UI/UX prototyping, and Google Core Web Vitals SEO tuning."
+    question: "Why should I hire a freelance React JS & Next.js developer over a bloated agency?",
+    answer: "Hiring an experienced freelance React JS and Next.js developer gives you direct 1-on-1 communication with the senior engineer building your application, rapid turnarounds, sub-second Core Web Vitals, and budget-friendly pricing without bloated agency overheads."
   },
   {
-    question: "Why choose custom web development over pre-made templates?",
-    answer: "Off-the-shelf templates often introduce bloated code, slow loading times, and poor search engine crawl performance. Custom web development ensures lightweight code, sub-second page loads, mobile responsiveness, and clean technical SEO markup."
+    question: "What is custom WordPress theme development and why is it better than pre-made templates?",
+    answer: "Pre-made WordPress templates are notoriously bloated with 40+ plugins, sluggish slider scripts, and heavy database queries that drag down your Google Search rankings. As a WordPress master agency, our custom theme development (using Elementor Pro + ACF or native Gutenberg FSE) delivers clean code, sub-second page loads, and 100% bespoke styling tailored to your conversion funnel."
   },
   {
-    question: "How do you ensure my website performs well on search engines like Google?",
-    answer: "Every project incorporates SEO best practices: semantic HTML5 DOM tags, pre-rendered Next.js server components, structured JSON-LD schema graphs (Organization, Service, FAQPage), WebP image compression, XML sitemaps, and Core Web Vitals speed tuning."
+    question: "Do you offer budget-friendly website design in India for global and local clients?",
+    answer: "Yes. Based in Rajkot, India, we provide competitive, budget-friendly website development rates for businesses across India, the United States, the United Kingdom, Malaysia, and worldwide. You receive enterprise-grade code, responsive UI/UX design, and dedicated support at transparent milestone pricing."
   },
   {
-    question: "What is your typical project timeline for web development?",
-    answer: "Most custom website projects take between 4 to 10 days depending on scope complexity. We maintain transparent milestones: discovery & wireframes, component build, speed testing, and final handoff."
+    question: "How do you ensure my website achieves top rankings in Google Search?",
+    answer: "Every project incorporates full-stack technical SEO: semantic HTML5 DOM markup, pre-rendered Next.js server components, structured JSON-LD schema graphs (Organization, Service, FAQPage, BreadcrumbList), WebP image compression, XML sitemaps, robots.txt directives, and Core Web Vitals 95+ speed tuning."
   },
   {
-    question: "Can I edit and manage site content myself after launch?",
-    answer: "Yes, 100%. Whether we build in WordPress (using Elementor & ACF or native Gutenberg blocks) or React with a headless CMS, we provide full client admin controls and step-by-step video walkthroughs."
+    question: "Can I easily edit and manage my custom website content after launch?",
+    answer: "Yes, 100%. Whether we build in WordPress (using custom ACF fields & Elementor Pro) or React/Next.js with a headless CMS, we provide full client admin controls and step-by-step video walkthroughs so you can update text, images, blog posts, and portfolio items effortlessly."
   }
 ];
 
@@ -90,7 +94,7 @@ export const HomeView: React.FC = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/90 border border-slate-800 text-slate-300 text-xs font-mono shadow-2xl glow-glass animate-float-slow"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="text-emerald-400 font-bold">Fast performance & SEO Engineered</span>
+            <span className="text-emerald-400 font-bold">Freelance React JS & Next.js Developer • India & Global</span>
           </motion.div>
 
           <motion.h1
@@ -99,9 +103,9 @@ export const HomeView: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.2] max-w-5xl mx-auto"
           >
-            Digital Performance{' '}
+            Website Developer &{' '}
             <span className="luxury-text-gradient">
-              Excellence.
+              WordPress Master Agency.
             </span>
           </motion.h1>
 
@@ -112,7 +116,7 @@ export const HomeView: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-slate-400 text-base sm:text-xl max-w-3xl mx-auto font-normal leading-relaxed"
           >
-            I build high-converting custom React websites, WordPress themes, and polished Figma UI/UX designs with clear business impact.
+            Delivering budget-friendly website design in India, high-converting freelance React JS & Next.js development, and bespoke custom theme development engineered for sub-second speeds and top Google rankings.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -142,8 +146,32 @@ export const HomeView: React.FC = () => {
             </button>
           </motion.div>
 
+          {/* SEO Value Badges Strip */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 pt-6 max-w-5xl mx-auto text-left">
+            <div className="p-4 rounded-2xl bg-slate-900/70 border border-slate-800/80 space-y-1 hover:border-indigo-500/40 transition-colors">
+              <div className="text-indigo-400 font-mono text-[11px] font-bold uppercase tracking-wider">Budget-Friendly</div>
+              <div className="text-white text-xs sm:text-sm font-semibold">Website Design in India</div>
+              <div className="text-[11px] text-slate-400">Affordable pricing with zero agency markup.</div>
+            </div>
+            <div className="p-4 rounded-2xl bg-slate-900/70 border border-slate-800/80 space-y-1 hover:border-indigo-500/40 transition-colors">
+              <div className="text-emerald-400 font-mono text-[11px] font-bold uppercase tracking-wider">React JS & Next.js</div>
+              <div className="text-white text-xs sm:text-sm font-semibold">Freelance Developer</div>
+              <div className="text-[11px] text-slate-400">Sub-second INP & pre-rendered SSG/SSR.</div>
+            </div>
+            <div className="p-4 rounded-2xl bg-slate-900/70 border border-slate-800/80 space-y-1 hover:border-indigo-500/40 transition-colors">
+              <div className="text-purple-400 font-mono text-[11px] font-bold uppercase tracking-wider">Custom Themes</div>
+              <div className="text-white text-xs sm:text-sm font-semibold">WordPress Master Agency</div>
+              <div className="text-[11px] text-slate-400">Elementor Pro, ACF & Gutenberg FSE.</div>
+            </div>
+            <div className="p-4 rounded-2xl bg-slate-900/70 border border-slate-800/80 space-y-1 hover:border-indigo-500/40 transition-colors">
+              <div className="text-cyan-400 font-mono text-[11px] font-bold uppercase tracking-wider">Google Crawl Ready</div>
+              <div className="text-white text-xs sm:text-sm font-semibold">Technical SEO Tuning</div>
+              <div className="text-[11px] text-slate-400">Schema JSON-LD & 98+ Core Web Vitals.</div>
+            </div>
+          </div>
+
           {/* Tech Ticker */}
-          <div className="pt-10 border-t border-slate-800/60 max-w-4xl mx-auto">
+          <div className="pt-8 border-t border-slate-800/60 max-w-4xl mx-auto">
             <p className="text-xs text-slate-500 uppercase tracking-widest font-mono mb-4">Core Technology Stack</p>
             <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 opacity-80 text-slate-300 font-mono text-xs">
               <span className="flex items-center gap-1.5 hover:text-indigo-400 transition-colors"><Code2 className="w-4 h-4 text-indigo-400" /> React 19 & Next.js</span>
@@ -217,6 +245,74 @@ export const HomeView: React.FC = () => {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us / SEO Authority Section */}
+      <section className="py-16 md:py-24 bg-[#0b0f19] border-t border-slate-800/80 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-400 text-xs font-mono">
+              <Award className="w-3.5 h-3.5" />
+              <span>WHY CHOOSE NEXIFY WEBWORKS</span>
+            </div>
+            <h2 className="font-syne text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.2]">
+              Your Dedicated <span className="luxury-text-gradient">Website Developer & Theme Agency</span>
+            </h2>
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+              We bridge the gap between freelance flexibility and enterprise craftsmanship, offering budget-friendly website design in India with global quality standards.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-7 space-y-4 hover:border-indigo-500/50 transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-950/80 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                <TrendingUp className="w-6 h-6" />
+              </div>
+              <h3 className="font-syne font-bold text-lg text-white group-hover:text-indigo-300 transition-colors">
+                Budget-Friendly Pricing
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Get premium custom website development at competitive rates. Clear milestones, no surprise charges, and zero bloated agency overhead.
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-7 space-y-4 hover:border-indigo-500/50 transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-950/80 border border-indigo-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                <Code2 className="w-6 h-6" />
+              </div>
+              <h3 className="font-syne font-bold text-lg text-white group-hover:text-emerald-300 transition-colors">
+                Freelance React & Next.js
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Senior engineering with React 19, TypeScript, and Next.js App Router for sub-second page loads and seamless user interactions.
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-7 space-y-4 hover:border-indigo-500/50 transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-950/80 border border-indigo-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                <Layout className="w-6 h-6" />
+              </div>
+              <h3 className="font-syne font-bold text-lg text-white group-hover:text-purple-300 transition-colors">
+                WordPress Master Agency
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Bespoke custom theme development using Elementor Pro, Advanced Custom Fields (ACF), and Gutenberg FSE without sluggish template bloat.
+              </p>
+            </div>
+
+            <div className="rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-7 space-y-4 hover:border-indigo-500/50 transition-all group">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-950/80 border border-indigo-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                <Search className="w-6 h-6" />
+              </div>
+              <h3 className="font-syne font-bold text-lg text-white group-hover:text-cyan-300 transition-colors">
+                Top Google Ranking SEO
+              </h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Built-in JSON-LD structured schemas, dynamic XML sitemaps, semantic tags, and 98+ Google Core Web Vitals performance tuning.
+              </p>
+            </div>
           </div>
         </div>
       </section>

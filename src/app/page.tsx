@@ -4,36 +4,44 @@ import { HomeView } from "@/components/HomeView";
 export const metadata: Metadata = {
   title: {
     absolute:
-      "Website Development using React, WordPress Design (Elementor & ACF) & UI/UX Design | Nexify Webworks",
+      "Website Developer & WordPress Master Agency | Budget-Friendly Website Design in India | Freelance React JS & Next.js",
   },
   description:
-    "Nexify Webworks delivers high-ranking website development using React, custom website design in WordPress with Elementor & ACF (Advanced Custom Fields), and Figma UI/UX design. Boost your freelance business with fast, SEO-optimized websites.",
+    "Hire an expert freelance React JS & Next.js website developer and WordPress master agency. Delivering budget-friendly website design in India, custom theme development (Elementor Pro & ACF), sub-second page loads, and top Google SEO rankings for global businesses.",
   keywords: [
+    "freelance react js developer",
+    "freelance nextjs developer",
+    "freelance react developer",
+    "freelance react next.js",
+    "website developer",
+    "website design in india",
+    "budget friendly website development",
+    "custom theme development",
+    "custom wordpress theme development",
+    "wordpress master agency",
     "website development using React",
     "website design in WordPress",
     "website design using Elementor",
     "ACF WordPress developer",
-    "Advanced Custom Fields",
     "UI UX design",
-    "freelance web developer",
     "SEO optimized website",
   ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "React, WordPress (Elementor & ACF) & UI/UX Web Design | Nexify Webworks",
+    title: "Website Developer & WordPress Master Agency | Budget-Friendly Website Design in India",
     description:
-      "High-converting website development using React, custom WordPress design (Elementor & ACF), and Figma UI/UX design.",
+      "Hire an expert freelance React JS & Next.js website developer and WordPress master agency. Delivering budget-friendly website design in India, custom theme development, and sub-second Google Core Web Vitals.",
     type: "website",
     url: "/",
     images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "React, WordPress (Elementor & ACF) & UI/UX Web Design | Nexify Webworks",
+    title: "Website Developer & WordPress Master Agency | Budget-Friendly Website Design in India",
     description:
-      "High-converting website development using React, custom WordPress design (Elementor & ACF), and Figma UI/UX design.",
+      "Hire an expert freelance React JS & Next.js website developer and WordPress master agency. Delivering budget-friendly website design in India, custom theme development, and sub-second Google Core Web Vitals.",
     images: ["/og-image.png"],
   },
 };
