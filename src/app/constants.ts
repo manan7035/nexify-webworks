@@ -4,9 +4,19 @@ export const SITE_URL =
   process.env.APP_URL ?? "https://nexifywebworks.in";
 
 export const SITE_DESCRIPTION =
-  "Nexify Webworks is a freelance web developer offering website development using React, custom website design in WordPress, Elementor Pro, Advanced Custom Fields (ACF), and modern Figma UI/UX design for clients worldwide.";
+  "Nexify Webworks is a leading freelance website developer and WordPress master agency offering budget-friendly website design in India, high-performance React JS & Next.js development, custom theme development (Elementor & ACF), and modern Figma UI/UX design for global clients.";
 
 export const SITE_KEYWORDS = [
+  "freelance react js developer",
+  "freelance nextjs developer",
+  "freelance react developer",
+  "freelance react next.js",
+  "website developer",
+  "website design in india",
+  "budget friendly website development",
+  "custom theme development",
+  "custom wordpress theme development",
+  "wordpress master agency",
   "website development using React",
   "website design in WordPress",
   "website design using Elementor",
@@ -14,13 +24,13 @@ export const SITE_KEYWORDS = [
   "Advanced Custom Fields specialist",
   "UI-UX design",
   "Figma UI UX design",
-  "freelance React developer",
+  "freelance web developer in India",
   "WordPress Elementor ACF expert",
   "Rajkot web developer",
   "India freelance WordPress developer",
   "SEO friendly website development",
   "Google crawl optimization",
-  "custom React Next.js developer",
+  "affordable website design india",
 ];
 
 export const OG_IMAGE = `${SITE_URL}/og-image.png`;

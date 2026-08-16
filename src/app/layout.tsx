@@ -93,11 +93,17 @@ const jsonLd = {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
+      alternateName: [
+        "Freelance React JS & Next.js Developer India",
+        "WordPress Master Agency India",
+        "Budget-Friendly Website Design in India",
+        "Custom WordPress Theme Development Studio",
+      ],
       description:
-        "Freelance website development using React, custom WordPress website design with Elementor & Advanced Custom Fields (ACF), custom block themes, and Figma UI/UX design.",
+        "Freelance website developer and WordPress master agency offering budget-friendly website design in India, React JS & Next.js web application development, custom theme development (Elementor Pro & ACF), and Figma UI/UX design.",
       url: SITE_URL,
       priceRange: "$$",
-      areaServed: ["India", "United States", "United Kingdom", "Worldwide"],
+      areaServed: ["India", "United States", "United Kingdom", "Malaysia", "Bangladesh", "Worldwide"],
       address: {
         "@type": "PostalAddress",
         addressLocality: "Rajkot",
@@ -105,6 +111,15 @@ const jsonLd = {
         addressCountry: "IN",
       },
       knowsAbout: [
+        "Freelance React JS developer",
+        "Freelance Next.js developer",
+        "Freelance React developer",
+        "Website developer",
+        "Website design in India",
+        "Budget-friendly website development",
+        "Custom theme development",
+        "Custom WordPress theme development",
+        "WordPress master agency",
         "Website development using React",
         "Website design in WordPress",
         "Website design using Elementor",
@@ -115,7 +130,7 @@ const jsonLd = {
       ],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
-        name: "Freelance Web Engineering & Design Services",
+        name: "Freelance Web Engineering, Custom Themes & Design Services",
         itemListElement: [
           {
             "@type": "Offer",
