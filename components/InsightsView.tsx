@@ -15,7 +15,21 @@ export const InsightsView: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const featuredArticle = ARTICLES.find((a) => a.featured) || ARTICLES[0];
-  const categories = ['All', 'React Development', 'WordPress & Elementor', 'UI/UX Design', 'Engineering & UX', 'WordPress Engineering', 'React Architecture', 'SEO Strategy'];
+  const categories = [
+    'All',
+    'Website Redesign',
+    'Donation & Non-Profit Web',
+    'Safari & Tourism Web',
+    'African Fintech & Neo',
+    'Global Web Solutions',
+    'React Development',
+    'WordPress & Elementor',
+    'UI/UX Design',
+    'Engineering & UX',
+    'WordPress Engineering',
+    'React Architecture',
+    'SEO Strategy'
+  ];
 
   const filteredArticles = ARTICLES.filter((a) => {
     const matchesCat = selectedCategory === 'All' || a.category === selectedCategory;

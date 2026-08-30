@@ -16,7 +16,7 @@
 - [Services Archive](https://nexifywebworks.in/services): Full portfolio list of web engineering and design services.
 - [About Us](https://nexifywebworks.in/about): Studio background, engineering philosophy, and lead developers.
 - [Portfolio Showcase](https://nexifywebworks.in/portfolio): Verified client web development projects and case studies.
-- [Insights & Blog](https://nexifywebworks.in/insights): Deep dives on web performance, React architecture, WordPress block theme development, and UI/UX design.
+- [Insights & Blog](https://nexifywebworks.in/insights): Deep dives on web performance, React architecture, African safari & tour operator website engineering, African neobank & fintech UI/UX, WordPress block theme development, and technical SEO.
 - [Privacy Policy](https://nexifywebworks.in/privacy-policy): Transparent client privacy policy and data protection information.
 - [Contact & Proposals](https://nexifywebworks.in/contact): Project discovery call booking and proposal submission form.
 

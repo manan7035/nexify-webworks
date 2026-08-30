@@ -4,7 +4,7 @@ export const SITE_URL =
   process.env.APP_URL ?? "https://nexifywebworks.in";
 
 export const SITE_DESCRIPTION =
-  "Nexify Webworks is a leading freelance website developer and WordPress master agency offering budget-friendly website design in India, high-performance React JS & Next.js development, custom theme development (Elementor & ACF), and modern Figma UI/UX design for global clients.";
+  "Nexify Webworks is a leading freelance website developer and WordPress master agency offering budget-friendly website design in India, high-performance React JS & Next.js development, custom theme development (Elementor & ACF), African safari tour operator web development, neobank & fintech UI/UX design, and SEO optimization for global clients.";
 
 export const SITE_KEYWORDS = [
   "freelance react js developer",
@@ -22,6 +22,13 @@ export const SITE_KEYWORDS = [
   "website design using Elementor",
   "ACF WordPress developer",
   "Advanced Custom Fields specialist",
+  "safari website design",
+  "safari tour operator website development",
+  "Kenya safari web developer",
+  "Tanzania safari website design",
+  "African neobank website development",
+  "fintech UI UX design Africa",
+  "outsource web development to India",
   "UI-UX design",
   "Figma UI UX design",
   "freelance web developer in India",
