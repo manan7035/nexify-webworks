@@ -28,7 +28,8 @@ export const InsightsView: React.FC = () => {
     'Engineering & UX',
     'WordPress Engineering',
     'React Architecture',
-    'SEO Strategy'
+    'SEO Strategy',
+    'Next.js vs WordPress'
   ];
 
   const filteredArticles = ARTICLES.filter((a) => {

@@ -6,8 +6,8 @@ interface ArticleBodyProps {
 }
 
 export function renderInlineFormatted(text: string): React.ReactNode {
-  // Split by bold (**...**) and code (`...`)
-  const parts = text.split(/(\*\*.*?\*\*|`.*?`)/g);
+  // Split by bold (**...**), code (`...`), and links ([text](url))
+  const parts = text.split(/(\*\*.*?\*\*|`.*?`|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, index) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
@@ -24,6 +24,14 @@ export function renderInlineFormatted(text: string): React.ReactNode {
         >
           {part.slice(1, -1)}
         </code>
+      );
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      return (
+        <a key={index} href={linkMatch[2]} className="text-indigo-300 underline underline-offset-4 hover:text-indigo-200">
+          {linkMatch[1]}
+        </a>
       );
     }
     return part;
