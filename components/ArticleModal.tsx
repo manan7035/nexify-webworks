@@ -166,7 +166,7 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
           <Image
             fill
             src={article.image}
-            alt={article.title}
+            alt={article.imageAlt ?? article.title}
             sizes="(max-width: 768px) 100vw, 768px"
             className="object-cover"
           />

@@ -41,27 +41,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const imageUrl = article.image.startsWith('http')
     ? article.image
     : `${SITE_URL}${article.image}`;
+  const title = article.metaTitle ?? `${article.title} | ${SITE_NAME}`;
+  const description = article.metaDescription ?? article.excerpt;
 
   return {
-    title: `${article.title} | ${SITE_NAME}`,
-    description: article.excerpt,
+    title,
+    description,
     keywords: [
       article.category,
       'web development insights',
       'engineering blog',
       'Nexify Webworks',
       ...article.title.toLowerCase().split(' ').filter((w) => w.length > 4),
+      ...(article.seoKeywords ?? []),
     ],
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: `${article.title} | ${SITE_NAME}`,
-      description: article.excerpt,
+      title,
+      description,
       url: canonicalUrl,
       siteName: SITE_NAME,
       type: 'article',
-      publishedTime: article.date,
+      publishedTime: article.publishedAt ?? article.date,
       authors: [article.author.name],
       images: [
         {
@@ -74,8 +77,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${article.title} | ${SITE_NAME}`,
-      description: article.excerpt,
+      title,
+      description,
       images: [imageUrl],
     },
   };
@@ -111,6 +114,8 @@ export default async function SingleBlogPage({ params }: Props) {
         '@type': 'BlogPosting',
         headline: article.title,
         description: article.excerpt,
+        articleSection: article.category,
+        keywords: article.seoKeywords,
         image: imageUrl,
         author: {
           '@type': 'Person',
@@ -122,7 +127,7 @@ export default async function SingleBlogPage({ params }: Props) {
           name: SITE_NAME,
           url: SITE_URL,
         },
-        datePublished: article.date,
+        datePublished: article.publishedAt ?? article.date,
         mainEntityOfPage: {
           '@type': 'WebPage',
           '@id': canonicalUrl,
@@ -253,7 +258,7 @@ export default async function SingleBlogPage({ params }: Props) {
               fill
               priority
               src={article.image}
-              alt={article.title}
+              alt={article.imageAlt ?? article.title}
               sizes="(max-width: 896px) 100vw, 896px"
               className="object-cover"
             />
@@ -327,7 +332,7 @@ export default async function SingleBlogPage({ params }: Props) {
                       <Image
                         fill
                         src={rel.image}
-                        alt={rel.title}
+                        alt={rel.imageAlt ?? rel.title}
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />

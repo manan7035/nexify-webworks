@@ -164,7 +164,7 @@ export const InsightsView: React.FC = () => {
                 <Image
                   fill
                   src={featuredArticle.image}
-                  alt={featuredArticle.title}
+                  alt={featuredArticle.imageAlt ?? featuredArticle.title}
                   sizes="(max-width: 1024px) 100vw, 41vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -229,7 +229,7 @@ export const InsightsView: React.FC = () => {
                     <Image
                       fill
                       src={article.image}
-                      alt={article.title}
+                      alt={article.imageAlt ?? article.title}
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
