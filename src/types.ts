@@ -26,6 +26,9 @@ export interface Project {
 export interface Article {
   id: string;
   title: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  seoKeywords?: string[];
   category: string;
   excerpt: string;
   content: string;
@@ -35,9 +38,11 @@ export interface Article {
     avatar: string;
   };
   date: string;
+  publishedAt?: string;
   readTime: string;
   featured?: boolean;
   image: string;
+  imageAlt?: string;
 }
 
 export interface TeamMember {
