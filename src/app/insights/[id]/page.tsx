@@ -8,13 +8,13 @@ import { SITE_NAME, SITE_URL } from '@/src/app/constants';
 import { ArticleBody } from '@/components/ArticleBody';
 import { ArticleShareActions } from '@/components/ArticleShareActions';
 import { TerminalContact } from '@/components/TerminalContact';
+import { WebsiteAuditLeadMagnet } from '@/components/WebsiteAuditLeadMagnet';
 import {
   Clock,
   ChevronRight,
   ArrowLeft,
   ArrowUpRight,
-  Sparkles,
-  BookOpen
+  Sparkles
 } from 'lucide-react';
 
 interface Props {
@@ -282,18 +282,11 @@ export default async function SingleBlogPage({ params }: Props) {
             <ArticleShareActions url={`/insights/${article.id}`} title={article.title} />
           </div>
 
-          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900/60 border border-indigo-500/30 text-center space-y-3 shadow-xl">
-            <div className="w-10 h-10 rounded-xl bg-indigo-950/80 border border-indigo-500/40 flex items-center justify-center text-indigo-400 mx-auto">
-              <BookOpen className="w-5 h-5" />
-            </div>
-            <h3 className="font-space font-bold text-white text-lg sm:text-xl">
-              Ready to elevate your digital presence?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
-              We engineer custom React web applications, high-performance WordPress builds, and pixel-perfect UI/UX designs.
-            </p>
-          </div>
-
+          {/* Lead Magnet: Free Website Audit Form */}
+          <WebsiteAuditLeadMagnet
+            articleTitle={article.title}
+            articleId={article.id}
+          />
         </div>
       </article>
 
