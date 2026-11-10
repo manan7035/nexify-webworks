@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Article } from '@/src/types';
 import { ModalShell } from '@/components/ModalShell';
 import { ArticleBody } from '@/components/ArticleBody';
+import { WebsiteAuditLeadMagnet } from '@/components/WebsiteAuditLeadMagnet';
 import { X, Clock, Bookmark, Check, Share2, ArrowLeft, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
@@ -175,13 +176,12 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
         {/* Article Structured Body */}
         <ArticleBody content={article.content} excerpt={article.excerpt} />
 
-        {/* Footer Callout */}
-        <div className="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/60 to-purple-950/60 border border-indigo-500/30 text-center space-y-2">
-          <h4 className="font-space font-bold text-white text-base">Enjoyed this technical insight?</h4>
-          <p className="text-xs text-slate-400 max-w-md mx-auto">
-            Our engineering team regularly publishes deep dives on web performance, React architecture, and luxury UI/UX motion.
-          </p>
-        </div>
+        {/* Lead Magnet: Free Website Audit Form */}
+        <WebsiteAuditLeadMagnet
+          articleTitle={article.title}
+          articleId={article.id}
+          compact
+        />
 
       </div>
     </ModalShell>
