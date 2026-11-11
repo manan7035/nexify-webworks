@@ -43,6 +43,7 @@ export interface Article {
   featured?: boolean;
   image: string;
   imageAlt?: string;
+  schemaGraph?: Record<string, unknown>[];
 }
 
 export interface TeamMember {

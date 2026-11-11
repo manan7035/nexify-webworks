@@ -51,6 +51,17 @@ export const ArticleBody: React.FC<ArticleBodyProps> = ({ content, excerpt }) =>
         const trimmed = paragraph.trim();
         if (!trimmed) return null;
 
+        if (trimmed.startsWith('## ')) {
+          return (
+            <h2
+              key={idx}
+              className="font-space font-extrabold text-2xl sm:text-3xl text-white pt-6 pb-2 border-b border-slate-800/80"
+            >
+              {renderInlineFormatted(trimmed.replace('## ', ''))}
+            </h2>
+          );
+        }
+
         if (trimmed.startsWith('### ')) {
           return (
             <h3
@@ -73,15 +84,26 @@ export const ArticleBody: React.FC<ArticleBodyProps> = ({ content, excerpt }) =>
           );
         }
 
-        if (trimmed.startsWith('* ')) {
-          const items = trimmed.split('\n').filter((line) => line.trim().startsWith('* '));
+        if (trimmed.startsWith('> ')) {
+          return (
+            <blockquote
+              key={idx}
+              className="border-l-4 border-indigo-500 pl-4 py-2 my-4 italic text-slate-200 bg-indigo-950/20 rounded-r-xl"
+            >
+              {renderInlineFormatted(trimmed.replace(/^>\s*/, ''))}
+            </blockquote>
+          );
+        }
+
+        if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
+          const items = trimmed.split('\n').filter((line) => line.trim().startsWith('* ') || line.trim().startsWith('- '));
           return (
             <ul key={idx} className="space-y-2 text-slate-300 pl-2">
               {items.map((item, i) => (
                 <li key={i} className="flex items-start gap-2.5">
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-indigo-400 mt-2 shrink-0" />
                   <span className="leading-relaxed">
-                    {renderInlineFormatted(item.replace(/^\s*\*\s*/, ''))}
+                    {renderInlineFormatted(item.replace(/^\s*[\*\-]\s*/, ''))}
                   </span>
                 </li>
               ))}
