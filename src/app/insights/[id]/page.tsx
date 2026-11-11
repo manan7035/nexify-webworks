@@ -71,7 +71,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: article.title,
+          alt: article.imageAlt ?? article.title,
         },
       ],
     },
@@ -156,6 +156,7 @@ export default async function SingleBlogPage({ params }: Props) {
           },
         ],
       },
+      ...(article.schemaGraph ?? []),
     ],
   };
 

@@ -9,6 +9,20 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/blog/:slug",
+        destination: "/insights/:slug",
+        permanent: true,
+      },
+      {
+        source: "/blog",
+        destination: "/insights",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
