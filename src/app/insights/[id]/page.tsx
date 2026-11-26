@@ -284,10 +284,12 @@ export default async function SingleBlogPage({ params }: Props) {
           </div>
 
           {/* Lead Magnet: Free Website Audit Form */}
-          <WebsiteAuditLeadMagnet
-            articleTitle={article.title}
-            articleId={article.id}
-          />
+          <div id="website-audit" className="scroll-mt-24">
+            <WebsiteAuditLeadMagnet
+              articleTitle={article.title}
+              articleId={article.id}
+            />
+          </div>
         </div>
       </article>
 

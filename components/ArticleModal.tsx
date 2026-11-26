@@ -177,11 +177,13 @@ export const ArticleModal: React.FC<ArticleModalProps> = ({ article, onClose }) 
         <ArticleBody content={article.content} excerpt={article.excerpt} />
 
         {/* Lead Magnet: Free Website Audit Form */}
-        <WebsiteAuditLeadMagnet
-          articleTitle={article.title}
-          articleId={article.id}
-          compact
-        />
+        <div id="website-audit" className="scroll-mt-20">
+          <WebsiteAuditLeadMagnet
+            articleTitle={article.title}
+            articleId={article.id}
+            compact
+          />
+        </div>
 
       </div>
     </ModalShell>
